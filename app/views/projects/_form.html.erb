@@ -35,9 +35,9 @@
     <div class="add_categories">
         <%unless @project.categories.empty?%>
             <%@project.categories.each do |category|%>
-            <span class="delete_category" data-category_id=<%=category.category_contents%>>
-                <%=category.category_contents%>x#
-            </span>
+                <span class="delete_category" data-category_id=<%=category.category_contents%>>
+                    <%=category.category_contents%>x#
+                </span>
             <%end%>
         <%end%>
     </div></br>
@@ -97,7 +97,7 @@
   $(document).ready(function(){
         var find_skill = [];
         var find_category = [];
-        //스킬 탐색 기능
+        
          $('.delete_category').each(function () {
             find_category.push($(this).attr('data-category_id')); 
         })
@@ -105,7 +105,7 @@
             find_skill.push($(this).attr('data-skill_id')); 
         })
         
-       
+       //스킬 탐색 기능
         $('.search').on('keyup', function(){
             
             var search = $(this).val();

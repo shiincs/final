@@ -30,12 +30,14 @@
 <hr>
 <%if @project.master_id == @user.id%>
 <a href="/projects/<%=@project.id%>/edit">프로젝트 수정</a>
-<a href="/sssss/sss">프로젝트 삭제</a>
+<a data-confirm="정말 프로젝트를 삭제하시겠습니까?" data-method="delete" href="/projects/<%=@project.id%>" rel="nofollow">프로젝트 삭제</a>
+<%end%>
+<%unless @project.master_id == @user.id%>
+    <form class="text-right join" action="/projects/<%= @project.id%>/join">
+        <button type="submit" >참여하기</button>
+    </form>
 <%end%>
 
-<form class="text-right join" action="/projects/<%= @project.id%>/join">
-    <button type="submit" >참여하기</button>
-</form>
 
 <hr>
 <h3>팀원 목록</h3>
@@ -47,9 +49,16 @@
         <% if user.authorized_member == true %>
             <li class="join-<%= user.id %> list-group-item ">
                <div>
+                  
                   <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
-                  <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
-                  <%= link_to '삭제', user_exit_project_path(user_id: @project.master_id,project_member: user.user_id) %>
+                  <%if @project.master_id == @user.id%>
+                      팀장-<span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
+                  <%else%>
+                      팀원-<span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
+                  <%end%>
+                  <%if @user.id==user.id||@user.id == @project.master_id%>
+                      <input type="button" value="취소" class="cancel" data-user_id="<%=user.user_id %>">
+                  <%end%>
                </div>
             </li>  
         <% end %>
@@ -177,6 +186,9 @@
                 }
             })
         });
+        
+        //유저를 프로젝트에 가입시켜주는 요청
+        //set_project 때문에 무조건 데이터 변수명 id로 해줘야함
         $(".accept").on('click',function(){
             
             let id = $(this).data("user_id")
@@ -184,11 +196,25 @@
                 url:"/projects/<%=@project.id%>/user_authorize",
                 type:"POST",
                 data:{
-                    request_id:id
+                    accept_user:id
                 }
             })
         })
+        //신청 유저를 가입 취소시키는 방법
         $(".cancel").on('click',function(){
+            
+            let id = $(this).data("user_id")
+            if(<%=@project.master_id%>===id){
+                alert('팀장은 탈퇴 할 수 없습니다!.')
+            }else{
+                $.ajax({
+                    url:"/projects/<%=@project.id%>/user_exit/<%=@project.id%>",
+                    type:"get",
+                    data:{
+                        cancel_user:id
+                    }
+                })
+            }
             
         })
         

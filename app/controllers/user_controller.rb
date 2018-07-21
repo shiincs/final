@@ -42,11 +42,11 @@ class UserController < ApplicationController
     start = []
     if session[:github_language].nil?
         puts "세션에 값이 없습니다 현재는"
-        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&git_client_secret=#{ENV[git_client_secret]}",
+        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&git_client_secret=#{ENV['git_client_secret']}",
                                 headers:{Authorization: current_user.user_access_token});
         ##git hub으로 부터 값을 가져온다.
         JSON.parse(response).each do |response| 
-          languages = RestClient.get(response['languages_url']+"?client_id=#{ENV['git_client_id']}&client_secret=#{ENV[git_client_secret]}",
+          languages = RestClient.get(response['languages_url']+"?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_client_secret']}",
                                   headers:{Authorization: current_user.user_access_token});
           start.push(JSON.parse(languages))
         end
@@ -73,10 +73,10 @@ class UserController < ApplicationController
          p result_skill
          p "등수를 매깁니다."
          p rank_skill
-       
+       #소문자로 db에 저장함
         result_skill.each{|key,value|
-            if Skill.find_by(skill_contents: key).nil?
-               Skill.create(skill_contents: key)
+            if Skill.find_by(skill_contents: key.downcase).nil?
+               Skill.create(skill_contents: key.downcase)
             end
             skill_id = Skill.find_by(skill_contents: key).id
             if compare_skill.include?(skill_id)

@@ -5,9 +5,9 @@
 <h1>이메일: <%=@user.email%> </h1>
 <%end%>
 <ul>
-<a href="/project/list"><li>프로젝트 리스트</li></a>
+<a href="/projects"><li>프로젝트 리스트</li></a>
 <a href="/user/list"><li>파트너 리스트</li></a>
-<a href="/project/register"><li>프로젝트 등록</li></a>
+<a href="/projects/new"><li>프로젝트 등록</li></a>
 
 <%if user_signed_in?%>
 <a href="/<%=@user.user_name%>/profile"><li><%=@user.user_name%>의 프로필</li></a>

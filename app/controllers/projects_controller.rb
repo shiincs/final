@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   #프로젝트 전체 리스트 불러오는 페이지
   def index
-  
     if params[:project].nil?
       @projects = Project.all.order("impressions_count DESC")
     else
@@ -26,7 +25,8 @@ class ProjectsController < ApplicationController
   def show
     @user = current_user
   end
-
+  
+  #프로젝트 생성 페이지
   # GET /projects/new
   def new
     @project = Project.new
@@ -38,15 +38,19 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   # POST /projects.json
+  #프로젝트 생성로직
   def create
     @project = Project.new(project_params)
     @project.master_id = current_user.id
-    skills = params[:project][:skill].split(',')
-    categories = params[:project][:category].split(',')
+    
+    skills = params[:skill].split(",")
+    categories = params[:category].split(",")
     
     
     respond_to do |format|
       if @project.save
+        UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: true)
+       
         @project.update(project_start: @project.created_at) 
         skills.each do |skill|
           ProjectSkill.create(project_id: @project.id ,skill_id: Skill.find_by_skill_contents(skill).id)
@@ -67,8 +71,9 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
+  # 프로젝트 수정 로직 #페이지는 edit
   def update
-    puts "하하하하하하하핳하하"
+    
     respond_to do |format|
       if @project.update(project_params)
         #값을 받아와 수정
@@ -89,9 +94,6 @@ class ProjectsController < ApplicationController
           ProjectSkill.create(project_id: @project.id, skill_id: skill.id)
         end
         
-        
-        
-        
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -104,6 +106,13 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    #프로젝트 관련 댓글
+    #프로젝트 관련 스킬,카테고리
+    #프로젝트 관련 유저들 모두 삭제 그 이후 프로젝트 삭제
+    ProjectSkill.where(project_id: @project.id).destroy_all
+    ProjectComment.where(project_id: @project.id).destroy_all
+    ProjectCategory.where(project_id: @project.id).destroy_all
+    UserProject.where(project_id: @project.id).destroy_all
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
@@ -163,18 +172,16 @@ class ProjectsController < ApplicationController
     
   end
   
+  #신청한 사람을 취소했을 때 해당 로직이 수행되고 프로젝트 상세 페이지로 이동
   def user_exit
-    puts "넘어온 값"
-    puts params[:project_member].to_i
-    UserProject.find_by(user_id: params[:project_member].to_i).delete
-    redirect_to "/projects/#{@project.id}"
+    UserProject.find_by(user_id: params[:cancel_user].to_i).delete
+    @user = User.find(params[:cancel_user].to_i)
   end
   
+  #신청한 사람을 받을 때 ajax로 통해서 해당 사람이 바로 join되고 js파일 리턴
   def user_authorize
-    p "신청한 사람의 아이디는"
-    p params[:request_id]
-    UserProject.find_by(user_id: params[:request_id].to_i).update(authorized_member: true) 
-    @user = User.find(params[:request_id].to_i)
+    UserProject.find_by(user_id: params[:accept_user].to_i).update(authorized_member: true) 
+    @user = User.find(params[:accept_user].to_i)
   end
   
   private
