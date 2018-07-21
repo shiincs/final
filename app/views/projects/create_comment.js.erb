@@ -1,0 +1,20 @@
+$('.comment-list').prepend(`
+<li class="comment-<%= @comment.id %> list-group-item d-flex justify-content-between">
+       <div>
+         <img class="comment-<%= @comment.id %>" src="<%= User.find(@comment.user_id).user_image.thumbs.url %>">
+         <span class="comment-<%= @comment.id %>"><%= User.find(@comment.user_id).user_name %></span>
+       </div>
+       
+       <div>
+         <span class="comment-detail-<%= @comment.id %>"><%= @comment.comment_contents %>
+       </div>
+       
+         <span class="comment-<%= @comment.id %>"><%= @comment.created_at.strftime("%m/%d at %I:%M%p") %></span>
+       <div>
+           <button data-id="<%= @comment.id %>"class="btn btn-warning text-white edit-comment">수정</button>
+           <button data-id="<%= @comment.id %>"class="btn btn-danger destroy-comment">삭제</button>
+       </div>
+   </li>`);
+
+$('.comment-contents').val('');
+alert("문의사항 등록 완료");

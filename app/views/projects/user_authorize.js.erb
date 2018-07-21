@@ -1,0 +1,10 @@
+console.log(<%=@user.id%>);
+$(".join-<%=@user.id%>").remove();
+
+
+
+$(".member-list").prepend(`
+ <img class="join-<%= @user.id %>" src="<%= @user.user_image.thumbs.url %>">
+ <span class="join-<%= @user.id %>"><%= @user.user_name %></span>
+ <%= link_to '삭제', user_exit_project_path(user_id: @project.master_id ) %>
+`)

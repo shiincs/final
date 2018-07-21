@@ -1,0 +1,19 @@
+console.log("<%=@users[0].user_name%>");
+$(".profile_list").empty();
+<ul>
+$(".profile_list").append(`
+<%@users.each do |user|%>
+ 
+    <li><%=user.user_name%>
+     "기술스택:"
+     <%user.skills.each do |skill|%>
+     <%=skill.skill_contents%>
+     <%end%>
+     "카테고리:"
+     <%user.categories.each do |category|%>
+     <%=category.category_contents%>
+     <%end%>
+    </li>
+<%end%>
+`)
+ </ul>

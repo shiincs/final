@@ -1,0 +1,6 @@
+
+    $(".add_skill").html(`
+    <% @skills.each do |skill|%>
+    <span class="skill skill-<%=skill.id%>" data-name="<%= skill.skill_contents %>"><%= skill.skill_contents %></span>
+    <% end %>`)
+

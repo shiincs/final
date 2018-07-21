@@ -1,0 +1,129 @@
+<h1>포트폴리오 등록 페이지</h1>
+
+<form id="file_form" method="post" action="/portfolio/register" enctype="multipart/form-data">
+<div>배너이미지</div></br>
+<input type="file" name="file_path">
+<div>제목</div></br>
+<input tpye="text" name="portfolio_title">
+
+
+
+<div>카테고리</div></br>
+
+<select class="category_list">
+    <option value="빅데이터">빅데이터</option>
+    <option value="웹">웹</option>
+    <option value="앱">앱</option>
+    <option value="ai">ai</option>
+</select>
+<!-- 카테고리 달리는 곳  -->
+<div class="add_categories">
+</div></br>
+<!--카테고리 값 받는곳 -->
+<input type="hidden" name="category" id="category">
+
+
+<div>시작일자</div></br>
+<input tpye="text" name="start_portfolio">
+
+
+<div>종료일자</div></br>
+<input tpye="text" name="end_portfolio">
+
+
+<div>내용</div></br>
+<textarea rows="4" cols="50" placeholder="포트폴리오 소개"name="portfolio_introduce">
+</textarea>
+
+
+<div>사용기술</div></br>
+<div class="tech">
+<input type="text" placeholder="기술" class="search">
+</div>
+<!--스킬 검색창 띄우는곳-->
+<div class="add_skill"></div></br>
+<!--스킬 뱃지달리는곳-->
+<div class="skill_badge"></div></br>
+<!--스킬 값 받는 곳-->
+<input type="hidden" name="skill" id="skill">
+
+<input type="submit" value="포트폴리오 등록하기">
+
+<script>
+        var find_skill = [];
+        var find_category = [];
+        $('.delete_category').each(function () {
+            find_category.push($(this).attr('data-category_id')); 
+        })
+          $('.delete_skill').each(function () {
+            find_skill.push($(this).attr('data-skill_id')); 
+        })
+        
+        
+       
+        //스킬 탐색 기능
+        $('.search').on('keyup', function(){
+            
+            var search = $(this).val();
+            $.ajax({
+                url:'/search',
+                type:'POST',
+                data: {
+                    tech: search
+                }
+                
+            })
+        })
+        
+       
+         //스킬 뱃지 달기
+        $(document).on('click', '.skill', function(){
+           if(find_skill.indexOf($(this).text())>-1){
+               alert('중복 값은 불가합니다.');
+           }else{
+               find_skill.push($(this).text());
+               $(".skill_badge").prepend(`<span class='delete_skill' data-skill_id=${$(this).text()}>${$(this).text()}x#</span>`);
+               $('#skill').val(find_skill.join(','));
+           }
+        })
+        
+        //x를 눌렸을 때 스킬이 제거됨
+        $(document).on('click','.delete_skill',function(){
+            console.log("스킬 제거되기 전"+find_skill)
+            let selected_skill= $(this).data('skill_id');
+            console.log("삭제될 스킬" + selected_skill)
+            let index =find_skill.indexOf(String(selected_skill));
+            console.log("삭제될 스킬 인덱스" + index)
+            find_skill.splice(index,1);
+             console.log("삭제되고 나서 스킬 "+find_skill)
+            $('#skill').val(find_skill.join(','));
+            $(this).remove();
+        })
+    
+           //카테고리 선택 뱃지 달기
+        $(".category_list").on('change',function(){
+            
+            let selected_category = $(".category_list option:selected").text();
+            let category_id = $(".category_list option:selected").val();
+            
+            if(find_category.indexOf(category_id)>-1){
+                alert('중복 값은 불가합니다.')
+            }else{
+                find_category.push(category_id);
+                $('#category').val(find_category.join(',')); //카테고리 값 넣는 곳
+                $(".add_categories").prepend(`<span class='delete_category' data-category_id="${category_id}">${selected_category}x#</span>`)
+            }
+           
+        })
+            //카테고리 선택 뱃지 제거
+        $(document).on("click",".delete_category",function(){
+            
+            let selected_category= $(this).data('category_id');//number 타입이라 배열은 string임
+            let category_id_index= find_category.indexOf(String(selected_category));
+            
+            find_category.splice(category_id_index,1);
+            $('#category').val(find_category.join(','))
+            $(this).remove();
+             
+        });
+</script>

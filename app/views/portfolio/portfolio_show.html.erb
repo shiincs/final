@@ -1,0 +1,20 @@
+<h1>포트폴리오 상세페이지 입니다. </h1>
+<ul>
+<h3>포트폴리오 제목</h3>
+<li><%=@portfolio.portfolio_title%></li>
+<h3>포트폴리오 사진</h3>
+<li><img src="<%=@portfolio.portfolio_file.thumb.url%>"></li>
+<h3>포트폴리오 내용</h3>
+<li><%=@portfolio.portfolio_contents%></li>
+<h3>포트폴리오 스킬</h3>
+<ul>
+    <%@portfolio.skills.each do |skill|%>
+        <li><%=skill.skill_contents%></li>
+    <%end%>
+</ul>
+</ul>
+<%if @portfolio.user.user_name==current_user.user_name%>
+<a href="/portfolio/delete/<%=@portfolio.id%>">삭제</a>
+<a href="/portfolio/edit/<%=@portfolio.id%>">수정하기</a>
+<%end%>
+<a href="/<%=@portfolio.user.user_name%>/profile">돌아가기</a>

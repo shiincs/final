@@ -1,0 +1,136 @@
+
+<!--언어별 랭킹, 언어별 바이트 합-->
+
+<h1>프로필 상세 페이지</h1>
+<h1>회원프로필사진</h1>
+
+
+<h1>자기소개</h1>
+<p><%=@user.user_contents%></p>
+<hr>
+<div id="preloader">
+    <img src="/preloader.gif">
+</div>
+<div id="loading">
+     <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+
+
+
+<h1><%=@user.user_name%>님의 보유 스킬</h1>
+<ul>
+<%unless SkillUser.find_user_skill(@user.id).empty?%>
+    <%SkillUser.find_user_skill(@user.id).each do |skill_name| %>
+        <li><%=skill_name%></li>  
+    <%end%>
+<%end%>
+</ul>
+<h1><%=@user.user_name%>님의 관심 카테고리</h1>
+<ul>
+<%@user.categories.each do |category| %>
+    <li><%=category.category_contents%></li>  
+<%end%>
+</ul>
+<h1><%=@user.user_name%>님의 경험치</h1>
+<p>경험치: 컬럼 추가해야함 <p>
+<p><%=@user.user_name%>님의 주소:<%=@user.address%></p>
+<p><%=@user.user_name%>님의 전화번호:<%=@user.tel%></p>
+<p><%=@user.user_name%>님의 나이:<%=@user.birth%></p>
+<h1><%=@user.user_name%>님의 포트폴리오</h1>
+<ul>
+<%@user.portfolios.each do |portfolio|%>
+<h3>포트폴리오 제목</h3>
+<li><a href="/portfolio/show/<%=portfolio.id%>"><%=portfolio.portfolio_title%></a></li>
+<h3>포트폴리오 사진</h3>
+<li><img src="<%=portfolio.portfolio_file.thumb.url%>"></li>
+<h3>포트폴리오 내용</h3>
+<li><%=portfolio.portfolio_contents%></li>
+<h3>포트폴리오 스킬</h3>
+<ul>
+    <%portfolio.skills.each do |skill|%>
+        <li><%=skill.skill_contents%></li>
+    <%end%>
+</ul>
+<%end%>
+</ul>
+<%if current_user.user_name==@user.user_name%>
+<a href="/portfolio">포트폴리오 등록</a>
+<a href="/profile/edit">프로필 수정</a>
+<%end%>
+<a href="/user/list">리스트로 이동</a>
+
+</ul>
+
+
+<script>
+<%if @user.user_name==current_user.user_name%>
+    $(document).ready(function(){
+        $.ajax({
+            url:"/github",
+            type:"POST"
+           
+        })
+    })
+<%end%>
+
+let i =<%=@github_language.to_json.html_safe%>
+let arr_name =[]
+let arr_value = []
+for(let key in i){
+    arr_name.push(key);
+    arr_value.push(i[key]);
+}
+
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        
+        labels: arr_name,
+        datasets: [{
+            label: '# of Votes',
+            data: arr_value,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(245, 245, 245, 0.2)',
+                'rgba(64, 224, 208, 0.2)',
+                'rgba(216, 191, 216, 0.2)',
+                'rgba(0, 0, 128, 0.2)'
+                
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(245, 245, 245, 1)',
+                'rgba(64, 224, 208, 1)',
+                'rgba(216, 191, 216, 1)',
+                'rgba(0, 0, 128, 1)'
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    
+</script>
+
+
