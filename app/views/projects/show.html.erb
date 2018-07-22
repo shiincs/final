@@ -73,6 +73,7 @@
                     <img class="comment-<%= comment.id %>" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
                   </a>
                 </div>
+               
                 
                 <div class="media-body">
                   <div class="comment-info">
@@ -84,10 +85,13 @@
                       <%end%>
                     </div>
                   </div>
-                  <p class="comment-detail-<%= comment.id %>"><%= comment.comment_contents %></p>
+                  <p class="comment-detail-<%= comment.id %>"><%= comment.comment_contents%></p>
                   <span class="comment-<%= comment.id %>"><%= comment.created_at.strftime("%m/%d at %I:%M%p") %></span>
                 </div>
+                </li>
+              <%end%>
             </ul>
+            
             
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane fade in active" id="default-comment">
