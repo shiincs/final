@@ -1,6 +1,6 @@
 class PortfolioController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :set_user
   #포트폴리오 등록 페이지
   def portfolio
   end
@@ -20,8 +20,21 @@ class PortfolioController < ApplicationController
   #포트폴리오 등록 로직
   def register_portfolio
     #나중에 current_user를 만들어 줘야함
+      start_date=[]
+      end_date=[]
+      #포트폴리오 시작 날짜
+      start_date.push(params[:start_month])
+      start_date.push(params[:start_day])
+      portfolio_start=start_date.join('.')
+      #포트폴리오 끝날짜
+      end_date.push(params[:end_month])
+      end_date.push(params[:end_day])
+      portfolio_end = end_date.join('.')
+      
       
       portfolio=Portfolio.create(
+         portfolio_start: portfolio_start,
+         portfolio_end: portfolio_end,
          portfolio_title: params[:portfolio_title],
          portfolio_contents:  params[:portfolio_introduce],
          portfolio_file: params[:file_path],
@@ -77,4 +90,9 @@ class PortfolioController < ApplicationController
   def portfolio_edit
     @portfolio = Portfolio.find(params[:id])
   end
+  
+  private
+    def set_user
+      @user = current_user
+    end
 end

@@ -1,24 +1,338 @@
 
-<h1>인덱스 페이지</h1>
-<%if user_signed_in?%>
-<h1>반가워요 ! <%=@user.user_name%> 님</h1>
-<h1>이메일: <%=@user.email%> </h1>
-<%end%>
-<ul>
-<a href="/projects"><li>프로젝트 리스트</li></a>
-<a href="/user/list"><li>파트너 리스트</li></a>
-<a href="/projects/new"><li>프로젝트 등록</li></a>
+<!--<h1>인덱스 페이지</h1>-->
+<!--<%if user_signed_in?%>-->
+<!--<h1>반가워요 ! <%=@user.user_name%> 님</h1>-->
+<!--<h1>이메일: <%=@user.email%> </h1>-->
+<!--<%end%>-->
+<!--<ul>-->
+<!--<a href="/projects"><li>프로젝트 리스트</li></a>-->
+<!--<a href="/user/list"><li>파트너 리스트</li></a>-->
+<!--<a href="/projects/new"><li>프로젝트 등록</li></a>-->
 
-<%if user_signed_in?%>
-<a href="/<%=@user.user_name%>/profile"><li><%=@user.user_name%>의 프로필</li></a>
-<%end%>
-</ul>
-<% if user_signed_in?%>
-    <%= form_tag('/users/sign_out',method: "delete") do -%>
-    <div><%= submit_tag '로그아웃' ,class: "btn btn-info"%></div>
-<% end -%>
-<%else%>
-<%= form_tag('/users/sign_in',method: "get") do -%>
-<div><%= submit_tag '로그인' ,class: "btn btn-info"%></div>
-<% end -%>
-<%end%>
+<!--<%if user_signed_in?%>-->
+<!--<a href="/<%=@user.user_name%>/profile"><li><%=@user.user_name%>의 프로필</li></a>-->
+<!--<%end%>-->
+<!--</ul>-->
+<!--<% if user_signed_in?%>-->
+<!--    <%= form_tag('/users/sign_out',method: "delete") do -%>-->
+<!--    <div><%= submit_tag '로그아웃' ,class: "btn btn-info"%></div>-->
+<!--    <% end -%>-->
+<!--<%else%>-->
+<!--<%= form_tag('/users/sign_in',method: "get") do -%>-->
+<!--<div><%= submit_tag '로그인' ,class: "btn btn-info"%></div>-->
+<!--<% end -%>-->
+<!--<%end%>-->
+
+
+
+
+<!-- start revolution slider 5.0 -->
+<section class="rev_slider_wrapper">
+  <div class="rev_slider materialize-slider">
+    <ul>
+
+      <!-- slide 1 start -->
+      <li data-transition="fade" data-slotamount="default" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000" data-thumb="<%= asset_path 'banner/banner-1.jpg' %>" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500"
+        data-fsslotamount="7" data-saveperformance="off" data-title="materialize Material" data-description="">
+
+        <!-- MAIN IMAGE -->
+        <img src="<%= asset_path 'index/1.jpg' %>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+  
+        <!-- LAYER NR. 1 -->
+        <div class="tp-caption rev-heading text-extrabold dark-text tp-resizeme" data-x="center" data-y="center" data-voffset="-50" data-fontsize="['60','60','60','45']" data-lineheight="['60','60','60','50']" data-width="none" data-height="none" data-whitespace="nowrap"
+          data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power4.easeInOut;" data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
+          data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="800" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;">
+          팀원을 찾고 있나요?
+        </div>
+
+        <!-- LAYER NR. 2 -->
+        <div class="tp-caption tp-resizeme rev-subheading  dark-text text-center" data-x="center" data-y="center" data-voffset="30" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power4.easeInOut;"
+          data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none"
+          data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+          소소한 프로젝트는 아이디어를 현실로 만들고 싶은 개발자들을 연결하는 플랫폼 입니다.
+          <br>지금 바로 함께할 개발자들을 찾아보세요.
+        </div>
+
+      </li>
+      <!-- slide 1 end -->
+
+      <!-- slide 2 start -->
+      <li data-transition="fade" data-slotamount="default" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000" data-thumb="<%= asset_path 'banner/banner-2.jpg' %>" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500"
+        data-fsslotamount="7" data-saveperformance="off" data-title="Unique Design" data-description="">
+
+        <!-- MAIN IMAGE -->
+        <img src="<%= asset_path 'index/2.jpg' %>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+
+        <!-- LAYER NR. 1 -->
+        <div class="tp-caption rev-heading text-extrabold dark-text tp-resizeme" data-x="center" data-y="center" data-voffset="-50" data-fontsize="['60','60','60','45']" data-lineheight="['60','60','60','50']" data-width="none" data-height="none" data-whitespace="nowrap"
+          data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power4.easeInOut;" data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
+          data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="800" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; white-space: nowrap;">
+          일단 만들어 봅시다!
+        </div>
+
+        <!-- LAYER NR. 2 -->
+        <div class="tp-caption tp-resizeme rev-subheading dark-text text-center" data-x="center" data-y="center" data-voffset="30" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power4.easeInOut;"
+          data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none"
+          data-responsive_offset="on" style="z-index: 6; white-space: nowrap;">
+          작고 소소한 아이디어라도 좋습니다.
+          <br>팀원들과 소통하면서 일단 개발을 시작해보세요.
+        </div>
+
+      </li>
+      <!-- slide 2 end -->
+
+    </ul>
+  </div>
+  <!-- end revolution slider -->
+</section>
+<!-- end of slider wrapper -->
+
+<!-- Featured Carousel Gutter Box -->
+<section class="section-padding gray-bg">
+    <div class="container">
+
+      <div class="text-center mb-50">
+          <h2 class="section-title">SERVICE FEATURES</h2>
+          <p class="section-sub">소소한 프로젝트에는 이런 기능들이 있어요!</p>
+      </div>
+
+      <div class="featured-carousel brand-dot">
+          <div class="index-featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">create</i>
+              </div>
+              <div class="desc">
+                  <h2>프로젝트 등록</h2>
+                  <p>내 아이디어를 프로젝트로 만들 수 있습니다.<br>&nbsp;</p>
+              </div>
+          </div><!-- /.featured-item -->
+
+          <div class="featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">people</i>
+              </div>
+              <div class="desc">
+                  <h2>파트너 리스트</h2>
+                  <p>프로젝트를 함께할 파트너를 찾을 수 있습니다.<br>&nbsp;</p>
+              </div>
+          </div><!-- /.featured-item -->
+
+          <div class="featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">dvr</i>
+              </div>
+              <div class="desc">
+                  <h2>프로젝트 리스트</h2>
+                  <p>다양한 프로젝트를 쉽고 빠르게 찾을 수 있습니다.<br>&nbsp;</p>
+              </div>
+          </div><!-- /.featured-item -->
+
+          <div class="featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">&#xE851;</i>
+              </div>
+              <div class="desc">
+                  <h2>프로필 관리</h2>
+                  <p>유저의 개인정보와 기술스택을 확인하고 관리할 수 있습니다.</p>
+              </div>
+          </div><!-- /.featured-item -->
+
+          <div class="featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">filter</i>
+              </div>
+              <div class="desc">
+                  <h2>포트폴리오 관리</h2>
+                  <p>자신의 능력을 증명하기 위한 포트폴리오를 관리할 수 있습니다.</p>
+              </div>
+          </div><!-- /.featured-item -->
+
+          <div class="featured-item border-box radius-4 hover brand-hover index-item">
+              <div class="icon mb-30">
+                  <i class="material-icons brand-icon">developer_board</i>
+              </div>
+              <div class="desc">
+                  <h2>프로젝트 관리</h2>
+                  <p>참여하고 있는 프로젝트 팀원들과 언제든지 커뮤니케이션 할 수 있습니다.</p>
+              </div>
+          </div><!-- /.featured-item -->
+      </div>
+
+    </div><!-- /.container -->
+</section><!-- Featured Carousel Gutter Box End -->
+        
+<section class="section-padding">
+  <div class="container">
+
+    <div class="text-center mb-50">
+      <h2 class="section-title text-uppercase">Ranking</h2>
+      <p class="section-sub">소소한 프로젝트 이용자들이 가장 많이 사용하는 언어는?</p>
+    </div>
+  
+    <div id="count3" class="facts-two">
+              <div class="container">
+
+                  <div class="row text-center">
+                      <div class="col-sm-3 counter-wrap">
+                        <span>
+                          <i class="material-icons brand-color">looks_one</i>
+                        </span>
+                        <span class="count-description">Project run</span>
+                        <span class="timer">545</span>
+                      </div> <!-- /.col-sm-3 -->
+
+                      <div class="col-sm-3 counter-wrap">
+                        <span>
+                          <i class="material-icons brand-color">looks_two</i>
+                        </span>
+                        <span class="count-description">Ideas</span>
+                        <span class="timer">535</span>
+                      </div><!-- /.col-sm-3 -->
+
+                      <div class="col-sm-3 counter-wrap">
+                        <span>
+                          <i class="material-icons brand-color">looks_3</i>
+                        </span>
+                        <span class="count-description">Experiments</span>
+                        <span class="timer">1544</span>
+                      </div><!-- /.col-sm-3 -->
+
+                      <div class="col-sm-3 counter-wrap">
+                        <span>
+                          <i class="material-icons brand-color">looks_4</i>
+                        </span>
+                        <span class="count-description">success</span>
+                        <span class="timer">111</span>
+                      </div><!-- /.col-sm-3 -->
+                  </div>
+              </div><!-- /.container -->
+    </div>
+
+  </div>
+  <!-- /.container -->
+</section>
+
+<section class="padding-top-70 padding-bottom-50 gray-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="quote-carousel text-center">
+
+          <div class="carousel-item">
+            <div class="content">
+              <h2 class="line-height-40 black-text">"좋은 프로그래머 대부분은 돈이나 대중에게 받을 찬사를 기대하고 프로그래밍을 하지 않고 프로그래밍이 재미 있어서 한다."</h2>
+
+              <div class="testimonial-meta font-20 text-extrabold black-text">
+                - Linus Torvalds -
+              </div>
+            </div>
+            <!-- /.content -->
+          </div>
+          <!-- /.carousel-item -->
+
+          <div class="carousel-item">
+            <div class="content">
+              <h2 class="line-height-40 black-text">"훌륭한 개발팀 없이 훌륭한 소프트웨어를 만들 수 없다. 그러나 대부분의 개발팀들은 문제있는 가족들처럼 행동한다."</h2>
+
+              <div class="testimonial-meta font-20 text-extrabold black-text">
+                - Jim McCarthy -
+              </div>
+            </div>
+            <!-- /.content -->
+          </div>
+          <!-- /.carousel-item -->
+
+          <div class="carousel-item">
+            <div class="content">
+              <h2 class="line-height-40 black-text">"나의 일은 개발자들을 위한 공간을 마련하고, 조직의 잡다한 일들을 처리하고 개발자들이 아무것에도 방해받지 않도록 하는 것입니다."</h2>
+
+              <div class="testimonial-meta font-20 text-extrabold black-text">
+                - Steve Jobes -
+              </div>
+            </div>
+            <!-- /.content -->
+          </div>
+          <!-- /.carousel-item -->
+        </div>
+      </div>
+      <!-- /.col-md-8 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>
+
+<% content_for 'javascript_content' do %>
+  <%= javascript_include_tag params[:controller] %>
+    <!-- RS5.0 Init  -->
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        jQuery(".materialize-slider").revolution({
+          sliderType: "standard",
+          sliderLayout: "fullscreen",
+          delay: 9000,
+          navigation: {
+            keyboardNavigation: "on",
+            keyboard_direction: "horizontal",
+            mouseScrollNavigation: "off",
+            onHoverStop: "off",
+            touch: {
+              touchenabled: "on",
+              swipe_threshold: 75,
+              swipe_min_touches: 1,
+              swipe_direction: "horizontal",
+              drag_block_vertical: false
+            },
+            arrows: {
+              style: "gyges",
+              enable: true,
+              hide_onmobile: false,
+              hide_onleave: true,
+              tmp: '',
+              left: {
+                h_align: "left",
+                v_align: "center",
+                h_offset: 10,
+                v_offset: 0
+              },
+              right: {
+                h_align: "right",
+                v_align: "center",
+                h_offset: 10,
+                v_offset: 0
+              }
+            }
+          },
+          responsiveLevels: [1240, 1024, 778, 480],
+          gridwidth: [1240, 1024, 778, 480],
+          gridheight: [700, 600, 500, 500],
+          disableProgressBar: "on",
+          parallax: {
+            type: "mouse",
+            origo: "slidercenter",
+            speed: 2000,
+            levels: [2, 3, 4, 5, 6, 7, 12, 16, 10, 50],
+          }
+        });
+      });
+    </script>
+    
+    <script>
+      $('#count3').on('inview', function(event, visible, visiblePartX, visiblePartY) {
+            if (visible) {
+                $(this).find('.timer').each(function () {
+                    var $this = $(this);
+                    $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function () {
+                            $this.text(Math.ceil(this.Counter));
+                        }
+                    });
+                });
+                $(this).off('inview');
+            }
+        });
+    </script>
+
+<% end %>

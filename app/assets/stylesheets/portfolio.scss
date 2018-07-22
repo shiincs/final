@@ -1,3 +1,350 @@
-// Place all the styles related to the portfolio controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'material-icons';
+@import 'magnific-popup';
+@import 'flexslider';
+@import 'owl.carousel';
+@import 'owl.theme.default.min';
+@import 'materialize.min';
+
+@import 'accordion';
+@import 'alert';
+@import 'blog';
+@import 'countdown';
+@import 'facts';
+@import 'form-style';
+@import 'featured-box';
+@import 'footer';
+@import 'header';
+@import 'page-title';
+// @import 'portfolio';
+@import 'promo-box';
+@import 'pricing';
+@import 'slider';
+@import 'tabs';
+@import 'team';
+@import 'testimonial';
+
+@import 'shortcodes';
+@import 'style';
+
+///////////////////////////////////////////////
+// header css
+.indicator {
+  display: none;
+}
+.fa {
+  font-size: 1.5em;
+}
+.menuzord-menu>li>a {
+  font-weight: bold;
+}
+.menuzord-menu > li:nth-child(4) > a {
+  color: #039be5;
+}
+.transparent-header.sticky .menuzord-menu > li:nth-child(4) > a {
+  color: #039be5;
+}
+.login-button {
+  border-radius: 3px;
+  padding: 10px;
+  background: #039be5;
+  color: #FFFFFF;
+  font-weight: bold;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login-button > i {
+  vertical-align: middle;
+}
+.login-hover {
+  border-radius: 3px;
+  padding: 10px;
+  background: #FFFFFF;
+  color: #039be5;
+  font-weight: bold;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2), 
+              0 5px 15px 0 rgba(0, 0, 0, 0.19);
+}
+.login-hover > i {
+  vertical-align: middle;
+}
+.nav-border-bottom .menuzord .menuzord-menu>li.active>a,
+.nav-border-bottom .menuzord .menuzord-menu>li:hover>a {
+    border-bottom: 0px solid #FFFFFF;
+}
+.menuzord-menu ul.dropdown, .menuzord-menu ul.dropdown li ul.dropdown {
+  margin-right: 10px;
+}
+.dropdown li .badge {
+  position: absolute;
+  right: 10%;
+  min-width: 1em;
+  height: auto;
+  font-size: 1em;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+
+////////////////////////////////////////////////////
+//media query css
+@media screen and (max-width: 400px) {
+  .comments-tab .panel-body {
+    padding: 0px 0;
+  }
+
+} // end media max 400px
+
+@media screen and (min-width: 401px) and (max-width: 800px) {
+  .comments-tab .panel-body {
+    padding: 0px 0;
+  }
+
+} // end media max 800px
+
+@media screen and (min-width: 801px) {
+  .blog-section {
+    padding: 3% 0 0 0;
+    background-color: #f5f5f5;
+  }
+  .commentform {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  .forms {
+    background-color: #FFFFFF;
+    padding: 50px 0 30px 0;
+    margin-bottom: 15px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2), 
+                0 5px 15px 0 rgba(0, 0, 0, 0.19);
+  }
+  .box-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000000;
+    border-bottom: 1px solid black;
+  }
+  .line {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3%;
+  }
+  .line:first-child {
+    padding-bottom: 7%;
+  }
+  .line:last-child {
+    padding-top: 4%;
+  }
+  .label-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1%;
+    width: 15%;
+  }
+  .label-top {
+    display: flex;
+    width: 15%;
+    align-items: top;
+    justify-content: flex-end;
+    padding-right: 1%;
+  }
+  .label-middle {
+    display: flex;
+    width: 15%;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1%;
+  }
+  .label-content {
+    color: #000000;
+    font-size: 1.0em;
+    margin-bottom: 0px;
+  }
+  .input {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+  }
+  .input > select {
+    width: 30%;
+  }
+  .input > .email {
+    width: 60%;
+  }
+  .input > .contact {
+    width: 50%;
+  }
+  .input > .title {
+    width: 100%;
+  }
+  input[type=text] {
+    height: auto;
+  }
+  .year, .month, .day, .si, .gun, .gu {
+    margin-right: 1%;
+  }
+  .form-control {
+    border-radius: 5px;
+  }
+  .badge-box {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1%;
+  }
+  .selected-badge {
+    min-height: 45px;
+    color: #000000;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 2%;
+    width: auto;
+    height: auto;
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 0;
+  }
+  .btns {
+    display: flex;
+    justify-content: center;
+  }
+  .button-container {
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+    margin-bottom: 0;
+  }
+  .fileBox .fileName {
+    display: inline-block;
+    width: 190px;
+    height: 30px;
+    padding-left: 10px;
+    margin-right: 5px;
+    line-height: 30px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #fff;
+    vertical-align: middle;
+  }
+  .fileBox .btn_file {
+    display: inline-block;
+    background-color: lightpink;
+    font-size: 1em;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+    width: auto;
+    height: auto;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .fileBox .btn_file:hover {
+    display: inline-block;
+    background-color: pink;
+    font-size: 1em;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+    width: auto;
+    height: auto;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .fileBox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+  .asterisk {
+    color: red;
+  }
+  
+  //////////////////////////////////////////////////
+  // portfolio details
+  .portfolio-detail-banner {
+    width: 100%;
+    height: 250px;
+    background-size: 100% 100%;
+    background-image: url(asset-path('background/projectbanner.png'));
+  }
+  .portfolio-detail-banner .img-responsive {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .single-project-section {
+    background-color: #f5f5f5;
+  }
+  .project-overview {
+    margin: 4% 0 3% 0;
+  }
+  .content-view {
+    margin: 0 1% 0 1%;
+    padding: 25px 25px 25px 25px;
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+    // box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 
+    //             0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 66%;                
+  }
+  .quick-overview {
+    margin: 0 1% 0 1%;
+    padding: 25px 25px 25px 25px;
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+    // box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 
+    //             0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 30%;
+  }
+  .quick-overview > .button-area {
+    margin: 30px 0 0 0;
+  }
+  .quick-overview > .button-area > .btn {
+    padding: 0px 5px 0px 5px;
+    width: auto;
+    height: auto;
+    font-size: 1em;
+  }
+  .portfolio-meta li {
+    margin: 15px 0;
+  }
+  .portfolio-meta li span {
+    color: #000000;
+    width: auto;
+    letter-spacing: 1px;
+    font-size: 1em;
+    text-transform: none;
+    border-radius: 5px;
+    background-color: #ddd;
+    padding: 0 5px 0 5px;
+  }
+  .portfolio-meta > li > .content-name {
+    color: #000000;
+    width: auto;
+    letter-spacing: 1px;
+    font-size: 1em;
+    font-weight: bold;  
+    text-transform: none;
+    margin: 0 10px 0 0;
+    border: 0;
+    background-color: #FFFFFF;
+  }
+  .portfolio-meta > li > .content-date {
+    background-color: #FFFFFF;
+  }
+} // end media min 801px

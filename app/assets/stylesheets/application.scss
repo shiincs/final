@@ -1,0 +1,225 @@
+@import 'bootstrap';
+@import 'font-awesome';
+
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+/* Header CSS */
+.has-header-search .menuzord-menu {
+    margin: 0 !important;
+}
+
+/* Footer CSS */
+.footer-three .primary-footer {
+    padding: 30px 0 30px 0 !important;
+}
+.footer-three .back-top {
+    right: 5% !important;
+    margin-top: 60px;
+}
+
+///////////////////////////////////////////////////////
+/* Google Icons */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular');
+    // url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    // url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    // url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+// Message Modal CSS
+  .white-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    // background: rgba(0, 0, 0, 0.8);
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .white-content:target {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .white-content > .white-content-body {
+	  position: absolute;
+	  top: 20%;
+	  left: 30%;
+	  width: 40%;
+	  height: 360px;
+	  padding: 15px;
+	  border: 1px solid #eee;
+	  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	  color: #000000;
+	  background-color: white;
+	  overflow: auto;	
+  }
+  .white-content-body > .modal-header {
+    float: left;
+    width: 100%;
+    padding: 0 10px 10px 10px;
+    margin-bottom: 15px;
+  }
+  .white-content-body > .modal-header > .modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .white-content-body > .modal-header > .close-button {
+    float: right;
+    font-size: 1.5em;
+  }
+  .modal-middle {
+    padding: 15px;
+  }
+  .modal-label {
+    font-size: 1.1em;
+    color: #000000;
+  }
+  .modal-button {
+    padding: 0px 15px 0px 15px;
+  }
+  .message-list {
+    border: 1px solid #eee;
+  }
+  .message-list > tbody > tr > th,
+  .message-list > tbody > tr > td {
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+  }

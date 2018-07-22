@@ -1,69 +1,300 @@
 
 <!--언어별 랭킹, 언어별 바이트 합-->
 
-<h1>프로필 상세 페이지</h1>
-<h1>회원프로필사진</h1>
+<!--<h1>프로필 상세 페이지</h1>-->
+<!--<h1>회원프로필사진</h1>-->
 
 
-<h1>자기소개</h1>
-<p><%=@user.user_contents%></p>
-<hr>
-<div id="preloader">
-    <img src="/preloader.gif">
-</div>
-<div id="loading">
-     <canvas id="myChart" width="400" height="400"></canvas>
-</div>
+<!--<h1>자기소개</h1>-->
+<!--<p><%=@user.user_contents%></p>-->
+<!--<hr>-->
+<!--<div id="preloader">-->
+<!--    <img src="/preloader.gif">-->
+<!--</div>-->
+<!--<div id="loading">-->
+<!--     <canvas id="myChart" width="400" height="400"></canvas>-->
+<!--</div>-->
 
 
 
 
-<h1><%=@user.user_name%>님의 보유 스킬</h1>
-<ul>
-<%unless SkillUser.find_user_skill(@user.id).empty?%>
-    <%SkillUser.find_user_skill(@user.id).each do |skill_name| %>
-        <li><%=skill_name%></li>  
-    <%end%>
-<%end%>
-</ul>
-<h1><%=@user.user_name%>님의 관심 카테고리</h1>
-<ul>
-<%@user.categories.each do |category| %>
-    <li><%=category.category_contents%></li>  
-<%end%>
-</ul>
-<h1><%=@user.user_name%>님의 경험치</h1>
-<p>경험치: 컬럼 추가해야함 <p>
-<p><%=@user.user_name%>님의 주소:<%=@user.address%></p>
-<p><%=@user.user_name%>님의 전화번호:<%=@user.tel%></p>
-<p><%=@user.user_name%>님의 나이:<%=@user.birth%></p>
-<h1><%=@user.user_name%>님의 포트폴리오</h1>
-<ul>
-<%@user.portfolios.each do |portfolio|%>
-<h3>포트폴리오 제목</h3>
-<li><a href="/portfolio/show/<%=portfolio.id%>"><%=portfolio.portfolio_title%></a></li>
-<h3>포트폴리오 사진</h3>
-<li><img src="<%=portfolio.portfolio_file.thumb.url%>"></li>
-<h3>포트폴리오 내용</h3>
-<li><%=portfolio.portfolio_contents%></li>
-<h3>포트폴리오 스킬</h3>
-<ul>
-    <%portfolio.skills.each do |skill|%>
-        <li><%=skill.skill_contents%></li>
-    <%end%>
-</ul>
-<%end%>
-</ul>
-<%if current_user.user_name==@user.user_name%>
-<a href="/portfolio">포트폴리오 등록</a>
-<a href="/profile/edit">프로필 수정</a>
-<%end%>
-<a href="/user/list">리스트로 이동</a>
+<!--<h1><%=@user.user_name%>님의 보유 스킬</h1>-->
+<!--<ul>-->
+<!--<%unless SkillUser.find_user_skill(@user.id).empty?%>-->
+<!--    <%SkillUser.find_user_skill(@user.id).each do |skill_name| %>-->
+<!--        <li><%=skill_name%></li>  -->
+<!--    <%end%>-->
+<!--<%end%>-->
+<!--</ul>-->
+<!--<h1><%=@user.user_name%>님의 관심 카테고리</h1>-->
+<!--<ul>-->
+<!--<%@user.categories.each do |category| %>-->
+<!--    <li><%=category.category_contents%></li>  -->
+<!--<%end%>-->
+<!--</ul>-->
+<!--<h1><%=@user.user_name%>님의 경험치</h1>-->
+<!--<p>경험치: 컬럼 추가해야함 <p>-->
+<!--<p><%=@user.user_name%>님의 주소:<%=@user.address%></p>-->
+<!--<p><%=@user.user_name%>님의 전화번호:<%=@user.tel%></p>-->
+<!--<p><%=@user.user_name%>님의 나이:<%=@user.birth%></p>-->
+<!--<h1><%=@user.user_name%>님의 포트폴리오</h1>-->
+<!--<ul>-->
+<!--<%@user.portfolios.each do |portfolio|%>-->
+<!--<h3>포트폴리오 제목</h3>-->
+<!--<li><a href="/portfolio/show/<%=portfolio.id%>"><%=portfolio.portfolio_title%></a></li>-->
+<!--<h3>포트폴리오 사진</h3>-->
+<!--<li><img src="<%=portfolio.portfolio_file.thumb.url%>"></li>-->
+<!--<h3>포트폴리오 내용</h3>-->
+<!--<li><%=portfolio.portfolio_contents%></li>-->
+<!--<h3>포트폴리오 스킬</h3>-->
+<!--<ul>-->
+<!--    <%portfolio.skills.each do |skill|%>-->
+<!--        <li><%=skill.skill_contents%></li>-->
+<!--    <%end%>-->
+<!--</ul>-->
+<!--<%end%>-->
+<!--</ul>-->
+<!--<%if current_user.user_name==@user.user_name%>-->
+<!--<a href="/portfolio">포트폴리오 등록</a>-->
+<!--<a href="/profile/edit">프로필 수정</a>-->
+<!--<%end%>-->
+<!--<a href="/user/list">리스트로 이동</a>-->
 
-</ul>
+<!--</ul>-->
 
+<!---------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------->
+<!-- blog section start -->
+<section class="blog-section section-padding">
+  <div class="container">
+    <div class="row">
 
-<script>
+      <div class="col-md-3">
+        <div class="tt-sidebar-wrapper" role="complementary">
+
+          <div class="widget widget_tt_author_widget">
+            <div class="author-info-wrapper">
+
+              <div class="author-cover">
+                <div class="author-inner">
+                  <!--<img src="https://www.hotjar.com/hubfs/assets/THSB2.0/david-darmanin@2x.jpg?t=1531746837153" />-->
+                </div>
+                <!--<span><img src="https://cdn2.iconfinder.com/data/icons/4web-3/139/header-account-image-line-512.png"></span>-->
+                <!--<img src="<%= asset_path 'blog/author-large-thumb.jpg' %>" alt="">-->
+              </div>
+
+              <div class="author-avatar">
+                <h2><%=@user.user_name%></h2>
+                <span></span>
+              </div>
+
+              <div class="author-social-links">
+                <ul class="list-inline">
+                  <li><a href="https://github.com/<%=@user.user_name%>" target="_self"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                  <li><a href="#open" target="_self"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /author-info-wrapper -->
+          </div>
+          <!-- /.widget_tt_author_widget -->
+
+        </div>
+        <!-- /.tt-sidebar-wrapper -->
+        <% if current_user.user_name == @user.user_name %>
+          <a href="/profile/edit" class="btn cyan waves-effect waves-light profile-edit-button">프로필 수정</a>
+        <% end %>
+      </div>
+      <!-- /.col-md-4 -->
+      
+      <!-- Message Modal -->
+      <div class="white-content" id="open">
+        <div class="white-content-body">
+          <div class="modal-header">
+            <span class="modal-title">메세지 보내기</span>
+            <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  
+          </div>
+          <div class="comments-tab modal-middle">
+            <form>
+              <div class="form-group">
+                <label class="modal-label">받는 사람</label>
+                <input class="form-control" type="text" readonly />
+              </div>
+              <div class="form-group">
+                <label class="modal-label">메세지</label>
+                <textarea class="form-control modal-textarea"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-button">
+            <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit" value="">보내기</button>
+            <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- POST AREA -->
+      <div class="col-md-9 post-area">
+        <div class="posts-content single-post">
+            
+            <div class="col-md-12 profile-component-first" id="level_management">
+              <div class="progress-section">
+                <span class="progress-title">Level <span>1</span></span>
+                <div class="progress">
+                  <div class="progress-bar brand-bg six-sec-ease-in-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                      <span>100%</span>
+                  </div>
+                </div><!-- /.progress -->
+                <div class="point-area">point : <span>1</span></div>
+              </div> <!-- progress-section end -->
+            </div>
+            <div class="col-md-12 profile-component-second" id="info-management">
+              <div class="profile-management-title">
+                <!--<span><i class="fa fa-id-card-o" aria-hidden="true"></i> 등록된 회원정보가 없습니다.</span>-->
+                <span><i class="fa fa-id-card-o" aria-hidden="true"></i>&nbsp;<%= @user.email %>&nbsp;
+                  <% unless @user.address.nil? %>
+                    <span class="asterisk">|</span>&nbsp;<%=@user.address%>&nbsp;
+                  <% end %>
+                  <% unless @user.birth.strip.empty? %>
+                    <span class="asterisk">|</span>&nbsp;<%=@user.birth%>&nbsp;
+                  <% end %>
+                  <% unless  @user.tel.strip.empty? %>
+                    <span class="asterisk">|</span>&nbsp;<%=@user.tel%>
+                  <% end %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-12 profile-component" id="skill-management">
+              <!--<div><i class="fa fa-info-circle" aria-hidden="true"></i> 등록된 프로필 정보가 없습니다.</div>-->
+              <div class="col-md-3 skill-component">
+                <span class="component-title">주요 카테고리</span>
+                <ul class="list-group">
+                  <% if @user.categories.empty? %>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                  <% else %>
+                    <%@user.categories.each do |category| %>
+                      
+                      <li class="list-group-item list-component">
+                        <i class="fa fa-check-square-o"></i>
+                      <span><%=category.category_contents%></span>
+                      </li>  
+                    <%end%>
+                  <% end %>
+                </ul>
+              </div>
+              <div class="col-md-3 skill-component">
+                <span class="component-title">주요 보유기술</span>
+                <ul class="list-group">
+                  <%unless SkillUser.find_user_skill(@user.id).empty?%>
+                    <%SkillUser.find_user_skill(@user.id).each do |skill_name| %>
+                      <li class="list-group-item list-component">
+                        <i class="fa fa-check-square-o"></i>
+                        <span><%=skill_name%></span>
+                      </li>
+                    <%end%>
+                  <%else%>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                    <li class="list-group-item list-component">
+                      <i class="fa fa-check-square-o"></i>
+                      <span class="list-content">정보 없음</span>
+                    </li>
+                  <%end%>
+                  
+                  
+                </ul>
+              </div>
+              <div class="col-md-6 skill-component">
+                <span class="component-title">GitHub 기술스택</span>
+                <div id="pre-loader">
+                  <img src="<%= asset_path 'preloader/preloader.gif' %>" />
+                  <span>데이터를 불러오는 중입니다...</span>
+                </div>
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+            
+            <div class="col-md-12 profile-component" id="portfolio-management">
+              <div class="portfolio-management-title">
+                <span class="component-title">포트폴리오</span>
+                <% if current_user.user_name == @user.user_name %>
+                <span>
+                  <a href="/portfolio" class="btn cyan waves-effect waves-light pull-right button-container">포트폴리오 등록</a>
+                </span>
+                <% end %>
+              </div>
+              <% if @user.portfolios.nil? %>
+                <div>등록된 포트폴리오가 없습니다.</div>
+              <% else %>
+              <% @user.portfolios.each do |portfolio| %>
+                <div class="featured-carousel brand-dot">
+                    <div class="featured-item border-box">
+                      <div class="portfolio-thumb-wrapper waves-effect waves-block waves-light">
+                        <img src="<%=portfolio.portfolio_file.thumb.url%>" class="img-responsive">
+                        <!--<img src="<%= asset_path 'blog/blog-8.jpg' %>" class="img-responsive" alt="">-->
+                      </div><!-- .post-thumb -->
+                    <div class="blog-content">
+                      <header class="entry-header-wrapper">
+                        <div class="entry-header">
+                          <h2 class="entry-title"><a href="/portfolio/show/<%=portfolio.id%>"><%=portfolio.portfolio_title%></a></h2>
+                          <div class="badge-area">
+                            <%portfolio.skills.each do |skill|%>
+                              <span><%=skill.skill_contents%></span>
+                            <%end%>
+                          </div>
+                        </div><!-- /.entry-header -->
+                      </header><!-- /.entry-header-wrapper -->
+                    </div><!-- /.blog-content -->
+                  </div><!-- /.featured-item -->
+                </div><!-- /.featured-carousel -->
+              <% end %>
+            <% end %>
+            </div><!-- /.profile-component -->
+            
+            <div class="col-md-12 profile-component" id="ing-project">
+              <div class="component-title">자기소개</div>
+              <div class="col-md-12 self-introduce">
+                <% unless @user.user_contents.nil? %>
+                  <span><%=@user.user_contents%></span>
+                <% else %>
+                  <span>등록된 자기소개가 없습니다.</span>
+                <% end %>
+              </div>
+            </div>
+              
+
+          <!-- /.posts-content -->
+        </div>
+        <!-- /.col-md-9 -->
+
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- blog section end -->
+
+<% content_for 'javascript_content' do %>
+  <%= javascript_include_tag params[:controller] %>
+  <script>
 <%if @user.user_name==current_user.user_name%>
     $(document).ready(function(){
         $.ajax({
@@ -89,7 +320,7 @@ var myChart = new Chart(ctx, {
         
         labels: arr_name,
         datasets: [{
-            label: '# of Votes',
+            label: 'github skills',
             data: arr_value,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -121,16 +352,127 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+      legend: {
+        position: 'right',
+        labels: {
+          boxWidth: 15,
+          fontSize: 10
         }
+      },
+      layout: {
+        padding: {
+          right: 50
+        }
+      }
     }
 });
     
 </script>
 
+<% end %>
 
+
+
+
+
+
+
+
+
+
+<!--var ctx = document.getElementById("myChart").getContext('2d');-->
+<!--var myChart = new Chart(ctx, {-->
+<!--    type: 'doughnut',-->
+<!--    data: {-->
+<!--        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],-->
+<!--        datasets: [{-->
+<!--            // label: '# of Votes',-->
+<!--            data: [12, 19, 3, 5, 2, 3],-->
+<!--            backgroundColor: [-->
+<!--                'rgba(255, 99, 132, 0.2)',-->
+<!--                'rgba(54, 162, 235, 0.2)',-->
+<!--                'rgba(255, 206, 86, 0.2)',-->
+<!--                'rgba(75, 192, 192, 0.2)',-->
+<!--                'rgba(153, 102, 255, 0.2)',-->
+<!--                'rgba(255, 159, 64, 0.2)'-->
+<!--            ],-->
+<!--            borderColor: [-->
+<!--                'rgba(255,99,132,1)',-->
+<!--                'rgba(54, 162, 235, 1)',-->
+<!--                'rgba(255, 206, 86, 1)',-->
+<!--                'rgba(75, 192, 192, 1)',-->
+<!--                'rgba(153, 102, 255, 1)',-->
+<!--                'rgba(255, 159, 64, 1)'-->
+<!--            ],-->
+<!--            borderWidth: 1-->
+<!--        }]-->
+<!--    },-->
+<!--    options: {-->
+<!--      legend: {-->
+<!--        position: 'right',-->
+<!--        labels: {-->
+<!--          boxWidth: 15,-->
+<!--          fontSize: 10-->
+<!--        }-->
+<!--      },-->
+<!--      layout: {-->
+<!--        padding: {-->
+<!--          right: 50-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+<!--    // options: {-->
+<!--    //     scales: {-->
+<!--    //         yAxes: [{-->
+<!--    //             ticks: {-->
+<!--    //                 beginAtZero:true-->
+<!--    //             }-->
+<!--    //         }]-->
+<!--    //     }-->
+<!--    // }-->
+<!--});-->
+<!--</script>-->
+
+
+
+
+
+              <!--<div class="col-md-12 profile-component-last" id="reply-list">-->
+              <!--  <div class="component-title">댓글</div>-->
+              <!--  <ul class="media-list comment-list">-->
+                  <!-- Comment Item start-->
+              <!--    <li class="media">-->
+              <!--      <div class="media-left">-->
+              <!--        <a href="#">-->
+              <!--        <img class="avatar" src="https://cdn2.iconfinder.com/data/icons/4web-3/139/header-account-image-line-512.png" alt="Jonathon Doe">-->
+              <!--      </a>-->
+              <!--      </div>-->
+
+              <!--    <div class="media-body">-->
+              <!--      <div class="comment-info">-->
+              <!--        <h4 class="author-name">Jonathon Doe</h4>-->
+              <!--        <div class="edit-reply">-->
+              <!--          <a><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
+              <!--          <a><i class="fa fa-times" aria-hidden="true"></i></a>-->
+              <!--        </div>-->
+              <!--      </div>-->
+              <!--      <p>This is reply</p>-->
+              <!--    </div>-->
+              <!--  </ul>-->
+            
+              <!--  <div class="tab-content">-->
+              <!--    <div role="tabpanel" class="tab-pane fade in active" id="default-comment">-->
+              <!--      <div class="comment-wrap">-->
+              <!--        <form action="#" method="post" id="replyform" novalidate="" role="form">-->
+              <!--          <div class="form-group comment-form-comment">-->
+              <!--            <textarea class="form-control" id="comment" name="comment" placeholder="Comment" rows="8" aria-required="true"></textarea>-->
+              <!--          </div>-->
+  
+              <!--          <div class="form-submit">-->
+              <!--            <button class="btn blue waves-effect waves-light pull-right" name="submit" type="submit" id="reply-submit" value="">작성</button>-->
+              <!--          </div>-->
+              <!--        </form>-->
+              <!--      </div>-->
+              <!--    </div>-->
+              <!--  </div><!-- /.tab-content -->
+              <!--</div>-->

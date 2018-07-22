@@ -1,72 +1,91 @@
-<h1 id="project_title">Project list</h1>
-<hr>
-<form id="file_form" method="get" action="/projects" enctype="multipart/form-data">
-
-<div class="tech">
-<input type="text" placeholder="기술"  class="search">
-</div>
-
-<!--스킬 검색창 띄우는곳-->
-<div class="add_skill"></div></br>
-
-<!--스킬 뱃지달리는곳-->
-<div class="skill_badge"></div></br>
-
-<!--스킬 값 받는 곳-->
-<div class="form-group">
-<input type="hidden" name="project[skill]" id="skill">
-</div>
-
-<select class="category_list">
-    <option value="select">카테고리</option>
-    <option value="빅데이터">빅데이터</option>
-    <option value="웹">웹</option>
-    <option value="앱">앱</option>
-    <option value="ai">ai</option>
-</select>
-
-<!-- 카테고리 달리는 곳  -->
-<div class="add_categories"></div></br>
-
- <!--카테고리 값 받는곳 -->
-<div class="form-group">
-  
-<input type="hidden" name="project[category]" id="category">
-</div>
-
-<input type="submit" value="검색하기">
-</form> 
-
-  
-
-<hr>
-<div id="project" class="row">
-  <% @projects.each do |project| %>
-  <div class="card col-md-3">
-    <h3 class="card-title"><span>title: <%= project.project_title %></span></h3>
-    <img class="card-img-top" src="<%= project.image_path.thumb.url %>" alt="<%= project.project_title%>">
-    <div class="card-body"
-      <p class="card-text">contents: <%= simple_format(project.project_contents) %></p>
-      <p class="card-text">+<%= TimeDifference.between(DateTime.now, project.created_at).in_days.round(0) %>days</p>
-      <p class="card-text"><%= project.unique_impression_count %>views</p>
-      <p class="card-text">인원수 : <%= UserProject.select(:id).where(:project_id => project.id, :authorized_member => true).count %>/<%= project.project_people %></p>
-      <p>관련스킬: <% project.skills.each do |skill| %>
-                   <%= skill.skill_contents %>
-                   <% end %></p>
-      
-      <%= link_to '상세보기 ', project_path(project), class: 'btn btn-primary' %>
+<section class="section-area">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title"></h2>
     </div>
-  </div>
-    <% end %>
-</div>
+    <div class="portfolio-container text-center">
+      <div class="comments-tab search-tab">
+        <div class="search-box">
+          <form id="file_form" method="get" action="/projects" enctype="multipart/form-data">
+          <div class="search-box-title"><span>프로젝트 검색</span></div>
+          <div class="search-box-content tech">
+            <select class="form-control select-box category_list">
+              <option disabled selected hidden value="select">카테고리</option>
+              <option value="빅데이터">빅데이터</option>
+              <option value="웹">웹</option>
+              <option value="앱">앱</option>
+              <option value="ai">ai</option>
+            </select>
+            <input class="form-control search" placeholder="기술스택을 검색하세요." type="text">
+          </div>
+          <div class="add_skill">
+              
+          </div>
+          <div class="badge-area skill_badge add_categories">
+          </div>
+          <input type="submit" value="검색하기">
+          <input type="hidden" name="project[skill]" id="skill">
+          <input type="hidden" name="project[category]" id="category">
+          </form>
+        </div>
+      </div>
 
+      <div class="portfolio portfolio-with-title col-3 gutter mtb-50">
+        <div id="project">
+        <% @projects.each do |project| %>
+        <div class="col-md-4">
+          <article class="post-wrapper">
+            
+            <div class="project-thumb-wrapper waves-effect waves-block waves-light">
+              <!--<img src="" class="img-responsive" alt="" >-->
+              <img class="img-responsive" src="<%= project.image_path.thumb.url %>" alt="<%= project.project_title%>">
+            </div><!-- .post-thumb -->
+            
+            <div class="blog-content">
+              <header class="entry-header-wrapper">
+                <div class="entry-header">
+                  <h2 class="entry-title">
+                    <%= link_to "#{project.project_title}", project_path(project) %>
+                    <!--<a href="/projects/detail_project"><%= project.project_title %></a>-->
+                    </h2>
+                  <div class="entry-meta">
+                  </div><!-- .entry-meta -->
+                </div><!-- /.entry-header -->
+              </header><!-- /.entry-header-wrapper -->
+              
+              <div class="entry-content">
+                <p><%= simple_format(project.project_contents) %></p>
+              </div><!-- .entry-content -->
 
+              <footer class="entry-footer">
+                <div class="footer-info">
+                  <span><i class="fa fa-clock-o"></i> +<%= TimeDifference.between(DateTime.now, project.created_at).in_days.round(0) %>days</span>
+                  <span><i class="fa fa-user"></i> <%= UserProject.select(:id).where(:project_id => project.id, :authorized_member => true).count %>/<%= project.project_people %></span>
+                  <span><i class="fa fa-eye"></i> <%= project.unique_impression_count %>views</span>
+                </div>
+                <div class="badge-area">
+                  <% project.skills.each do |skill| %>
+                    <span><%= skill.skill_contents %></span>
+                  <% end %>
+                </div>
+              </footer>
+            </div><!-- /.blog-content -->
+            
+          </article><!-- /.post-wrapper -->
+        </div><!-- /.col-md-4 -->
+        
+        
+        
+        <% end %>
+        </div>
+      </div><!-- /.portfolio -->
+    </div><!-- portfolio-container -->
+  </div><!-- /.container -->
+</section>
 
-<br>
-
-<h3><%= link_to '프로젝트 등록하기', new_project_path %></h3>
-
-<script>
+<% content_for 'javascript_content' do %>
+  <%= javascript_include_tag params[:controller] %>
+  <script>
    
   $(document).ready(function(){
         var find_skill = [];
@@ -90,7 +109,9 @@
          //스킬 뱃지 달기
         $(document).on('click', '.skill', function(){
            find_skill.push($(this).text());
-           $(".skill_badge").prepend(`<span class='delete'>${$(this).text()}x#</span>`);
+           console.log($(this).text());
+           console.log(find_skill);
+           $(".skill_badge").prepend(`<span class='delete'>${$(this).text()}</span>`);
            $('#skill').val(find_skill.join(','));
            
         })
@@ -109,7 +130,7 @@
             let category_id = $(".category_list option:selected").val();
             find_category.push(category_id);
             $('#category').val(find_category.join(',')); //카테고리 값 넣는 곳
-            $(".add_categories").prepend(`<span class='delete' data-category_id="${category_id}">${selected_category}x#</span>`)
+            $(".add_categories").prepend(`<span class='delete' data-category_id="${category_id}">${selected_category}</span>`)
         })
             //카테고리 선택 뱃지 제거
         $(document).on("click",".delete",function(){
@@ -123,3 +144,8 @@
         })
   });
 </script>
+<% end %>
+
+
+
+

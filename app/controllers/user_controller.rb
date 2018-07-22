@@ -2,7 +2,7 @@ class UserController < ApplicationController
     #이코드가 존재하면 모든 액션에 접근시 거부되어 sign_in페이지로 돌아간다.
     #로그인 되면 이제 각 액션에서 current_user 사용이 가능하다.
     before_action :authenticate_user!, except: [:index,:list]
-    # before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :set_user
     # helper_method :search_user_skill
     def index
         @user = current_user
@@ -30,6 +30,15 @@ class UserController < ApplicationController
   
   #프로필 수정 페이지
   def edit
+    @year = 0
+    @month = 0
+    @day = 0
+    unless @user.birth.strip.empty?
+      birth=@user.birth.split('.')
+      @year = birth[0]
+      @month = birth[1]
+      @day = birth[2]
+    end
     @user = current_user
   end
   
@@ -41,15 +50,22 @@ class UserController < ApplicationController
     result_skill= Hash.new
     start = []
     if session[:github_language].nil?
-        puts "세션에 값이 없습니다 현재는"
-        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&git_client_secret=#{ENV['git_client_secret']}",
-                                headers:{Authorization: current_user.user_access_token});
-        ##git hub으로 부터 값을 가져온다.
-        JSON.parse(response).each do |response| 
-          languages = RestClient.get(response['languages_url']+"?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_client_secret']}",
-                                  headers:{Authorization: current_user.user_access_token});
-          start.push(JSON.parse(languages))
-        end
+        dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
+        dummy2={"css"=>3232,"java"=>2500,"javascript"=>29394}
+        dummy3={"css"=>5000,"java"=>250440,"javascript"=>29394}
+        start.push(dummy1)
+        start.push(dummy2)
+        start.push(dummy3)
+        
+        # puts "세션에 값이 없습니다 현재는"
+        # response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&git_client_secret=#{ENV['git_client_secret']}",
+        #                         headers:{Authorization: current_user.user_access_token});
+        # ##git hub으로 부터 값을 가져온다.
+        # JSON.parse(response).each do |response| 
+        #   languages = RestClient.get(response['languages_url']+"?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_client_secret']}",
+        #                           headers:{Authorization: current_user.user_access_token});
+        #   start.push(JSON.parse(languages))
+        # end
     
           start.each do |hash|
             hash.each{|key,value| 
@@ -148,6 +164,16 @@ class UserController < ApplicationController
    #등록하기
   def update
     ##향후 user_id는 current_user.id로 교체
+    make_birth = []
+    puts params[:year]
+    puts params[:month]
+    puts params[:day]
+    make_birth.push(params[:year])
+    make_birth.push(params[:month])
+    make_birth.push(params[:day])
+    
+    birth=make_birth.join('.')
+      
     skills = params[:skill].split(",")   ##받아 온 스킬들을 저장
     categories = params[:category].split(",") ##받아 온 카테고리들을 저장
     introduce = params[:introduce] ##받아 온 자기소개를 저장
@@ -160,9 +186,9 @@ class UserController < ApplicationController
     if !current_user.user_contents.nil?
        SkillUser.where(user_id: current_user.id).destroy_all
        UserCategory.where(user_id: current_user.id).destroy_all
-       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address)
+       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address,birth: birth)
     else
-       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address) 
+       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address,birth: birth) 
     end 
      skills.each do |skill|
        #ex) skill은 'javascript'
@@ -177,4 +203,9 @@ class UserController < ApplicationController
      ##받아 온 자기소개를 저장
      redirect_to "/#{current_user.user_name}/profile"
   end
+  
+  private
+    def set_user
+      @user = current_user
+    end
 end

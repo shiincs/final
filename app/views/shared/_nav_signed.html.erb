@@ -1,0 +1,165 @@
+<!--header start-->
+<header id="header" class="tt-nav nav-border-bottom">
+  <div class="header-sticky light-header">
+    <div class="container">
+
+      <div id="materialize-menu" class="menuzord">
+
+        <!--logo start-->
+        <a href="/" class="logo-brand">
+          <img class="retina" src="<%= asset_path 'logo.png' %>" alt="logo" />
+        </a>
+        <!--logo end-->
+
+        <!--mega menu start-->
+        <ul class="menuzord-menu pull-right">
+          <li><a href="/projects">프로젝트 리스트</a>
+          </li>
+
+          <li><a href="/user/list">파트너 리스트</a>
+          </li>
+
+          <li><a href="/projects/new">프로젝트 등록</a>
+          </li>
+
+          <li><a href="javascript:void(0)"><span class="login-button"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span></a>
+            <ul class="dropdown">
+                <li><a href="/<%=@user.user_name%>/profile">내 프로필</a></li>
+                <li><a href="#project-list-open">내 프로젝트</a></li>
+                <li><a href="#message-list-open">메세지함<span class="badge badge-light pink">9</span>
+  <span class="sr-only">unread messages</span></a></li>
+                <li><%= form_tag('/users/sign_out', method: "delete") do -%>
+                    <div><%= submit_tag '로그아웃' %></div>
+                    <a href="/users/sign_out" data-method="delete">로그아웃</a>
+                    <% end -%>
+                </li>
+            </ul>
+          </li>
+        </ul>
+        <!--mega menu end-->
+
+      </div>
+      
+      <!-- Message List Modal -->
+      <div class="white-content" id="project-list-open">
+        <div class="white-content-body">
+          <div class="modal-header">
+            <span class="modal-title">내 프로젝트</span>
+            <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  
+          </div>
+          <!--<div class="empty-project">-->
+          <!--  <span>참여중인 프로젝트가 없습니다!</span>-->
+          <!--  <a href="/projects/list" class="btn cyan waves-effect waves-light pull-right button-container">프로젝트 보러가기</a>-->
+          <!--</div>-->
+          <div class="comments-tab modal-middle">
+            <table class="message-list">
+              <tbody>
+                <tr>
+                  <th>번호</th>
+                  <th>프로젝트명</th>
+                </tr>
+                <tr class="table-row">
+                  <td>1</td>
+                  <td><a href="/projects/admin_project">project soap</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Message List Modal -->
+      <div class="white-content" id="message-list-open">
+        <div class="white-content-body">
+          <div class="modal-header">
+            <span class="modal-title">메세지 목록</span>
+            <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  
+          </div>
+          <div class="empty-project">
+            <span>메세지가 없습니다!</span>
+          </div>
+          <!--<div class="comments-tab modal-middle">-->
+          <!--  <table class="message-list">-->
+          <!--    <tbody>-->
+          <!--      <tr>-->
+          <!--        <th>번호</th>-->
+          <!--        <th>보낸사람</th>-->
+          <!--        <th>내용</th>-->
+          <!--        <th>삭제</th>-->
+          <!--      </tr>-->
+          <!--      <tr class="table-row">-->
+          <!--        <td>1</td>-->
+          <!--        <td>shiincs</td>-->
+          <!--        <td><a href="#message-content-open">님 저랑 같이 허쉴?</a></td>-->
+          <!--        <td><a class="message-destroy" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>-->
+          <!--      </tr>-->
+          <!--      <tr class="table-row">-->
+          <!--        <td>2</td>-->
+          <!--        <td>shiincs</td>-->
+          <!--        <td><a href="#message-content-open">님 저랑 같이 허쉴?</a></td>-->
+          <!--        <td><a class="message-destroy" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>-->
+          <!--      </tr>-->
+          <!--      <tr class="table-row">-->
+          <!--        <td>3</td>-->
+          <!--        <td>shiincs</td>-->
+          <!--        <td><a href="#message-content-open">님 저랑 같이 허쉴?</a></td>-->
+          <!--        <td><a class="message-destroy" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>-->
+          <!--      </tr>-->
+          <!--    </tbody>-->
+          <!--  </table>-->
+          <!--</div>-->
+        </div>
+      </div>
+      
+      <!-- Message Content Modal -->
+      <div class="white-content" id="message-content-open">
+        <div class="white-content-body">
+          <div class="modal-header">
+            <span class="modal-title">메세지 상세내용</span>
+            <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  
+          </div>
+          <div class="comments-tab modal-middle">
+            <form>
+              <div class="form-group">
+                <label class="modal-label">보낸 사람</label>
+                <input class="form-control" type="text" readonly />
+              </div>
+              <div class="form-group">
+                <label class="modal-label">메세지</label>
+                <textarea class="form-control modal-textarea"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-button">
+            <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit">수락</button>
+            <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">목록으로</a>
+          </div>
+          </div>
+          <!--<div class="modal-button">-->
+          <!--  <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit" value="">수정</button>-->
+          <!--  <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--header end-->
+
+<script>
+$(document).on('ready', function() {
+  $('.login-button').on('mouseover mouseout', function() {
+    $(this).toggleClass("login-button").toggleClass("login-hover");
+  });
+  
+  $('.message-destroy').on('click', function(e) {
+    e.preventDefault();
+    var c = confirm('진짜 삭제허쉴?');
+    if(c === true) {
+      $(this).parent().parent().remove();  
+    } else {
+      return;
+    }
+  })
+});
+</script>

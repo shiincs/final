@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :set_user
   before_action :log_impression, :only=> [:show]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :create_comment, :user_exit, :join, :user_authorize, :project_chat]
 
@@ -7,6 +8,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   #프로젝트 전체 리스트 불러오는 페이지
   def index
+    
     if params[:project].nil?
       @projects = Project.all.order("impressions_count DESC")
     else
@@ -23,7 +25,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @user = current_user
   end
   
   #프로젝트 생성 페이지
@@ -161,17 +162,22 @@ class ProjectsController < ApplicationController
     #   UserProject.create(user_id: current_user.id, project_id: params[:id])
     #   redirect_to "/projects/#{@project.id}"
     # else
-      @project.users.each do |user|
-        p "join 컨트롤러로 오는 변수"
-        p @project
-        if user.id != current_user.id
-          p "여기까지 오나??"
-          UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
-          redirect_to "/projects/#{@project.id}", alert: "#{@project.project_title}에 신청하셨습니다!"
-        else
-          redirect_to "/projects/#{@project.id}", alert: "이미 신청인원입니다."
+    
+    unless @project.user_projects.where(authorized_member: true).count==@project.project_people
+         @project.users.each do |user|
+            p "join 컨트롤러로 오는 변수"
+            p @project
+            if user.id != current_user.id
+              p "여기까지 오나??"
+              UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
+              redirect_to "/projects/#{@project.id}", alert: "#{@project.project_title}에 신청하셨습니다!"
+            else
+              redirect_to "/projects/#{@project.id}", alert: "이미 신청인원입니다."
+            end
         end
-      end
+    else
+       redirect_to "/projects/#{@project.id}", alert: "인원이 다 찼습니다."
+    end
     
   end
   
@@ -199,6 +205,9 @@ class ProjectsController < ApplicationController
   end
   
   private
+    def set_user
+      @user = current_user
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])

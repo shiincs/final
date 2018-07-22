@@ -1,98 +1,295 @@
-<%= form_for(project) do |f| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<!--<%= form_for(project) do |f| %>-->
+<!--  <% if project.errors.any? %>-->
+<!--    <div id="error_explanation">-->
+<!--      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>-->
 
-      <ul>
-      <% project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<!--      <ul>-->
+<!--      <% project.errors.full_messages.each do |message| %>-->
+<!--        <li><%= message %></li>-->
+<!--      <% end %>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  <% end %>-->
   
-   <div class="form-group">
-    <% f.label :image_path %>
-    배너 이미지 : <%= f.file_field :image_path, class: "form-control" %>
-   </div>
+<!--   <div class="form-group">-->
+<!--    <% f.label :image_path %>-->
+<!--    배너 이미지 : <%= f.file_field :image_path, class: "form-control" %>-->
+<!--   </div>-->
    
    
-   <div class="form-group">
-    인원수 : <% f.label :project_people %>
-    <%= f.select :project_people, 인원수:["선택",1,2,3,4,5] %>
-   </div>
+<!--   <div class="form-group">-->
+<!--    인원수 : <% f.label :project_people %>-->
+<!--    <%= f.select :project_people, 인원수:["선택",1,2,3,4,5] %>-->
+<!--   </div>-->
   
   
-    카테고리 : <select name="category_id" class="category_list">
-                 <option value="select">선택</option>
-                 <option value="빅데이터">빅데이터</option>
-                 <option value="웹">웹</option>
-                 <option value="앱">앱</option>
-                 <option value="ai">ai</option>
-               </select>
+<!--    카테고리 : <select name="category_id" class="category_list">-->
+<!--                 <option value="select">선택</option>-->
+<!--                 <option value="빅데이터">빅데이터</option>-->
+<!--                 <option value="웹">웹</option>-->
+<!--                 <option value="앱">앱</option>-->
+<!--                 <option value="ai">ai</option>-->
+<!--               </select>-->
                
     <!-- 카테고리 달리는 곳  -->
-    <div class="add_categories">
-        <%unless @project.categories.empty?%>
-            <%@project.categories.each do |category|%>
-                <span class="delete_category" data-category_id=<%=category.category_contents%>>
-                    <%=category.category_contents%>x#
-                </span>
-            <%end%>
-        <%end%>
-    </div></br>
+<!--    <div class="add_categories">-->
+<!--        <%unless @project.categories.empty?%>-->
+<!--            <%@project.categories.each do |category|%>-->
+<!--                <span class="delete_category" data-category_id=<%=category.category_contents%>>-->
+<!--                    <%=category.category_contents%>x#-->
+<!--                </span>-->
+<!--            <%end%>-->
+<!--        <%end%>-->
+<!--    </div></br>-->
  
     <!--카테고리 값 받는곳 -->
-    
-    <input type="hidden" name="category" id="category"value="<%unless @project.categories.empty?%><%= @project.categories.map{|c| c.category_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+<!--    <input type="hidden" name="category" id="category"value="<%unless @project.categories.empty?%><%= @project.categories.map{|c| c.category_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">-->
     
  
   
-    <div class="form-group">
-      프로젝트명 : <% f.label :project_title %>
-      <%= f.text_field :project_title, class: "form-control" %>
-    </div>
+<!--    <div class="form-group">-->
+<!--      프로젝트명 : <% f.label :project_title %>-->
+<!--      <%= f.text_field :project_title, class: "form-control" %>-->
+<!--    </div>-->
    
-    <div class="form-group">
-      프로젝트 내용 : <% f.label :project_contents %>
-      <%= f.text_area :project_contents, 'data-provider': :summernote %>
-    </div>
+<!--    <div class="form-group">-->
+<!--      프로젝트 내용 : <% f.label :project_contents %>-->
+<!--      <%= f.text_area :project_contents, 'data-provider': :summernote %>-->
+<!--    </div>-->
   
   
   
   
-    <div class="tech">
-    기술스텍 : <input type="text" placeholder="기술"  class="search">
-    </div>
+<!--    <div class="tech">-->
+<!--    기술스텍 : <input type="text" placeholder="기술"  class="search">-->
+<!--    </div>-->
     
     <!--스킬 검색창 띄우는곳-->
-    <div class="add_skill"></div></br>
+<!--    <div class="add_skill"></div></br>-->
     
     <!--스킬 뱃지달리는곳-->
-    <div class="skill_badge">
-    <%unless @project.skills.empty?%>
-        <%@project.skills.each do |skill|%>
-            <span class="delete_skill" data-skill_id="<%=skill.skill_contents%>">
-            <%=skill.skill_contents%>x#
-            </span>
-        <%end%>
-    <%end%>
-    </div></br>
+<!--    <div class="skill_badge">-->
+<!--    <%unless @project.skills.empty?%>-->
+<!--        <%@project.skills.each do |skill|%>-->
+<!--            <span class="delete_skill" data-skill_id="<%=skill.skill_contents%>">-->
+<!--            <%=skill.skill_contents%>x#-->
+<!--            </span>-->
+<!--        <%end%>-->
+<!--    <%end%>-->
+<!--    </div></br>-->
 
     <!--스킬 값 받는 곳-->
  
-    <input type="hidden" name="skill" id="skill" value="<%unless @project.skills.empty?%><%=@project.skills.map{|c| c.skill_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+<!--    <input type="hidden" name="skill" id="skill" value="<%unless @project.skills.empty?%><%=@project.skills.map{|c| c.skill_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">-->
    
 
   
-    <div class="actions">
-       <input type="submit" name="commit" value="등록" data-disable-with="Create Project">
-       <a href="/projects"><input type="button" value="취소"></a>
-    </div>
+<!--    <div class="actions">-->
+<!--       <input type="submit" name="commit" value="등록" data-disable-with="Create Project">-->
+<!--       <a href="/projects"><input type="button" value="취소"></a>-->
+<!--    </div>-->
      
-<% end %>
+<!--<% end %>-->
 
-<script>
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- blog section start -->
+<section class="blog-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="posts-content single-post">
+          <div class="comments-wrapper">
+            <div class="comments-tab">
+              <!-- Tab panes -->
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="default-comment">
+                    <div class="comment-respond">
+                      <%= form_for project, :html => {:class => 'search-form commentform'} do |f| %>
+                      <!--<form action="#" method="post" id="commentform" novalidate="" role="form"  class="search-form" >-->
+                        <div class="form-group add-project-form">
+                          
+                          <div class="line">
+                            <span class="box-title">프로젝트 등록</span>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-middle">
+                              <label class="label-content">배너 이미지</label>
+                            </div>
+                            <div class="input">
+                              <div class="fileBox">
+	                              <input type="text" class="fileName" readonly>
+	                               <label for="uploadBtn" class="btn_file">찾아보기</label>
+	                               <%= f.file_field :image_path, id: "uploadBtn", class: "uploadBtn" %>
+	                               <!--<input type="file" id="uploadBtn" class="uploadBtn">-->
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-middle">
+                              <label class="label-content"><span class="asterisk">*</span>인원수</label>
+                            </div>
+                            <div class="input">
+                              <%= f.select(:project_people, ["선택",1,2,3,4,5], {}, {:class => 'form-control select-box'}) %>
+                              <!--<select class="form-control select-box" required>-->
+                              <!--  <option disabled selected hidden>인원수</option>-->
+                              <!--  <option>1</option>-->
+                              <!--  <option>2</option>-->
+                              <!--  <option>3</option>-->
+                              <!--  <option>4</option>-->
+                              <!--  <option>5</option>-->
+                              <!--</select>-->
+                            </div>
+                          </div>
+                          
+                          <div class="badge-box">
+                            <div class="label-middle">
+                              <label class="label-content"><span class="asterisk">*</span>카테고리</label>
+                            </div>
+                            <div class="input">
+                              <!--<select class="form-control select-box" required>-->
+                              <!--  <option disabled selected hidden>카테고리</option>-->
+                              <!--  <option>빅데이터</option>-->
+                              <!--  <option>AI</option>-->
+                              <!--  <option>게임</option>-->
+                              <!--</select>-->
+                              <select name="category_id" class="category_list form-control select-box" required>
+                                <option value="select">선택</option>
+                                <option value="빅데이터">빅데이터</option>
+                                <option value="웹">웹</option>
+                                <option value="앱">앱</option>
+                                <option value="ai">ai</option>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-middle">
+                              <label class="label-content"></label>
+                            </div>
+                            <div class="input">
+                              <!-- 카테고리 달리는 곳  -->
+                              <div class="form-control selected-badge add_categories" placeholder="" type="text" readonly>
+                                <%unless @project.categories.empty?%>
+                                  <%@project.categories.each do |category|%>
+                                    <span class="delete_category" data-category_id=<%=category.category_contents%>>
+                                      <%=category.category_contents%>
+                                    </span>
+                                  <%end%>
+                                <%end%>
+                              </div>
+                              <!--카테고리 값 받는곳 -->
+                              <input type="hidden" name="category" id="category"value="<%unless @project.categories.empty?%><%= @project.categories.map{|c| c.category_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-middle">
+                              <label class="label-content"><span class="asterisk">*</span>프로젝트명</label>
+                            </div>
+                            <div class="input">
+                              <%= f.text_field :project_title, class: "form-control" %>
+                              <!--<input class="form-control" placeholder="프로젝트 이름" type="text" required>-->
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-top">
+                              <label class="label-content"><span class="asterisk">*</span>프로젝트내용</label>
+                            </div>
+                            <div class="input">
+                              <%= f.text_area :project_contents %>
+                              <!--<textarea class="form-control" placeholder="프로젝트 내용" rows="10" required></textarea>-->
+                            </div>
+                          </div>
+                          
+                          <div class="badge-box">
+                            <div class="label-middle">
+                              <label class="label-content"><span class="asterisk">*</span>기술스택</label>
+                            </div>
+                            <div class="input tech">
+                              <input class="form-control search" placeholder="기술스택을 검색하세요." type="text" required>
+                            </div>
+                          </div>
+                          <div class="badge-box">
+                            <div class="label-middle">
+                            </div>
+                            <div class="input add_skill">
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-middle">
+                              <label class="label-content"></label>
+                            </div>
+                            <div class="input">
+                              <div class="form-control selected-badge skill_badge" type="text" readonly>
+                                <%unless @project.skills.empty?%>
+                                  <%@project.skills.each do |skill|%>
+                                    <span class="delete_skill" data-skill_id="<%=skill.skill_contents%>">
+                                    <%=skill.skill_contents%>
+                                    </span>
+                                  <%end%>
+                                <%end%>
+                              </div>
+                              <!--스킬 값 받는 곳-->
+                              <input type="hidden" name="skill" id="skill" value="<%unless @project.skills.empty?%><%=@project.skills.map{|c| c.skill_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="input btns actions">
+                              <!--<button class="btn btn-sm black waves-effect waves-light pull-right" name="submit" id="submit" value="" onclick="javascript: history.back();">취소</button>-->
+                              <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>
+                              <button class="btn blue waves-effect waves-light pull-right" name="commit" id="submit" value="등록" data-disable-with="Create Project">등록</button>
+                            </div>
+                          </div>
+                          
+                        </div><!-- ./form-group -->
+                        
+                      <!--</form>-->
+                      <% end %>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-content -->
+              </div>
+              <!-- /.panel-body -->
+            </div>
+            <!-- /.comments-tab -->
+          </div>
+          <!-- /.comments-wrapper -->
+        </div>
+        <!-- /.posts-content -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>
+<!-- blog section end -->
+
+<% content_for 'javascript_content' do %>
+  <%= javascript_include_tag params[:controller] %>
+  
+  <script>
+    var uploadFile = $('.fileBox .uploadBtn');
+    
+    uploadFile.on('change', function(){
+	    if(window.FileReader){
+		    var filename = $(this)[0].files[0].name;
+	    } else {
+	     	var filename = $(this).val().split('/').pop().split('\\').pop();
+	    }
+	    $(this).siblings('.fileName').val(filename);
+    });
+  </script>
+  
+  <script>
   
   $(document).ready(function(){
         var find_skill = [];
@@ -125,7 +322,7 @@
                alert('중복 값은 불가합니다.');
            }else{
                find_skill.push($(this).text());
-               $(".skill_badge").prepend(`<span class='delete_skill'>${$(this).text()}x#</span>`);
+               $(".skill_badge").prepend(`<span class='delete_skill'>${$(this).text()}</span>`);
                $('#skill').val(find_skill.join(','));
            }
         })
@@ -148,7 +345,7 @@
             }else{
                 find_category.push(category_id);
                 $('#category').val(find_category.join(',')); //카테고리 값 넣는 곳
-                $(".add_categories").prepend(`<span class='delete_category' data-category_id="${category_id}">${selected_category}x#</span>`)
+                $(".add_categories").prepend(`<span class='delete_category' data-category_id="${category_id}">${selected_category}</span>`)
             }
            
         })
@@ -165,3 +362,7 @@
   });
   
 </script>
+<% end %>
+
+
+
