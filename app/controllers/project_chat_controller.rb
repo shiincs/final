@@ -1,0 +1,3 @@
+class ProjectChatController < ApplicationController
+    
+end

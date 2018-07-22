@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :log_impression, :only=> [:show]
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :create_comment, :user_exit, :join, :user_authorize]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :create_comment, :user_exit, :join, :user_authorize, :project_chat]
 
   # GET /projects
   # GET /projects.json
@@ -113,6 +113,7 @@ class ProjectsController < ApplicationController
     ProjectComment.where(project_id: @project.id).destroy_all
     ProjectCategory.where(project_id: @project.id).destroy_all
     UserProject.where(project_id: @project.id).destroy_all
+    Chat.where(project_id: @project.id).destroy_all
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
@@ -156,32 +157,45 @@ class ProjectsController < ApplicationController
   end
   
   def join
-    if @project.users.empty?
-       UserProject.create(user_id: current_user.id, project_id: params[:id])
-       redirect_to "/projects/#{@project.id}"
-    else
+    # if @project.users.empty?
+    #   UserProject.create(user_id: current_user.id, project_id: params[:id])
+    #   redirect_to "/projects/#{@project.id}"
+    # else
       @project.users.each do |user|
+        p "join 컨트롤러로 오는 변수"
+        p @project
         if user.id != current_user.id
-          UserProject.create(user_id: current_user.id, project_id: params[:id])  
+          p "여기까지 오나??"
+          UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
+          redirect_to "/projects/#{@project.id}", alert: "#{@project.project_title}에 신청하셨습니다!"
         else
           redirect_to "/projects/#{@project.id}", alert: "이미 신청인원입니다."
         end
       end
     
-    end
-    
   end
   
   #신청한 사람을 취소했을 때 해당 로직이 수행되고 프로젝트 상세 페이지로 이동
   def user_exit
-    UserProject.find_by(user_id: params[:cancel_user].to_i).delete
-    @user = User.find(params[:cancel_user].to_i)
+    UserProject.find_by(user_id: params[:cancel_user].to_i).destroy
+    @user = User.find(params[:cancel_user])
+    @project
   end
   
   #신청한 사람을 받을 때 ajax로 통해서 해당 사람이 바로 join되고 js파일 리턴
   def user_authorize
-    UserProject.find_by(user_id: params[:accept_user].to_i).update(authorized_member: true) 
-    @user = User.find(params[:accept_user].to_i)
+      UserProject.find_by(user_id: params[:accept_user].to_i).update(authorized_member: true) 
+      @user = User.find(params[:accept_user].to_i)
+      #현재 유저가 이미 가입한 프로젝트일 경우 alert가 뜨고 아닐 경우 유저를 가입시킨다.
+      #방장이 승인해주기 때문에 current_user가 아닌 @user로 파라미터 값을 넘겨 줘야한다.
+      # @project.user_admit_room(@user)  
+  end
+  
+  #채팅  
+  def project_chat
+      puts current_user.id
+      puts @project.id
+      Chat.create(user_id: current_user.id,project_id: @project.id, message: params[:message])
   end
   
   private

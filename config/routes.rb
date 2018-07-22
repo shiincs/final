@@ -34,10 +34,14 @@ get '/portfolio/show/:id' => 'portfolio#portfolio_show'
 #포트폴리오 삭제
 get '/portfolio/delete/:id' => 'portfolio#portfolio_delete'
 
+#
 
 #프로젝트 라우팅 
   resources :projects do
       member do
+        # /projects/:id/chat
+        #채팅창
+        post "/chat" => 'projects#project_chat'
         get '/join' => 'projects#join'
         #유저 탈퇴 로직,스스로도 탈퇴할 수있음
         get '/user_exit/:id' => 'projects#user_exit', as: 'user_exit'

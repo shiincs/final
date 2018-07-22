@@ -7,5 +7,5 @@ $(".join-<%=@user.id%>").remove();
 $(".member-list").prepend(`
  <img class="join-<%= @user.id %>" src="<%= @user.user_image.thumbs.url %>">
  <span class="join-<%= @user.id %>"><%= @user.user_name %></span>
-  <input type="button" value="취소" class="cancel" data-user_id="<%=@user.user_id %>">
+  <input type="button" value="취소" class="cancel" data-user_id="<%=@user.id %>">
 `)

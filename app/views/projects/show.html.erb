@@ -32,7 +32,7 @@
 <a href="/projects/<%=@project.id%>/edit">프로젝트 수정</a>
 <a data-confirm="정말 프로젝트를 삭제하시겠습니까?" data-method="delete" href="/projects/<%=@project.id%>" rel="nofollow">프로젝트 삭제</a>
 <%end%>
-<%unless @project.master_id == @user.id%>
+<%unless @project.users.include?(@user)%>
     <form class="text-right join" action="/projects/<%= @project.id%>/join">
         <button type="submit" >참여하기</button>
     </form>
@@ -40,6 +40,8 @@
 
 
 <hr>
+
+
 <h3>팀원 목록</h3>
 <hr>
 <ul class="member-list join-list">
@@ -47,11 +49,11 @@
   <% unless @project.users.empty? %> 
       <% @project.user_projects.each do |user| %>
         <% if user.authorized_member == true %>
-            <li class="join-<%= user.id %> list-group-item ">
+            <li class="join-<%= user.user_id %> list-group-item ">
                <div>
                   
-                  <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
-                  <%if @project.master_id == @user.id%>
+                  <img src="<%= User.find(user.user_id).user_image.thumbs.url %>">
+                  <%if @project.master_id == user.user_id%>
                       팀장-<span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
                   <%else%>
                       팀원-<span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
@@ -102,6 +104,38 @@
     <input type="submit" value="문의하기" class="btn btn-success">
     
 </form>
+<hr>
+<%if @project.users.include?(@user)%>
+    <%if UserProject.find_by(user_id: @user.id).authorized_member==true%>
+            <h1>채팅창</h1>
+            <!--현재 인원들-->
+            <h3>현재 이 방에 참여한 사람</h3>
+            <div class="joined_user_list">
+                <%@project.user_projects.where(authorized_member: true).each do |user_project| %>
+                    <%if @project.master_id.eql?(user_project.user_id)%>
+                      <p class="user-<%=user_project.user_id%>">팀장-<%=User.find(user_project.user_id).user_name%></p>
+                    <%else%>
+                      <p class="user-<%=user_project.user_id%>">팀원-<%=User.find(user_project.user_id).user_name%></p>
+                    <%end%>
+                <%end%>
+            </div>
+            <hr>
+            <!--채팅 달리는곳-->
+            <div class="chat_list">
+                <%@project.chats.each do |chat| %>
+                    <p><%=chat.user.user_name%>:<%=chat.message%><small>(<%=chat.created_at.strftime("%m/%d at %I:%M%p")%>)</small></p>
+                <%end%>
+            </div>
+            <!--채팅 적는 곳-->
+            <%=form_tag("/projects/#{@project.id}/chat", remote: true) do %>
+                <%= text_field_tag :message%>
+            <%end%>
+    <%end%>
+<%end%>
+
+    
+   
+ 
 <hr>
 <h3>문의사항</h3>
 <hr>
@@ -217,6 +251,53 @@
             }
             
         })
+        
+        //채팅창을 위한 변수들 
+        var pusher = new Pusher('<%=ENV["pusher_key"]%>', {
+          cluster: '<%=ENV["pusher_cluster"]%>',
+          encrypted: true
+        });
+        
+        var channel = pusher.subscribe('project_<%=@project.id%>');
+        
+         //해당 채널이 바인딩 하고 있는 이벤트들
+        channel.bind('join',function(data){
+          console.log(data);
+          user_joined(data);
+        });
+        channel.bind('chat',function(data){
+            user_chat(data);
+        })
+        channel.bind('exit',function(data){
+            console.log(data.user_id)
+            user_exit(data);
+        })
+        channel.bind('disaster',function(data){
+            master_exit(data);
+        })
+
+
+         function user_joined(data){
+             $('.joined_user_list').append(`<p class="user-${data.user_id}">대화상대-${data.user_name}</p>`);
+             $('.chat_list').append(`<p>${data.user_name}님께서 입장하셨습니다.</p>`);
+         }
+         
+         function user_chat(data){
+             $('.chat_list').append(`<p>${data.user_name}: ${data.message}<small>(${data.created_at})</small></p>`); 
+         }
+         
+         function user_exit(data){
+             console.log(data);
+             $(`.user-${data.user_id}`).remove();
+             $('.chat_list').append(`<p>${data.user_name}님께서 방을 나가셨습니다..</p>`);
+         }
+         function master_exit(data){
+             alert('방장이 방을 나갔습니다.');
+             location.href='/';
+         }
+         
+
+       
         
         
     });
