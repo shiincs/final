@@ -7,7 +7,7 @@
 
         <!--logo start-->
         <a href="/" class="logo-brand">
-          <img class="retina" src="<%= asset_path 'logo.png' %>" alt="logo" />
+          <img class="retina" src="<%= asset_path 'logo/logo_normal.png' %>" alt="logo" />
         </a>
         <!--logo end-->
 
@@ -26,13 +26,9 @@
             <ul class="dropdown">
                 <li><a href="/<%=@user.user_name%>/profile">내 프로필</a></li>
                 <li><a href="#project-list-open">내 프로젝트</a></li>
-                <li><a href="#message-list-open">메세지함<span class="badge badge-light pink">9</span>
-  <span class="sr-only">unread messages</span></a></li>
-                <li><%= form_tag('/users/sign_out', method: "delete") do -%>
-                    <div><%= submit_tag '로그아웃' %></div>
-                    <a href="/users/sign_out" data-method="delete">로그아웃</a>
-                    <% end -%>
-                </li>
+                <!--<li><a href="#message-list-open">메세지함<span class="badge badge-light pink">9</span>-->
+                <!--      <span class="sr-only">unread messages</span></a></li>-->
+                <li><a href="/users/sign_out" data-method="delete">로그아웃</a></li>
             </ul>
           </li>
         </ul>

@@ -15,6 +15,27 @@ $('.comment-list').prepend(`
            <button data-id="<%= @comment.id %>"class="btn btn-danger destroy-comment">삭제</button>
        </div>
    </li>`);
+   
+   <li class="comment-<%= @comment.id %> media">
+                <div class="media-left">
+                  <a href="#">
+                    <!--<img class="avatar" src="<%= asset_path 'blog/commenter-1.jpg' %>" alt="Jonathon Doe">-->
+                    <img class="comment-<%= @comment.id %>" src="<%= User.find(@comment.user_id).user_image.thumbs.url %>">
+                  </a>
+                </div>
+                
+                <div class="media-body">
+                  <div class="comment-info">
+                    <h4 class="comment-<%= @comment.id %> author-name"><%= User.find(@comment.user_id).user_name %></h4>
+                    <span class="comment-<%= @comment.id %>"><%= @comment.created_at.strftime("%m/%d at %I:%M%p") %></span>
+                    <div class="edit-reply">
+                        <button data-id="<%= @comment.id %>" class="btn btn-warning text-white edit-comment"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button data-id="<%= @comment.id %>" class="btn btn-danger destroy-comment"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                  <p class="comment-detail-<%= @comment.id %>"><%= @comment.comment_contents%></p>
+                </div>
+                </li>
 
 $('.comment-contents').val('');
 alert("문의사항 등록 완료");

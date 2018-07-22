@@ -32,6 +32,7 @@
 
 //////////////////////////////////////////////////
 // header css
+
 .indicator {
   display: none;
 }
@@ -75,24 +76,24 @@
 .nav-border-bottom .menuzord .menuzord-menu>li:hover>a {
     border-bottom: 0px solid #FFFFFF;
 }
-.menuzord-menu ul.dropdown:hover, 
-.menuzord-menu ul.dropdown li ul.dropdown:hover {
-    list-style: none;
-    margin-top: 0px;
-    padding: 0;
-    display: none;
-    position: absolute;
-    z-index: 99;
-    min-width: 190px;
-    white-space: nowrap;
-    background: #fff;
-    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-}
-.menuzord-menu ul.dropdown, 
-.menuzord-menu ul.dropdown li ul.dropdown {
-  margin-right: 10px;
-}
+// .menuzord-menu ul.dropdown:hover, 
+// .menuzord-menu ul.dropdown li ul.dropdown:hover {
+//     list-style: none;
+//     margin-top: 0px;
+//     padding: 0;
+//     display: none;
+//     position: absolute;
+//     z-index: 99;
+//     min-width: 190px;
+//     white-space: nowrap;
+//     background: #fff;
+//     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+//     box-shadow: 0 6px 12px rgba(0,0,0,.175);
+// }
+// .menuzord-menu ul.dropdown, 
+// .menuzord-menu ul.dropdown li ul.dropdown {
+//   margin-right: 10px;
+// }
 .dropdown li .badge {
   position: absolute;
   right: 10%;
@@ -340,6 +341,9 @@
   .author-info-wrapper .author-avatar {
     padding: 0px 25px 25px 25px;
   }
+  .author-info-wrapper .author-avatar h2 {
+    text-transform: none;
+  }
   .fa-github, .fa-envelope {
     font-size: 2.5em;
     color: #000000;
@@ -504,6 +508,19 @@
   }
   .index-featured-item {
     padding: 50px 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #FFFFFF;
+  }
+  .index-featured-item:hover {
+    padding: 50px 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
+  }
+  .index-featured-item div i{
+    font-size: 40px;
   }
   .featured-item.border-box {
     padding: 0 0 0 0;

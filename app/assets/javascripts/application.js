@@ -15,3 +15,5 @@
 //= require_tree .
 //= require Chart.min
 //= require bootstrap
+//= require tinymce
+//= require tinymce-jquery

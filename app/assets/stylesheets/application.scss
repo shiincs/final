@@ -109,7 +109,13 @@ input, select {
 .has-header-search .menuzord-menu {
     margin: 0 !important;
 }
-
+.logo-brand {
+  margin: 20px 30px 0 0 !important;
+}
+.tt-nav .logo-brand img {
+  width: auto;
+  height: 50px !important;
+}
 /* Footer CSS */
 .footer-three .primary-footer {
     padding: 30px 0 30px 0 !important;
@@ -117,6 +123,10 @@ input, select {
 .footer-three .back-top {
     right: 5% !important;
     margin-top: 60px;
+}
+.footer-logo img {
+  width: auto;
+  height: 60px;
 }
 
 ///////////////////////////////////////////////////////

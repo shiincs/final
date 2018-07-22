@@ -156,10 +156,10 @@
                   <% unless @user.address.nil? %>
                     <span class="asterisk">|</span>&nbsp;<%=@user.address%>&nbsp;
                   <% end %>
-                  <% unless @user.birth.strip.empty? %>
+                  <% unless @user.birth.nil? %>
                     <span class="asterisk">|</span>&nbsp;<%=@user.birth%>&nbsp;
                   <% end %>
-                  <% unless  @user.tel.strip.empty? %>
+                  <% unless  @user.tel.nil? %>
                     <span class="asterisk">|</span>&nbsp;<%=@user.tel%>
                   <% end %>
                 </span>
@@ -306,6 +306,16 @@
 <%end%>
 
 let i =<%=@github_language.to_json.html_safe%>
+if (Object.keys(i).length === 0){
+    $('#myChart').hide();
+    $("#pre-loader").show();
+  
+}else{
+    $('#myChart').show();
+    $("#pre-loader").hide();
+  
+}
+
 let arr_name =[]
 let arr_value = []
 for(let key in i){

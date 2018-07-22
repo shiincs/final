@@ -4,6 +4,9 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+
+# tinymce
+gem 'tinymce-rails'
 #채팅창 푸셔
 gem 'pusher'
 #조회수

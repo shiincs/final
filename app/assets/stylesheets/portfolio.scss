@@ -273,6 +273,14 @@
   .asterisk {
     color: red;
   }
+  .editor-area {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+  }
+  .editor-area textarea {
+    height: 250px;
+  }
   
   //////////////////////////////////////////////////
   // portfolio details

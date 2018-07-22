@@ -190,8 +190,7 @@
                               <label class="label-content"><span class="asterisk">*</span>자기소개</label>
                             </div>
                             <div class="input">
-                              <textarea rows="4" cols="10" placeholder="자기소개를 입력하세요" class="introduce form-control" name="introduce"><%unless @user.user_contents.nil?%><%=@user.user_contents%><%end%>
-                              </textarea>
+                              <textarea rows="4" cols="10" placeholder="자기소개를 입력하세요" class="introduce form-control" name="introduce"><%unless @user.user_contents.nil?%><%=@user.user_contents%><%end%></textarea>
                             </div>
                           </div>
                           
@@ -208,7 +207,7 @@
                                     <% end %>
                                   <%else%>
                                     <% Time.now.year.downto(1950) do |year| %>
-                                      <option value="<%= year %>" selected="selected"><%= @year %></option>
+                                      <option value="<%= @year %>" selected="selected"><%= year %></option>
                                     <% end %>
                                   <%end%>
                               </select>
@@ -220,7 +219,7 @@
                                     <% end %>
                                 <%else%>
                                     <% 1.upto(12) do |month| %>
-                                      <option value="<%= month %>" selected="selected"><%= @month %></option>
+                                      <option value="<%= @month %>" selected="selected"><%= month %></option>
                                     <% end %>
                                 <%end%>
                                 
@@ -234,7 +233,7 @@
                                     <% end %>
                                 <%else%>
                                     <% 1.upto(31) do |day| %>
-                                      <option value="<%= day %>" selected="seleted"><%= @day %></option>
+                                      <option value="<%= @day %>" selected="seleted"><%= day %></option>
                                     <% end %>
                                 <%end%>
                               </select>

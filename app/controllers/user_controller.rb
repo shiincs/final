@@ -33,7 +33,7 @@ class UserController < ApplicationController
     @year = 0
     @month = 0
     @day = 0
-    unless @user.birth.strip.empty?
+    unless @user.birth.nil?
       birth=@user.birth.split('.')
       @year = birth[0]
       @month = birth[1]
@@ -120,6 +120,7 @@ class UserController < ApplicationController
   def profile
     @github_language = Hash.new
     @user=User.find_by(user_name: params[:user_name])
+    # 해당 유저가 아직 깃헙으로 부터정보를 받지 않고 다른사람이 방문할 경우 에러가 발생할 수도있다.
     # unless Github_skills.find_by(user_id: @user.id).nil?
       github_language=GithubSkill.where(user_id: @user.id)
       #배열안에 여러개의 해시가 있는 형태 
@@ -176,12 +177,12 @@ class UserController < ApplicationController
       
     skills = params[:skill].split(",")   ##받아 온 스킬들을 저장
     categories = params[:category].split(",") ##받아 온 카테고리들을 저장
-    introduce = params[:introduce] ##받아 온 자기소개를 저장
-    tel = params[:tel] ##받아 온 전화번호를 저장
+    introduce = params[:introduce].strip ##받아 온 자기소개를 저장
+    tel = params[:tel].strip ##받아 온 전화번호를 저장
     file_path = params[:file_path] ##회원 이미지 저장
     road_address = params[:road_address].split(" ") ##회원 주소 저장 구 까지만
     unless road_address.empty?
-      address = road_address[0]+road_address[1]  
+      address = road_address[0]+"\t"+road_address[1]
     end
     if !current_user.user_contents.nil?
        SkillUser.where(user_id: current_user.id).destroy_all
