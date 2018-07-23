@@ -70,7 +70,7 @@ class UserController < ApplicationController
     i=0
     result_skill= Hash.new
     start = []
-    session[:github_language] = nil
+    
     if session[:github_language].nil?
         # dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
         # dummy2={"css"=>3232,"java"=>2500,"javascript"=>29394}
@@ -78,13 +78,12 @@ class UserController < ApplicationController
         # start.push(dummy1)
         # start.push(dummy2)
         # start.push(dummy3)
-         p RestClient.get('https://api.github.com/users/whatever?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879')
         puts "세션에 값이 없습니다 현재는"
-        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=17941d1a59eeb9e4c13f&git_client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
+        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=17941d1a59eeb9e4c13f&git_client_secret=내일 바꿔서 요청",
                                 headers:{Authorization: current_user.user_access_token});
         ##git hub으로 부터 값을 가져온다.
         JSON.parse(response).each do |response| 
-          languages = RestClient.get(response['languages_url']+"?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
+          languages = RestClient.get(response['languages_url']+"?client_id=17941d1a59eeb9e4c13f&client_secret=내일 바꿔서 요청",
                                   headers:{Authorization: current_user.user_access_token});
           start.push(JSON.parse(languages))
         end
@@ -116,11 +115,13 @@ class UserController < ApplicationController
             if Skill.find_by(skill_contents: key.downcase).nil?
                Skill.create(skill_contents: key.downcase)
             end
-            skill_id = Skill.find_by(skill_contents: key.downcase).id
+            skill_id = Skill.find_by(skill_contents: key.downcase)
             if compare_skill.include?(skill_id)
-              GithubSkill.find(user_id: current_user.id,skill_id: skill_id).update(skill_byte: value)
+              p skill_id+"을 저장합니다."
+              GithubSkill.find(user_id: current_user.id,skill_id: skill_id.id).update(skill_byte: value)
             else
-              GithubSkill.create(user_id: current_user.id,skill_id: skill_id,skill_byte: value)
+              p skill_id+"을 저장합니다."
+              GithubSkill.create(user_id: current_user.id,skill_id: skill_id.id,skill_byte: value)
             end
         }
          

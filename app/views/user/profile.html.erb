@@ -51,13 +51,13 @@
             
             <div class="col-md-12 profile-component-first" id="level_management">
               <div class="progress-section">
-                <span class="progress-title">Level <span>1</span></span>
+                <span class="progress-title">Level <span><%=@user.exp/100%></span></span>
                 <div class="progress">
-                  <div class="progress-bar brand-bg six-sec-ease-in-out" role="progressbar" aria-valuenow="<%=@user.exp%>" aria-valuemin="0" aria-valuemax="100">
-                      <span><%=@user.exp%>%</span>
+                  <div class="progress-bar brand-bg six-sec-ease-in-out" role="progressbar" aria-valuenow="<%=@user.exp%100%>" aria-valuemin="0" aria-valuemax="100">
+                      <span><%=@user.exp%100%></span>
                   </div>
                 </div><!-- /.progress -->
-                <div class="point-area">point : <span><%=@user.exp%></span></div>
+                <div class="point-area">point : <span><%=@user.exp%100%></span></div>
               </div> <!-- progress-section end -->
             </div>
             <div class="col-md-12 profile-component-second" id="info-management">

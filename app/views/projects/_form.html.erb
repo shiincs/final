@@ -83,7 +83,7 @@
                               <label class="label-content"><span class="asterisk">*</span>기술스택</label>
                             </div>
                             <div class="input tech">
-                              <input class="form-control search" placeholder="기술스택을 검색하세요." type="text" required>
+                              <input class="form-control search" placeholder="기술스택을 검색하세요." type="text">
                             </div>
                           </div>
                           <div class="badge-box">
@@ -108,7 +108,7 @@
                                 <%end%>
                               </div>
                               <!--스킬 값 받는 곳-->
-                              <input type="hidden" name="skill" id="skill" value="<%unless @project.skills.empty?%><%=@project.skills.map{|c| c.skill_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+                              <input type="hidden" name="skill" id="skill" value="<%unless @project.skills.empty?%><%=@project.skills.map{|c| c.skill_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>" required>
                             </div>
                           </div>
                           
