@@ -22,8 +22,10 @@
               
           </div>
           <div class="badge-area skill_badge add_categories">
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
           </div>
-          <input type="submit" value="검색하기">
+          <!--<input type="submit" value="검색하기">-->
+          
           <input type="hidden" name="project[skill]" id="skill">
           <input type="hidden" name="project[category]" id="category">
           </form>
@@ -37,8 +39,8 @@
           <article class="post-wrapper">
             
             <div class="project-thumb-wrapper waves-effect waves-block waves-light">
-              <!--<img src="" class="img-responsive" alt="" >-->
-              <img class="img-responsive" src="<%= project.image_path.thumb.url %>" alt="<%= project.project_title%>">
+              <a href="/projects/<%=project.id%>">
+              <img class="img-responsive" src="<%= project.image_path.thumb.url %>" alt="<%= project.project_title%>"></a>
             </div><!-- .post-thumb -->
             
             <div class="blog-content">
@@ -46,22 +48,20 @@
                 <div class="entry-header">
                   <h2 class="entry-title">
                     <%= link_to "#{project.project_title}", project_path(project) %>
-                    <!--<a href="/projects/detail_project"><%= project.project_title %></a>-->
-                    </h2>
-                  <div class="entry-meta">
-                  </div><!-- .entry-meta -->
+                  </h2>
+                  <div class="entry-meta"></div>
                 </div><!-- /.entry-header -->
               </header><!-- /.entry-header-wrapper -->
               
               <div class="entry-content">
-                <p><%= simple_format(project.project_contents) %></p>
+                <p><%= simple_format(project.project_contents.gsub(/<img.*?\/>/, ''))%></p>
               </div><!-- .entry-content -->
 
               <footer class="entry-footer">
                 <div class="footer-info">
-                  <span><i class="fa fa-clock-o"></i> +<%= TimeDifference.between(DateTime.now, project.created_at).in_days.round(0) %>days</span>
+                  <span><i class="fa fa-clock-o"></i> <%= TimeDifference.between(DateTime.now, project.created_at).in_days.round(0) %>일차</span>
                   <span><i class="fa fa-user"></i> <%= UserProject.select(:id).where(:project_id => project.id, :authorized_member => true).count %>/<%= project.project_people %></span>
-                  <span><i class="fa fa-eye"></i> <%= project.unique_impression_count %>views</span>
+                  <span><i class="fa fa-eye"></i> <%= project.unique_impression_count %></span>
                 </div>
                 <div class="badge-area">
                   <% project.skills.each do |skill| %>
@@ -74,13 +74,14 @@
           </article><!-- /.post-wrapper -->
         </div><!-- /.col-md-4 -->
         
-        
-        
         <% end %>
         </div>
       </div><!-- /.portfolio -->
+    
     </div><!-- portfolio-container -->
+    
   </div><!-- /.container -->
+  <%= paginate @pageproject, theme: 'twitter-bootstrap-4' %>
 </section>
 
 <% content_for 'javascript_content' do %>
@@ -88,6 +89,8 @@
   <script>
    
   $(document).ready(function(){
+        
+        
         var find_skill = [];
         var find_category = [];
         //스킬 탐색 기능
@@ -106,14 +109,15 @@
             });
         });
         
-         //스킬 뱃지 달기
+        //스킬 뱃지 달기
         $(document).on('click', '.skill', function(){
-           find_skill.push($(this).text());
-           console.log($(this).text());
-           console.log(find_skill);
-           $(".skill_badge").prepend(`<span class='delete'>${$(this).text()}</span>`);
-           $('#skill').val(find_skill.join(','));
-           
+           if(find_skill.indexOf($(this).text())>-1){
+               alert('중복 값은 불가합니다.');
+           }else{
+               find_skill.push($(this).text());
+               $(".skill_badge").prepend(`<span class='delete'>${$(this).text()}</span>`);
+               $('#skill').val(find_skill.join(','));
+           }
         })
         
         //x를 눌렸을 때 스킬이 제거됨
@@ -123,6 +127,8 @@
             $('#skill').val(find_skill.join(','));
             $(this).remove();
         })
+        
+        
         
            //카테고리 선택 뱃지 달기
         $(".category_list").on('change',function(){

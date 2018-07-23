@@ -1,6 +1,6 @@
 @import 'bootstrap';
 @import 'font-awesome';
-
+@import 'summernote-bs4';
 /* 
 html5doctor.com Reset Stylesheet
 v1.6.1
@@ -20,7 +20,7 @@ fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
+mark, audio, video {
     margin:0;
     padding:0;
     border:0;

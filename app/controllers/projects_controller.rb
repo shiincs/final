@@ -8,17 +8,17 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   #프로젝트 전체 리스트 불러오는 페이지
   def index
-    
+    @pageproject = Project.page(params[:page])
     if params[:project].nil?
-      @projects = Project.all.order("impressions_count DESC")
+      @projects = Project.all.order("impressions_count DESC").page(params[:page])
     else
       skills = params[:project][:skill]
       categories = params[:project][:category]
-      skills = skills.split(",")  
+      skills = skills.split(",")
       categories = categories.split(",")
       skill_projects = Skill.where(skill_contents: skills).collect {|skill| skill.projects}.flatten
       category_projects = Category.where(category_contents: categories).collect {|category| category.projects}.flatten
-      @projects = skill_projects.concat(category_projects).uniq 
+      @projects = skill_projects.concat(category_projects).uniq
     end
   end
 
@@ -41,6 +41,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   #프로젝트 생성로직
   def create
+    @user.increment!(:exp)
     @project = Project.new(project_params)
     @project.master_id = current_user.id
     
@@ -61,7 +62,7 @@ class ProjectsController < ApplicationController
          ProjectCategory.create(project_id: @project.id, category_id: Category.find_by_category_contents(category).id)
         end 
         
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -78,6 +79,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         #값을 받아와 수정
+        
         new_categories=params[:category].split(",")
         new_skills=params[:skill].split(",")
         
@@ -95,7 +97,7 @@ class ProjectsController < ApplicationController
           ProjectSkill.create(project_id: @project.id, skill_id: skill.id)
         end
         
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project}
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -123,6 +125,7 @@ class ProjectsController < ApplicationController
   end
   
   def create_comment
+    @user.increment!(:exp)
     @comment = ProjectComment.create(user_id: current_user.id, project_id: @project.id, comment_contents: params[:comment_contents])
   end
   
@@ -170,9 +173,9 @@ class ProjectsController < ApplicationController
             if user.id != current_user.id
               p "여기까지 오나??"
               UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
-              redirect_to "/projects/#{@project.id}", alert: "#{@project.project_title}에 신청하셨습니다!"
+              redirect_to "/projects/#{@project.id}"
             else
-              redirect_to "/projects/#{@project.id}", alert: "이미 신청인원입니다."
+              redirect_to "/projects/#{@project.id}"
             end
         end
     else

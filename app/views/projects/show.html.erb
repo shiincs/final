@@ -33,27 +33,22 @@
                 </ul>
               </div><!-- .entry-meta -->
               
-              <div class="badge-area">
+              <div class="badge-area project-badge">
                 <ul>
+                  <% @project.categories.each do |category| %>
+                    <li><%= category.category_contents %></li>
+                  <% end %>
                   <% @project.skills.each do |skill| %>
                     <li><%= skill.skill_contents %></li>
                   <% end %>
                 </ul>
-              </div>
-              
-              <div class="badge-area">
-                <ul>
-                <% @project.categories.each do |category| %>
-                  <li><%= category.category_contents %></li>
-                <% end %>
-              </ul>
               </div>
             </div>
           </header>
           <!-- /.entry-header-wrapper -->
 
           <div class="entry-content">
-            <p><%= @project.project_contents.html_safe %></p>
+            <p><%= simple_format(@project.project_contents.html_safe) %></p>
           </div>
           <!-- .entry-content -->
 
@@ -64,26 +59,30 @@
               <!-- Comment Item start-->
               <li class="comment-<%= comment.id %> media">
                 <div class="media-left">
-                  <a href="#">
-                    <!--<img class="avatar" src="<%= asset_path 'blog/commenter-1.jpg' %>" alt="Jonathon Doe">-->
-                    <img class="comment-<%= comment.id %>" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
-                  </a>
+                  <span>
+                    <% unless User.find(comment.user_id).user_image.thumb.url.nil? %>
+                      <!--<img class="img-responsive" src="<%= @user.user_image.thumb.url %>"></a>-->
+                      <img class="comment-<%= comment.id %>" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
+                    <% end %>
+                    
+                  </span>
                 </div>
                 
                 <div class="media-body">
                   <div class="comment-info">
-                    <span class="comment-<%= comment.id %> author-name"><%= User.find(comment.user_id).user_name %></span>
-                    <span class="comment-<%= comment.id %>"><%= comment.created_at.strftime("%m/%d at %I:%M%p") %></span>
+                    <span class="comment-<%= comment.id %> author-name"><%= User.find(comment.user_id).user_name %> <span class="comment-<%= comment.id %>">(<%= comment.created_at.strftime("%m/%d at %I:%M%p") %>)</span></span>
+                    
                     <div class="edit-reply">
                       <%if @user.id == comment.user_id%>
-                        <button data-id="<%= comment.id %>" class="btn btn-warning text-white edit-comment"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                        <button data-id="<%= comment.id %>" class="btn btn-danger destroy-comment"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <a data-id="<%= comment.id %>" class="edit-comment">수정</a>
+                        <a data-id="<%= comment.id %>" class="destroy-comment">삭제</a>
                       <%end%>
                     </div>
                   </div>
                   <p class="comment-detail-<%= comment.id %>"><%= comment.comment_contents%></p>
                 </div>
                 </li>
+                <!-- Comment Item end-->
               <%end%>
             </ul>
             
@@ -91,13 +90,13 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane fade in active" id="default-comment">
                 <div class="comment-wrap">
-                  <form action="#" method="post" id="replyform" class="comment" novalidate="" role="form">
+                  <form action="/projects/<%= @project.id%>/comments" method="post" id="replyform" class="comment" novalidate="" role="form">
                     <div class="form-group comment-form-comment comment-contents">
-                      <textarea class="form-control" id="comment" name="comment" placeholder="Comment" rows="8" aria-required="true"></textarea>
+                      <textarea class="form-control comment_contents" name="comment_contents" placeholder="Comment" rows="8" aria-required="true"></textarea>
                     </div>
 
                     <div class="form-submit">
-                      <button class="btn blue waves-effect waves-light pull-right" name="submit" type="submit" id="reply-submit" value="작성">작성</button>
+                      <button class="btn blue waves-effect waves-light pull-right" name="submit" id="reply-submit">작성</button>
                     </div>
                   </form>
                 </div>
@@ -117,29 +116,23 @@
                 <span>팀원 목록</span>
               </div>
               
-              <% unless @project.users.empty? %> 
+              
                 <% @project.user_projects.each do |user| %>
                   <% if user.authorized_member == true %>
-                  <div class="join-<%= user.id %>">
-                  <div class="author-thumb waves-effect waves-light">
+                    <div class="join-<%= user.id %>">
+                    <div class="author-thumb waves-effect waves-light">
                     <div class="author-thumb-small">
-                      <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
-                      <!--<img src="<%= asset_path 'blog/author.jpg' %>" alt="">-->
                     </div>
-                      <%if @project.master_id == @user.id%>
-                          <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
-                      <%else%>
-                          <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
-                      <%end%>
-                      <%if @user.id==user.id||@user.id == @project.master_id%>
-                          <input type="button" value="취소" class="cancel" data-user_id="<%=user.user_id %>">
-                      <%end%>
-                    <!--<span><a href="#">username</a></span>-->
+                        <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
+                        <%if @user.id==user.user_id ||@project.master_id==@user.id%>
+                            <a class="cancel" data-user_id="<%=user.user_id %>">탈퇴</a>
+                        <%end%>  
+                     
                   </div>
                   </div>
                   <% end %>
                 <% end %>
-              <% end %>
+             
             </div><!-- /author-info-wrapper -->
           </div><!-- /.widget_tt_author_widget -->
           
@@ -147,7 +140,7 @@
       </div><!-- /.col-md-3 -->
       
       
-      <% if @project.master_id == current_user.id %>
+      <% if @project.master_id == @user.id %>
       <div class="col-md-3">
         <div class="tt-sidebar-wrapper" role="complementary">
           <div class="widget widget_tt_author_widget">
@@ -169,9 +162,10 @@
                       </div>
                     
                       <div class="list-buttons">
-                        <span class="admit-button"><a href="#" class="accept" data-user_id="<%=user.user_id %>">승인</a></span>
+                        <input type="button" class="accept" value=" 승인" data-user_id="<%= user.user_id %>">
                         <span>|</span>
-                        <span class="cancel-button"><a href="#" class="cancel" data-user_id="<%=user.user_id %>">삭제</a></span>
+                        <input type="button" class="cancel" value=" 취소" data-user_id="<%= user.user_id %>">
+  
                       </div>
                     </div>
                   <% end %>
@@ -184,98 +178,81 @@
       </div><!-- /.col-md-3 -->
       <% end %>
       
-      
+      <%unless @user.user_projects.find_by(project_id: @project.id , authorized_member: true).nil?%>
+
       <div class="col-md-3">
         <div class="chat-container">
           <div class="chat-header">
             <span>채팅창</span>
           </div>
           <div class="chat-body scrollbar-secondary">
-            <div class="chat-receive">
-              <div class="chat-receive-wrapper">
-                <div class="chat-receive-thumb">
-                  <!--<img src="">-->
+            <%@project.chats.each do |chat|%>
+              <%if chat.user_id==@user.id%>
+                <div class="chat-send">
+                  <div class="chat-send-wrapper">
+                    <div class="chat-send-content">
+                        <div class="chat-send-name"><%=User.find(chat.user_id).user_name%></div>
+                        <p><%=chat.message%></p>
+                        <div class="time"><small><%=chat.created_at%></small></div>
+                    </div>
+                    <div class="chat-send-thumb"></div>
+                  </div>
                 </div>
-                <div class="chat-receive-content">
-                  <div class="chat-receive-name">shiincs</div>
-                  <p>ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ</p>
-                  <div class="time">09:00pm</div>
+              <%else%>
+                <div class="chat-receive">
+                  <div class="chat-receive-wrapper">
+                    <div class="chat-receive-thumb"></div>
+                    <div class="chat-receive-content">
+                        <div class="chat-receive-name"><%=User.find(chat.user_id).user_name%></div>
+                        <p><%=chat.message%></p>
+                        <div class="time"><small><%=chat.created_at%></small></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="chat-send">
-              <div class="chat-send-wrapper">
-                <div class="chat-send-content">
-                  <div class="chat-send-name">teatreeessential</div>
-                  <p>ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ</p>
-                  <div class="time">09:00pm</div>
-                </div>
-                <div class="chat-send-thumb">
-                  <!--<img src="">-->
-                </div>
-              </div>
-            </div>
-            <div class="chat-receive">
-              <div class="chat-receive-wrapper">
-                <div class="chat-receive-thumb">
-                  <!--<img src="">-->
-                </div>
-                <div class="chat-receive-content">
-                  <div class="chat-receive-name">shiincs</div>
-                  <p>ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ</p>
-                  <div class="time">09:00pm</div>
-                </div>
-              </div>
-            </div>
-            
+              <%end%>
+            <%end%>
           </div>
-          
+            
+            
           <div class="chat-footer">
             <div class="chat-input-group">
-              <input type="text" class="form-control">
+                <%=form_tag("/projects/#{@project.id}/chat", remote: true) do %>
+                  <%= text_field_tag :message, "", class: "form-control chat"%>
+                  <button>Enter</button>
+                <%end%>
               <span>
-                <button>SEND</button>
+                
               </span>
             </div>
           </div>
         </div>
       </div><!-- /.col-md-3 -->
+      <%end%>
       
       <% if @project.master_id == current_user.id %>
         <div class="col-md-3 join-button">
           <a href="/projects/<%=@project.id%>/edit" class="btn cyan waves-effect waves-light pull-right button-container">수정</a>
+          <a data-confirm="정말 프로젝트를 삭제하시겠습니까?" data-method="delete" href="/projects/<%=@project.id%>" rel="nofollow" class="btn pink waves-effect waves-light pull-right button-container">삭제</a>
         </div>
       <% else %>
-        <form class="join btn cyan waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
-          <button type="submit" >참여하기</button>
-        </form>
-      <% end %>
       
-      <!-- Message Modal -->
-      <div class="white-content" id="open">
-        <div class="white-content-body">
-          <div class="modal-header">
-            <span class="modal-title">메세지 보내기</span>
-            <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  
-          </div>
-          <div class="comments-tab modal-middle">
-            <form>
-              <div class="form-group">
-                <label class="modal-label">받는 사람</label>
-                <input class="form-control" type="text" readonly />
-              </div>
-              <div class="form-group">
-                <label class="modal-label">메세지</label>
-                <textarea class="form-control modal-textarea"></textarea>
-              </div>
+        <%if @user.user_projects.find_by(project_id: @project.id).nil?%>
+          <div class="col-md-3 join-button">
+            <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
+              <input type="submit" class="participate btn cyan button-container" value="참여하기">
             </form>
           </div>
-          <div class="modal-button">
-            <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit" value="">보내기</button>
-            <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>
+        <%end%>
+        <%if @user.user_projects.find_by(project_id: @projectid,authorized_member: false)%>
+          <div class="col-md-3 join-button">
+            <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
+              <input type="submit" class="participate btn cyan button-container white-text" value="신청중" disabled>
+            </form>
           </div>
-        </div>
-      </div>
+        <%end%>
+      <% end %>
+      
+
     </div><!-- /.row -->
   </div><!-- /.container -->
 </section><!-- blog section end -->
@@ -289,9 +266,9 @@
     $(document).on('ready', function() {
         $('.comment').on('submit', function(e) {
             e.preventDefault();
-            var comm = $('.comment-contents').val();
+            var comm = $('.comment_contents').val();
             console.log(comm);
-        $('.comment-contents').val('');
+        $('.comment_contents').val('');
             $.ajax({
                 url: "/projects/<%= @project.id%>/comments",
                 method: "POST",
@@ -370,9 +347,118 @@
             
         })
         
+         //채팅창을 위한 변수들 
+        var pusher = new Pusher('<%=ENV["pusher_key"]%>', {
+          cluster: '<%=ENV["pusher_cluster"]%>',
+          encrypted: true
+        });
+        
+        var channel = pusher.subscribe('project_<%=@project.id%>');
+        
+         //해당 채널이 바인딩 하고 있는 이벤트들
+        channel.bind('join',function(data){
+         console.log(data);
+         user_joined(data);
+       });
+       channel.bind('chat',function(data){
+            user_chat(data);
+        })
+        channel.bind('exit',function(data){
+            console.log(data.user_id)
+            user_exit(data);
+        })
+        channel.bind('disaster',function(data){
+            master_exit(data);
+        })
+
+
+         function user_joined(data){
+             $('.chat-body scrollbar-secondary').append(`<p>${data.user_name}님께서 입장하셨습니다.</p>`);
+         }
+         
+         function user_chat(data){
+           console.log(typeof data.user_name)
+           console.log(data.message)
+            if(data.user_name==="<%=@user.user_name%>"){
+              $(".chat").val("")
+              $(".chat-body").append(`
+                <div class="chat-send">
+                  <div class="chat-send-wrapper">
+                    <div class="chat-send-content">
+                        <div class="chat-send-name">${data.user_name}</div>
+                        <p>${data.message}</p>
+                        <div class="time"><small>(${data.created_at})</small></div>
+                    </div>
+                    <div class="chat-send-thumb">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `)
+               
+            }else{    
+                $(".chat").val("")
+                $(".chat-body").append(`
+                <div class="chat-receive">
+                  <div class="chat-receive-wrapper">
+                    <div class="chat-receive-thumb">
+                    <div class="chat-receive-content">
+                      <div class="chat-receive-name">${data.user_name}</div>
+                        <p>${data.message}</p>
+                        <div class="time"><small>(${data.created_at})</small></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+               `)
+            }
+         }
+         
+         function user_exit(data){
+             console.log(data);
+            // $(`.user-${data.user_id}`).remove();
+             $('.chat-body scrollbar-secondary').append(`<p>${data.user_name}님께서 방을 나가셨습니다..</p>`);
+         }
+         function master_exit(data){
+             alert('방장이 방을 나갔습니다.');
+             location.href='/';
+         }
+        
         
     });
     
 </script>
   
 <% end %>
+
+
+
+
+
+      <!-- Message Modal -->
+      <!--<div class="white-content" id="open">-->
+      <!--  <div class="white-content-body">-->
+      <!--    <div class="modal-header">-->
+      <!--      <span class="modal-title">메세지 보내기</span>-->
+      <!--      <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  -->
+      <!--    </div>-->
+      <!--    <div class="comments-tab modal-middle">-->
+      <!--      <form>-->
+      <!--        <div class="form-group">-->
+      <!--          <label class="modal-label">받는 사람</label>-->
+      <!--          <input class="form-control" type="text" readonly />-->
+      <!--        </div>-->
+      <!--        <div class="form-group">-->
+      <!--          <label class="modal-label">메세지</label>-->
+      <!--          <textarea class="form-control modal-textarea"></textarea>-->
+      <!--        </div>-->
+      <!--      </form>-->
+      <!--    </div>-->
+      <!--    <div class="modal-button">-->
+      <!--      <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit" value="">보내기</button>-->
+      <!--      <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
+      

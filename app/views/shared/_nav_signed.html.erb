@@ -24,7 +24,7 @@
 
           <li><a href="javascript:void(0)"><span class="login-button"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span></a>
             <ul class="dropdown">
-                <li><a href="/<%=@user.user_name%>/profile">내 프로필</a></li>
+                <li><a href="/<%=current_user.user_name%>/profile">내 프로필</a></li>
                 <li><a href="#project-list-open">내 프로젝트</a></li>
                 <!--<li><a href="#message-list-open">메세지함<span class="badge badge-light pink">9</span>-->
                 <!--      <span class="sr-only">unread messages</span></a></li>-->
@@ -51,13 +51,14 @@
             <table class="message-list">
               <tbody>
                 <tr>
-                  <th>번호</th>
                   <th>프로젝트명</th>
                 </tr>
+                
+                <%@user.user_projects.where(authorized_member: true).each do |value| %>
                 <tr class="table-row">
-                  <td>1</td>
-                  <td><a href="/projects/admin_project">project soap</a></td>
+                  <td><a href="/projects/<%=value.project_id%>"><%=Project.find(value.project_id).project_title%></a></td> 
                 </tr>
+                <%end%>
               </tbody>
             </table>
           </div>

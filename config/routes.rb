@@ -20,6 +20,9 @@ post '/search' => 'user#search'
 #깃헙에서 데이터 받아오기
 post '/github' => 'user#github'
 
+#섬머노트 업로더
+post '/uploads' => 'uploade#uploader'
+
 #포트폴리오 라우팅
 #포트폴리오 등록페이지
 get '/portfolio' => 'portfolio#portfolio'

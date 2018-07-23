@@ -199,6 +199,14 @@
     min-height: 45px;
     color: #000000;
   }
+  .selected-badge span {
+    padding: 5px 10px 5px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #ddd;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #039be5;
+    color: #FFFFFF;
+  }
   .btn {
     display: flex;
     align-items: center;
@@ -281,6 +289,18 @@
   .editor-area textarea {
     height: 250px;
   }
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    display: flex;
+    align-items: center;
+  }
+  .add_skill > span {
+    padding: 5px 10px 5px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+  }
   
   //////////////////////////////////////////////////
   // portfolio details
@@ -339,7 +359,7 @@
     text-transform: none;
     border-radius: 5px;
     background-color: #ddd;
-    padding: 0 5px 0 5px;
+    padding: 5px 5px 5px 5px;
   }
   .portfolio-meta > li > .content-name {
     color: #000000;

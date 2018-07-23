@@ -25,7 +25,8 @@ class Project < ApplicationRecord
     # has_many    :users, through: :admissions
     
     
-
+    #pagination
+    paginates_per 3
    
     
     # after_commit :create_chat_room_notification , on: :create

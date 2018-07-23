@@ -5,14 +5,32 @@ class UserController < ApplicationController
     before_action :set_user
     # helper_method :search_user_skill
     def index
-        @user = current_user
+        @rank_skill = Hash.new
+        store = []
+        User.all.each do |user|
+          store.push(user.git_skill_1)
+          store.push(user.git_skill_2)
+          store.push(user.git_skill_3)
+        end
+        remove_nil = store.compact
+        remove_nil.each { |skill_name| 
+        if @rank_skill[skill_name].nil? 
+          @rank_skill[skill_name] = 1
+        else
+          @rank_skill[skill_name] += 1
+        end
+        }
+        @rank_index =  @rank_skill.keys
+        puts @rank_skill
+        puts @rank_index
     end
     
   #모든 유저 리스트
   #유저 검색
   def list
    @users = User.all
-   skills_no = []   
+   @pageuser = User.page(params[:page])
+   skills_no = []
      unless params[:skill].nil? and params[:category].nil?
       skills = params[:skill].split(",")  
       categories = params[:category].split(",")
@@ -23,7 +41,7 @@ class UserController < ApplicationController
       
       skill_users = SkillUser.where(skill_id: skills_no).collect{|skill_user| skill_user.user}.flatten
       category_users = Category.where(category_contents: categories).collect {|cate| cate.users}.flatten
-      @users = skill_users.concat(category_users).uniq 
+      @users = skill_users.concat(category_users).uniq
       p @users
     end
   end
@@ -39,7 +57,10 @@ class UserController < ApplicationController
       @month = birth[1]
       @day = birth[2]
     end
-    @user = current_user
+    p "날짜 입니다."
+    p @year 
+    p @month 
+    p @day 
   end
   
 
@@ -49,23 +70,24 @@ class UserController < ApplicationController
     i=0
     result_skill= Hash.new
     start = []
+    session[:github_language] = nil
     if session[:github_language].nil?
-        dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
-        dummy2={"css"=>3232,"java"=>2500,"javascript"=>29394}
-        dummy3={"css"=>5000,"java"=>250440,"javascript"=>29394}
-        start.push(dummy1)
-        start.push(dummy2)
-        start.push(dummy3)
-        
-        # puts "세션에 값이 없습니다 현재는"
-        # response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&git_client_secret=#{ENV['git_client_secret']}",
-        #                         headers:{Authorization: current_user.user_access_token});
-        # ##git hub으로 부터 값을 가져온다.
-        # JSON.parse(response).each do |response| 
-        #   languages = RestClient.get(response['languages_url']+"?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_client_secret']}",
-        #                           headers:{Authorization: current_user.user_access_token});
-        #   start.push(JSON.parse(languages))
-        # end
+        # dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
+        # dummy2={"css"=>3232,"java"=>2500,"javascript"=>29394}
+        # dummy3={"css"=>5000,"java"=>250440,"javascript"=>29394}
+        # start.push(dummy1)
+        # start.push(dummy2)
+        # start.push(dummy3)
+         p RestClient.get('https://api.github.com/users/whatever?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879')
+        puts "세션에 값이 없습니다 현재는"
+        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=17941d1a59eeb9e4c13f&git_client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
+                                headers:{Authorization: current_user.user_access_token});
+        ##git hub으로 부터 값을 가져온다.
+        JSON.parse(response).each do |response| 
+          languages = RestClient.get(response['languages_url']+"?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
+                                  headers:{Authorization: current_user.user_access_token});
+          start.push(JSON.parse(languages))
+        end
     
           start.each do |hash|
             hash.each{|key,value| 
@@ -94,7 +116,7 @@ class UserController < ApplicationController
             if Skill.find_by(skill_contents: key.downcase).nil?
                Skill.create(skill_contents: key.downcase)
             end
-            skill_id = Skill.find_by(skill_contents: key).id
+            skill_id = Skill.find_by(skill_contents: key.downcase).id
             if compare_skill.include?(skill_id)
               GithubSkill.find(user_id: current_user.id,skill_id: skill_id).update(skill_byte: value)
             else
@@ -129,8 +151,10 @@ class UserController < ApplicationController
         skill_name = Skill.find(skill_info.skill_id).skill_contents
         @github_language[skill_name] = skill_info.skill_byte
       end
-      
-      
+      unless @user.address.nil?
+        address=@user.address.split(" ")
+        @address = address[0]+" "+address[1]
+      end
       @github_language
       @user
   end
@@ -174,22 +198,23 @@ class UserController < ApplicationController
     make_birth.push(params[:day])
     
     birth=make_birth.join('.')
+    
+    p " 생일 입니다."
+    p birth
       
     skills = params[:skill].split(",")   ##받아 온 스킬들을 저장
     categories = params[:category].split(",") ##받아 온 카테고리들을 저장
     introduce = params[:introduce].strip ##받아 온 자기소개를 저장
     tel = params[:tel].strip ##받아 온 전화번호를 저장
     file_path = params[:file_path] ##회원 이미지 저장
-    road_address = params[:road_address].split(" ") ##회원 주소 저장 구 까지만
-    unless road_address.empty?
-      address = road_address[0]+"\t"+road_address[1]
-    end
+    road_address = params[:road_address] ##회원 주소 저장 구 까지만
+
     if !current_user.user_contents.nil?
        SkillUser.where(user_id: current_user.id).destroy_all
        UserCategory.where(user_id: current_user.id).destroy_all
-       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address,birth: birth)
+       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: road_address,birth: birth)
     else
-       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: address,birth: birth) 
+       current_user.update(user_contents: introduce,tel: tel,user_image: file_path,address: road_address,birth: birth) 
     end 
      skills.each do |skill|
        #ex) skill은 'javascript'

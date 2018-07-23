@@ -220,6 +220,14 @@
     min-height: 45px;
     color: #000000;
   }
+  .selected-badge span {
+    padding: 5px 10px 5px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #ddd;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #039be5;
+    color: #FFFFFF;
+  }
   .btn {
     display: flex;
     align-items: center;
@@ -344,12 +352,12 @@
   .author-info-wrapper .author-avatar h2 {
     text-transform: none;
   }
-  .fa-github, .fa-envelope {
-    font-size: 2.5em;
+  .fa-github {
+    font-size: 3em;
     color: #000000;
   }
-  .fa-github:hover, .fa-envelope:hover {
-    font-size: 2.5em;
+  .fa-github:hover {
+    font-size: 3em;
     color: #039be5;
   }
   .author-social-links ul {
@@ -507,13 +515,13 @@
     margin: 10px 0 0 0;
   }
   .index-featured-item {
-    padding: 50px 20px;
+    // padding: 50px 20px;
     text-align: center;
     border: 1px solid #ddd;
     background-color: #FFFFFF;
   }
   .index-featured-item:hover {
-    padding: 50px 20px;
+    // padding: 50px 20px;
     text-align: center;
     border: 1px solid #ddd;
     background-color: #FFFFFF;
@@ -565,7 +573,38 @@
     margin-right: 5%;
     margin-bottom: 0;
   }
-  
+  .add_skill {
+    margin: 5px 0 0 0;
+  }
+  .add_skill > span {
+    padding: 5px 10px 5px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+  }
+  .add_skill_edit {
+    margin: 5px 0 0 0;
+  }
+  .add_skill_edit > span {
+    padding: 0px 10px 0px 10px !important;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+  }
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    display: flex;
+    align-items: center;
+  }
+  nav {
+    height: auto;
+    box-shadow: 0 0 0 0;
+    border: 0;
+    text-align: center;
+  }
   ///////////////////////////////
   // Message Modal CSS
   .white-content {
@@ -718,6 +757,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    border: 1px solid #ddd;
     background-size: 100% 100%;
     background-image: url(asset-path('background/usericon.png'));
   }
@@ -737,7 +777,22 @@
   }
   .badge-area {
     margin: 10px 0 0 0;
+    width: 100%;
+    height: 28px;
+  }.skill_badge {
+    margin: 10px 0 0 0;
+    background-color: #ddd;
+    width: 100%;
+    height: 28px;
   }
+  .skill_badge > button {
+    float: right;
+    height: 28px;
+    font-size: 0.8em;
+    color: #FFFFFF;
+    background-color: #039be5;
+    border-color: #039be5;
+  }  
   .badge-area > span {
     padding: 5px 10px 5px 10px;
     margin: 0 5px 0 5px;

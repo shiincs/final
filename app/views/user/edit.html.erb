@@ -1,87 +1,3 @@
-<!--<h1>프로필 수정 페이지</h1>-->
-
-<!--<h3>관심 카테고리</h3></br>-->
-<!--<form id="file_form" method="post" action="/profile/update" enctype="multipart/form-data">-->
-
-<!--<select class="category_list">-->
-<!--    <option value="빅데이터">빅데이터</option>-->
-<!--    <option value="웹">웹</option>-->
-<!--    <option value="앱">앱</option>-->
-<!--    <option value="ai">ai</option>-->
-<!--</select>-->
-<!-- 카테고리 달리는 곳  -->
-<!--<div class="add_categories">-->
-<!--<%unless @user.categories.empty?%>-->
-<!--    <%@user.categories.each do |category|%>-->
-<!--        <span class="delete_category" data-category_id=<%=category.category_contents%>>-->
-<!--        <%=category.category_contents%>x#-->
-<!--        </span>-->
-<!--    <%end%>-->
-<!--<%end%>-->
-<!--</div></br>-->
-
- <!--카테고리 값 받는곳 -->
-<!--<input type="hidden" name="category" id="category"value="<%unless @user.categories.empty?%><%= @user.categories.map{|c| c.category_contents+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">-->
-
-<!--<h3>회원 사진 등록</h3></br>-->
-
-<!--<input type="file" id="profile_picture" name="file_path">-->
-
-
-<!--<h3>보유기술스택</h3></br>-->
-
-<!--<div class="tech">-->
-<!--<input type="text" placeholder="기술"  class="search">-->
-<!--</div>-->
-<!--스킬 검색창 띄우는곳-->
-<!--<div class="add_skill"></div></br>-->
-<!--스킬 뱃지달리는곳-->
-<!--<div class="skill_badge">-->
-<!--<%unless SkillUser.find_user_skill(@user.id).empty?%>-->
-<!--    <%SkillUser.find_user_skill(@user.id).each do |skill_name| %>-->
-<!--        <span class="delete_skill" data-skill_id="<%=skill_name%>">-->
-<!--        <%=skill_name%>x#-->
-<!--        </span>-->
-<!--    <%end%>-->
-<!--<%end%>-->
-<!--</div></br>-->
-<!--스킬 값 받는 곳-->
-<!--<input type="hidden" name="skill" id="skill" value="<%unless SkillUser.find_user_skill(@user.id).empty?%><%=SkillUser.find_user_skill(@user.id).map{|c| c+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">-->
-
-<!--<h3>자기소개</h3></br>-->
-<!--<textarea rows="4" cols="50" placeholder="자기소개를 입력하세요"class="introduce"name="introduce">-->
-<!--<%unless @user.user_contents.nil?%>-->
-<!--<%=@user.user_contents%>-->
-<!--<%end%>-->
-<!--</textarea>-->
-
-<!--<h3>생년월일</h3></br>-->
-<!--<p>달력 api</p>-->
-<!--<h3>거주지역</h3></br>-->
-
-    
-<!--    <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>-->
-<!--    <p>도로명 주소</p>-->
-<!--    <input type="text" name="road_address"id="sample4_roadAddress" placeholder="도로명주소">-->
-<!--    <p>지번주소</p>-->
-<!--    <input type="text" name="address" id="sample4_jibunAddress" placeholder="지번주소">-->
-<!--    <span id="guide" style="color:#999"></span>-->
-
-<!--<h3>연락처</h3></br>-->
-<!--<input type="text" class="tel" placeholder="전화번호" name="tel" value="-->
-<!--<%unless @user.tel.nil?%>-->
-<!--<%=@user.tel%>-->
-<!--<%end%>-->
-<!--">-->
-<!--<input type="submit" value="등록하기">-->
-
-<!--</form>-->
-
-
-<!-------------------------------------------------------><!------------------------------------------------------->
-<!-------------------------------------------------------><!------------------------------------------------------->
-<!-------------------------------------------------------><!------------------------------------------------------->
-
 <!-- blog section start -->
 <section class="blog-section">
   <div class="container">
@@ -158,13 +74,10 @@
                             </div>
                           </div>
                           
-                          <div class="line">
+                          <div class="badge-box">
                             <div class="label-middle">
-                              <label class="label-content"></label>
                             </div>
-                            <div class="input">
-                              <div class="add_skill"></div>
-                              <input type="hidden" name="skill" id="skill" value="<%unless SkillUser.find_user_skill(@user.id).empty?%><%=SkillUser.find_user_skill(@user.id).map{|c| c+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+                            <div class="input add_skill add_skill_edit">
                             </div>
                           </div>
                           
@@ -182,6 +95,7 @@
                                     <%end%>
                                 <%end%>
                               </div>
+                              <input type="hidden" name="skill" id="skill" value="<%unless SkillUser.find_user_skill(@user.id).empty?%><%=SkillUser.find_user_skill(@user.id).map{|c| c+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
                             </div>
                           </div>
                           
@@ -207,7 +121,11 @@
                                     <% end %>
                                   <%else%>
                                     <% Time.now.year.downto(1950) do |year| %>
-                                      <option value="<%= @year %>" selected="selected"><%= year %></option>
+                                      <%if year.to_s==@year%>
+                                      <option value="<%= @year %>" selected="seleted"><%= @year %></option>
+                                      <%else%>
+                                      <option value="<%= year %>"><%= year %></option>
+                                      <%end%>
                                     <% end %>
                                   <%end%>
                               </select>
@@ -219,8 +137,13 @@
                                     <% end %>
                                 <%else%>
                                     <% 1.upto(12) do |month| %>
-                                      <option value="<%= @month %>" selected="selected"><%= month %></option>
+                                      <%if month.to_s==@month%>
+                                      <option value="<%= @month %>" selected="seleted"><%= @month %></option>
+                                      <%else%>
+                                      <option value="<%= month %>"><%= month %></option>
+                                      <%end%>
                                     <% end %>
+                                    
                                 <%end%>
                                 
                                 
@@ -233,7 +156,11 @@
                                     <% end %>
                                 <%else%>
                                     <% 1.upto(31) do |day| %>
-                                      <option value="<%= @day %>" selected="seleted"><%= day %></option>
+                                      <%if day.to_s==@day%>
+                                      <option value="<%= @day %>" selected="seleted"><%= @day %></option>
+                                      <%else%>
+                                      <option value="<%= day %>"><%= day %></option>
+                                      <%end%>
                                     <% end %>
                                 <%end%>
                               </select>
@@ -254,8 +181,7 @@
                               <label class="label-content"></label>
                             </div>
                             <div class="input">
-                              <input type="text" name="road_address"id="sample4_roadAddress" placeholder="도로명주소"
-                              value=<%unless @user.address.nil?%><%=@user.address%><%end%>>
+                              <input type="text" name="road_address"id="sample4_roadAddress" placeholder="도로명주소" value="<%=@user.address unless @user.address.nil?%>">
                             </div>
                           </div>
                           <div class="line">
@@ -263,8 +189,7 @@
                               <label class="label-content"></label>
                             </div>
                             <div class="input">
-                              <input type="text" name="address" id="sample4_jibunAddress" placeholder="지번주소"
-                              value=<%unless @user.address.nil?%><%=@user.address%><%end%>>
+                              <input type="text" name="address" id="sample4_jibunAddress" placeholder="지번주소" value="<%=@user.address unless @user.address.nil?%>">
                               <span id="guide" style="color:#999"></span>
                             </div>
                           </div>

@@ -173,36 +173,28 @@
               <div class="container">
 
                   <div class="row text-center">
-                      <div class="col-sm-3 counter-wrap">
+                      <div class="col-sm-4 counter-wrap">
                         <span>
                           <i class="material-icons brand-color">looks_one</i>
                         </span>
-                        <span class="count-description">Project run</span>
-                        <span class="timer">545</span>
+                        <span class="count-description"><%=@rank_index[0]%></span>
+                        <span class="timer"><%=@rank_skill[@rank_index[0]]%></span>
                       </div> <!-- /.col-sm-3 -->
 
-                      <div class="col-sm-3 counter-wrap">
+                      <div class="col-sm-4 counter-wrap">
                         <span>
                           <i class="material-icons brand-color">looks_two</i>
                         </span>
-                        <span class="count-description">Ideas</span>
-                        <span class="timer">535</span>
+                        <span class="count-description"><%=@rank_index[1]%></span>
+                        <span class="timer"><%=@rank_skill[@rank_index[1]]%></span>
                       </div><!-- /.col-sm-3 -->
 
-                      <div class="col-sm-3 counter-wrap">
+                      <div class="col-sm-4 counter-wrap">
                         <span>
                           <i class="material-icons brand-color">looks_3</i>
                         </span>
-                        <span class="count-description">Experiments</span>
-                        <span class="timer">1544</span>
-                      </div><!-- /.col-sm-3 -->
-
-                      <div class="col-sm-3 counter-wrap">
-                        <span>
-                          <i class="material-icons brand-color">looks_4</i>
-                        </span>
-                        <span class="count-description">success</span>
-                        <span class="timer">111</span>
+                        <span class="count-description"><%=@rank_index[2]%></span>
+                        <span class="timer"><%=@rank_skill[@rank_index[2]]%></span>
                       </div><!-- /.col-sm-3 -->
                   </div>
               </div><!-- /.container -->

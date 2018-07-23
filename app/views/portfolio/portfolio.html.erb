@@ -72,13 +72,13 @@
                           
                           <div class="line">
                             <div class="label-middle">
-                              <label class="label-content">배너 이미지</label>
+                              <label class="label-content"><span class="asterisk">*</span>배너 이미지</label>
                             </div>
                             <div class="input">
                               <div class="fileBox">
-	                              <input type="text" class="fileName" readonly="readonly" name="file_path">
+	                              <input type="text" class="fileName" readonly="readonly" required>
 	                               <label for="uploadBtn" class="btn_file">찾아보기</label>
-	                               <input type="file" id="uploadBtn" class="uploadBtn">
+	                               <input type="file" id="uploadBtn" class="uploadBtn" name="file_path" required>
                               </div>
                             </div>
                           </div>
@@ -118,61 +118,6 @@
                             </div>
                           </div>
                           
-                          <div class="line">
-                            <div class="label-area">
-                              <label class="label-content"><span class="asterisk">*</span>시작 일자</label>
-                            </div>
-                            <div class="input">
-                              <select class="form-control select-box year" name="start_portfolio" required>
-                                <option disabled selected hidden>년</option>
-                                <% 2018.downto(1950) do |year| %>
-                                  <option value="<%= year %>"><%= year %></option>
-                                <% end %>
-                              </select>
-                              <select class="form-control select-box month"  name="end_portfolio" required>
-                                <option disabled selected hidden>월</option>
-                                <% 1.upto(12) do |month| %>
-                                  <option value="<%= month %>"><%= month %></option>
-                                <% end %>
-                              </select>
-                            </div>
-                          </div>
-                          
-                          <div class="line">
-                            <div class="label-area">
-                              <label class="label-content"><span class="asterisk">*</span>종료 일자</label>
-                            </div>
-                            <div class="input">
-                              <select class="form-control select-box year" required>
-                                <option disabled selected hidden>년</option>
-                                <% 2018.downto(1950) do |year| %>
-                                  <option value="<%= year %>"><%= year %></option>
-                                <% end %>
-                              </select>
-                              <select class="form-control select-box month">
-                                <option disabled selected hidden>월</option>
-                                <% 1.upto(12) do |month| %>
-                                  <option value="<%= month %>"><%= month %></option>
-                                <% end %>
-                              </select>
-                            </div>
-                          </div>
-                          
-                          <div class="line">
-                            <div class="label-top">
-                              <label class="label-content"><span class="asterisk">*</span>주요 내용</label>
-                            </div>
-                            <div class="input">
-                              <!--<textarea class="form-control" placeholder="포트폴리오 내용" rows="10" name="portfolio_introduce" required></textarea>-->
-                            </div>
-                          </div>
-                          
-                          <div class="line">
-                            <div class="editor-area">
-                              <%= text_area_tag :portfolio_contents, "", :class => "tinymce", :rows => 40, :cols => 120 %>
-                            </div>
-                          </div>
-                          
                           <div class="badge-box">
                             <div class="label-middle">
                               <label class="label-content"><span class="asterisk">*</span>사용 기술</label>
@@ -201,6 +146,64 @@
                               <input type="hidden" name="skill" id="skill">
                             </div>
                           </div>
+                          
+                          <div class="line">
+                            <div class="label-area">
+                              <label class="label-content"><span class="asterisk">*</span>시작 일자</label>
+                            </div>
+                            <div class="input">
+                              <select class="form-control select-box year" name="start_year" required>
+                                <option disabled selected hidden>년</option>
+                                <% 2018.downto(1950) do |year| %>
+                                  <option value="<%= year %>"><%= year %></option>
+                                <% end %>
+                              </select>
+                              <select class="form-control select-box month"  name="start_month" required>
+                                <option disabled selected hidden>월</option>
+                                <% 1.upto(12) do |month| %>
+                                  <option value="<%= month %>"><%= month %></option>
+                                <% end %>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-area">
+                              <label class="label-content"><span class="asterisk">*</span>종료 일자</label>
+                            </div>
+                            <div class="input">
+                              <select class="form-control select-box year" name="end_year"required>
+                                <option disabled selected hidden>년</option>
+                                <% 2018.downto(1950) do |year| %>
+                                  <option value="<%= year %>"><%= year %></option>
+                                <% end %>
+                              </select>
+                              <select class="form-control select-box month" name="end_month">
+                                <option disabled selected hidden>월</option>
+                                <% 1.upto(12) do |month| %>
+                                  <option value="<%= month %>"><%= month %></option>
+                                <% end %>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="label-top">
+                              <label class="label-content"><span class="asterisk">*</span>주요 내용</label>
+                            </div>
+                            <div class="input">
+                              <!--<textarea class="form-control" placeholder="포트폴리오 내용" rows="10" name="portfolio_introduce" required></textarea>-->
+                            </div>
+                          </div>
+                          
+                          <div class="line">
+                            <div class="editor-area">
+                              <textarea rows="4" cols="50" placeholder="포트폴리오 소개" name="portfolio_introduce">
+                              </textarea>
+                            </div>
+                          </div>
+                          
+                          
                           
                           <div class="line">
                             <div class="input btns">

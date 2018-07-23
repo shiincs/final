@@ -11,5 +11,6 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :birth, :string
     add_column :users, :address, :string
     add_column :users, :tel, :string
+    add_column :users, :exp, :integer ,default: 0
   end
 end

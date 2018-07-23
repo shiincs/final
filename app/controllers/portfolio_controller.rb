@@ -19,17 +19,25 @@ class PortfolioController < ApplicationController
   end
   #포트폴리오 등록 로직
   def register_portfolio
+    
+    @user.increment!(:exp)
     #나중에 current_user를 만들어 줘야함
       start_date=[]
       end_date=[]
       #포트폴리오 시작 날짜
+      start_date.push(params[:start_year])
       start_date.push(params[:start_month])
-      start_date.push(params[:start_day])
       portfolio_start=start_date.join('.')
       #포트폴리오 끝날짜
+      
+      end_date.push(params[:end_year])
       end_date.push(params[:end_month])
-      end_date.push(params[:end_day])
       portfolio_end = end_date.join('.')
+      
+      puts "포트폴리오 시작날짜"
+      p portfolio_start
+      puts "포트폴리오 끝날짜"
+      p portfolio_end
       
       
       portfolio=Portfolio.create(
@@ -38,8 +46,8 @@ class PortfolioController < ApplicationController
          portfolio_title: params[:portfolio_title],
          portfolio_contents:  params[:portfolio_introduce],
          portfolio_file: params[:file_path],
-         portfolio_start: params[:start_portfolio],
-         portfolio_end: params[:end_portfolio],
+         portfolio_start: portfolio_start,
+         portfolio_end: portfolio_end,
          user_id: current_user.id
       )
       skills = params[:skill].split(',');
@@ -60,15 +68,33 @@ class PortfolioController < ApplicationController
   
   #포트폴리오 수정 로직
   def portfolio_update
+     #나중에 current_user를 만들어 줘야함
+      start_date=[]
+      end_date=[]
+      #포트폴리오 시작 날짜
+      start_date.push(params[:start_year])
+      start_date.push(params[:start_month])
+      portfolio_start=start_date.join('.')
+      #포트폴리오 끝날짜
+      
+      end_date.push(params[:end_year])
+      end_date.push(params[:end_month])
+      portfolio_end = end_date.join('.')
+      
+      puts "포트폴리오 시작날짜"
+      p portfolio_start
+      puts "포트폴리오 끝날짜"
+      p portfolio_end
+    
     skills = params[:skill].split(',');
     categories = params[:category].split(',');
      Portfolio.find(params[:id]).update(
          portfolio_title: params[:portfolio_title],
          portfolio_contents:  params[:portfolio_introduce],
          portfolio_file: params[:file_path],
-         portfolio_start: params[:start_portfolio],
-         portfolio_end: params[:end_portfolio],
-         user_id: 1
+         portfolio_start: portfolio_start,
+         portfolio_end: portfolio_end,
+         user_id: @user.id
     )
       PortfolioCategory.where(portfolio_id: params[:id]).destroy_all
       PortfolioSkill.where(portfolio_id: params[:id]).destroy_all
@@ -89,6 +115,14 @@ class PortfolioController < ApplicationController
   #포트폴리오 수정 페이지
   def portfolio_edit
     @portfolio = Portfolio.find(params[:id])
+    p_start = @portfolio.portfolio_start.split(".")
+    p_end = @portfolio.portfolio_end.split(".")
+    
+    @start_year = p_start[0]
+    @start_month = p_start[1]
+    @end_year = p_end[0]
+    @end_month = p_end[1]
+    
   end
   
   private

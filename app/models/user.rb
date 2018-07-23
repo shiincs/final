@@ -31,7 +31,10 @@ class User < ApplicationRecord
     # has_many   :admissions
     # has_many   :projects, through: :admissions # admission을 통해서 채팅룸 여러개를 가질 수 있다.
     has_many   :chats  # 여러개의 채팅을 가질 수 있다.
-         
+    
+    #pagination
+    paginates_per 3
+    
     def joined_project?(project)
       self.projects.include?(project)#true or false
     end

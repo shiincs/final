@@ -4,7 +4,11 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
+gem 'summernote-rails', '~> 0.8.10.0'
+# pagination
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+gem 'bootstrap4-kaminari-views'
 # tinymce
 gem 'tinymce-rails'
 #채팅창 푸셔

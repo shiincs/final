@@ -1,51 +1,3 @@
-<!--<h1>스킬 검색창</h1>-->
-
-<!--<form id="file_form" method="get" action="/user/list" enctype="multipart/form-data">-->
-<!--<div class="tech">-->
-<!--<input type="text" placeholder="기술"  class="search">-->
-<!--</div>-->
-
-<!--스킬 검색창 띄우는곳-->
-<!--<div class="add_skill"></div></br>-->
-<!--스킬 뱃지달리는곳-->
-<!--<div class="skill_badge"></div></br>-->
-
-<!--스킬 값 받는 곳-->
-<!--<input type="hidden" name="skill" id="skill">-->
-
-
-<!--<select class="category_list">-->
-<!--    <option value="빅데이터">빅데이터</option>-->
-<!--    <option value="웹">웹</option>-->
-<!--    <option value="앱">앱</option>-->
-<!--    <option value="ai">ai</option>-->
-<!--</select>-->
-<!-- 카테고리 달리는 곳  -->
-<!--<div class="add_categories"></div></br>-->
- <!--카테고리 값 받는곳 -->
-<!--<input type="hidden" name="category" id="category">-->
-<!--<input type="submit" value="검색하기">-->
-<!--</form>-->
-
-<!--<h1>회원 리스트</h1>-->
-<!--<div class="profile_list">-->
-<!--<%@users.each do |user|%>-->
-<!--<ul>-->
-<!--    <li>-->
-<!--     <a href="/<%=user.user_name%>/profile"><%=user.user_name%></a>-->
-<!--     "기술스택:"-->
-<!--     <%SkillUser.find_user_skill(user.id).each do |skill_name| %>-->
-<!--        <%=skill_name%>-->
-<!--     <%end%>-->
-<!--     "카테고리:"-->
-<!--     <%user.categories.each do |category|%>-->
-<!--     <%=category.category_contents%>-->
-<!--     <%end%>-->
-<!--    </li>-->
-<!--</ul>-->
-<!--<%end%>-->
-<!--</div>-->
-
 <!------------------------------------------------------------------------------ -->
 <!------------------------------------------------------------------------------ -->
 <!------------------------------------------------------------------------------ -->
@@ -74,8 +26,8 @@
               
           </div>
           <div class="badge-area skill_badge add_categories">
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
           </div>
-          <input type="submit" value="검색하기">
           <input type="hidden" name="skill" id="skill">
           <input type="hidden" name="category" id="category">
         </form>
@@ -90,17 +42,14 @@
               <div class="thumb-wrapper">
                 <div class="author-thumb waves-effect waves-light">
                   <div class="author-thumb-inner">
-                    <!--<a href="#"><img src="<%= asset_path 'blog/author.jpg' %>" alt=""></a>-->
+                      <% unless user.user_image.thumb.url.nil? %>
+                        <a href="/<%=user.user_name%>/profile"><img class="img-responsive" src="<%= user.user_image.thumb.url %>"></a>
+                      <% end %>
                   </div>
                 </div>
                 <h3 class="entry-title"><a href="/<%=user.user_name%>/profile"><%=user.user_name%></a></h3>
               </div>
               <!-- .post-thumb -->
-  
-              <div class="entry-content">
-                <p><%=user.user_contents%></p>
-              </div>
-              <!-- .entry-content -->
   
               <div class="badge-area">
                 <% SkillUser.find_user_skill(user.id).each do |skill_name| %>
@@ -121,6 +70,7 @@
     <!-- portfolio-container -->
   </div>
   <!-- /.container -->
+  <%= paginate @pageuser, theme: 'twitter-bootstrap-4' %>
 </section>
 
 <% content_for 'javascript_content' do %>

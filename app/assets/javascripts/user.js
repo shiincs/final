@@ -12,8 +12,6 @@
 //= require jquery.flexslider-min
 //= require jquery.magnific-popup.min
 //= require scripts
-//= require instafeed.min
-//= require twitterFetcher.min
 //= require jquery.themepunch.tools.min
 //= require jquery.themepunch.revolution.min
 //= require revolution.extension.video.min

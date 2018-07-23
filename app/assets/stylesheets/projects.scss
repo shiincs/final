@@ -184,7 +184,12 @@
     min-height: 45px;
   }
   .selected-badge span {
-    color: #000000;
+    padding: 5px 10px 5px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #ddd;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #039be5;
+    color: #FFFFFF;
   }
   .btn {
     display: flex;
@@ -265,6 +270,21 @@
   .editor-area textarea {
     height: 250px;
   }
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    display: flex;
+    align-items: center;
+  }
+  .add_skill {
+    margin: 5px 0 0 0;
+  }
+  .add_skill > span {
+    padding: 0px 10px 0px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+  }
   
   ///////////////////////////////////////
   // list_project.html.erb
@@ -278,6 +298,10 @@
     margin: 0 0 10px 0;
     background-size: 100% 100%;
     background-image: url(asset-path('background/projectbanner.png'));
+  }
+  .project-thumb-wrapper a {
+    width: 310px;
+    height: 160px;
   }
   .project-thumb-wrapper img {
     width: 100%;
@@ -341,6 +365,25 @@
   }
   .badge-area {
     margin: 10px 0 0 0;
+    width: 100%;
+    height: 28px;
+  }
+  .project-badge {
+    height: 31px;
+  }
+  .skill_badge {
+    margin: 10px 0 0 0;
+    background-color: #ddd;
+    width: 100%;
+    height: 28px;
+  }
+  .skill_badge > button {
+    float: right;
+    height: 28px;
+    font-size: 0.8em;
+    color: #FFFFFF;
+    background-color: #039be5;
+    border-color: #039be5;
   }
   .badge-area > span {
     padding: 5px 10px 5px 10px;
@@ -349,6 +392,12 @@
     border-radius: 5px 5px 5px 5px;
     background-color: #039be5;
     color: #FFFFFF;
+  }
+  nav {
+    height: auto;
+    box-shadow: 0 0 0 0;
+    border: 0;
+    text-align: center;
   }
   
   ///////////////////////////////////
@@ -439,8 +488,19 @@
     width: 100%;
     margin-top: 30px;
   }
+  .comment-list .media-left img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
   .author-name {
-    line-height: 1em;
+    // line-height: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .author-name span {
+    font-size: 0.8em;
+    font-weight: normal;
   }
   .profile-component-first {
     padding: 0 10px 0 10px;
@@ -490,8 +550,11 @@
   .edit-reply > a:first-child {
     border-right: 1px solid black;
   }
-  .edit-reply > a:first-child > i {
+  .edit-reply > a:first-child{
     padding-right: 5px;
+  }
+  .edit-reply > a {
+    color: red;
   }
   .comment-list .media-body p {
     padding-bottom: 15px;
@@ -545,7 +608,8 @@
     justify-content: flex-start;
     align-items: center;
     padding: 5px 20px 5px 20px;
-    font-size: 1.3em;
+    font-size: 1.1em;
+    color: #000000;
   }
   .list-buttons {
     text-align: right;
@@ -579,6 +643,7 @@
     border-radius: 50%;
   }
   .join-button {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
   }
@@ -590,7 +655,30 @@
     display: flex;
     justify-content: center;
   }
-  
+  .cancel {
+    color: red;
+    margin-left: 10px;
+  }
+  .participate {
+    color: #FFFFFF;
+  }
+  .participte:hover {
+    color: #FFFFFF;
+  }
+  .list-inline li a {
+    color: #000000;
+  }
+  .media-left span {
+    display: inline-block;
+    width: 70px !important;
+    height: 70px !important;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background-image: url(asset-path('background/usericon.png'));
+    background-size: 100% 100%;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
   ///////////////////////////////////
   // Message Modal CSS
   .white-content {
@@ -778,20 +866,20 @@
     height: 35px;
     margin: 5px;
   }
-  .chat-footer .chat-input-group {
+  .chat-footer .chat-input-group form{
     width: 95%;
     display: flex;
   }
-  .chat-footer .chat-input-group input {
+  .chat-footer .chat-input-group form input {
     border: 1px solid pink;
     border-radius: 0;
   }
-  .chat-footer .chat-input-group input:focus {
+  .chat-footer .chat-input-group form input:focus {
     border: 1px solid #039be5;
     border-radius: 0;
     outline: none;
   }
-  .chat-footer .chat-input-group span button{
+  .chat-footer .chat-input-group form button{
     background-color: lightpink;
     color: #FFFFFF;
     border-color: lightpink;
