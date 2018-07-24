@@ -93,7 +93,7 @@
                             <div class="label-middle">
                             </div>
                             <div class="input add_skill edit_skill">
-                              <input type="hidden" name="skill" id="skill" value="<%unless SkillUser.find_user_skill(@user.id).empty?%><%=SkillUser.find_user_skill(@user.id).map{|c| c+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
+                              <input type="hidden" name="skill" id="skill_name" value="<%unless SkillUser.find_user_skill(@user.id).empty?%><%=SkillUser.find_user_skill(@user.id).map{|c| c+","}.reduce(:+).gsub(/[,]$/,'')%><%end%>">
                             </div>
                           </div>
                           
@@ -273,8 +273,7 @@
         $(document).on('click','.delete_skill',function(){
             
             let selected_skill= $(this).data('skill_id');
-            let index =find_skill.indexOf(String(selected_skill));
-            
+            var index =find_skill.indexOf(String(selected_skill));
             find_skill.splice(index,1);
             $('#skill').val(find_skill.join(','));
             $(this).remove();
@@ -306,10 +305,15 @@
             $(this).remove();
              
         });
-        (function(){
-          var image_path = "<%=@portfolio.portfolio_file.url%>"
-          $(".fileName").val(image_path)
-        })()
+       
+          var image ="<%=@portfolio.portfolio_file.url%>"
+          $(".fileName").val(image)
+          var path = function() {
+          var image_path = "<%=@user.user_image.url%>"
+          $(".fileName").val(image_path);
+        }
+        path();
+     
 </script>
 
 

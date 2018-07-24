@@ -12,8 +12,7 @@
         <div class="posts-content single-post">
           <header class="entry-header-wrapper clearfix">
             <div class="project-detail-wrapper">
-              <!--<img src="" class="img-responsive" alt="">-->
-              <img src="<%= @project.image_path.thumb.url %>" class="img-responsive">
+              <img src="<%= @project.image_path.url %>" class="img-responsive">
             </div><!-- .post-thumb -->
             
             <div class="entry-header">
@@ -60,8 +59,8 @@
               <li class="comment-<%= comment.id %> media">
                 <div class="media-left">
                   <span>
-                    <% unless User.find(comment.user_id).user_image.thumb.url.nil? %>
-                      <img class="comment-<%= comment.id %> img-responsive" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
+                    <% unless User.find(comment.user_id).user_image.url.nil? %>
+                      <img class="comment-<%= comment.id %> img-responsive" src="<%= User.find(comment.user_id).user_image.url %>">
                     <% end %>
                     
                   </span>
@@ -69,7 +68,7 @@
                 
                 <div class="media-body">
                   <div class="comment-info">
-                    <span class="comment-<%= comment.id %> author-name"><%= User.find(comment.user_id).user_name %> <span class="comment-<%= comment.id %>">(<%= comment.created_at.strftime("%m/%d at %I:%M%p") %>)</span></span>
+                    <a href="/<%= User.find(comment.user_id).user_name %>/profile"><span class="comment-<%= comment.id %> author-name"><%= User.find(comment.user_id).user_name %> <span class="comment-<%= comment.id %>">(<%= comment.created_at.strftime("%m/%d at %I:%M%p") %>)</span></span></a>
                     
                     <div class="edit-reply">
                       <%if @user.id == comment.user_id%>
@@ -121,11 +120,11 @@
                     <div class="join-<%= user.id %>">
                     <div class="author-thumb waves-effect waves-light">
                     <div class="author-thumb-small">
-                      <%unless User.find(user.user_id).user_image.thumbs.url.nil?%>
-                          <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
+                      <%unless User.find(user.user_id).user_image.url.nil?%>
+                          <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.url %>">
                         <%end%>
                     </div>
-                        <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
+                        <a href="/<%= User.find(user.user_id).user_name %>/profile"><span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span></a>
                         <%if @user.id==user.user_id ||@project.master_id==@user.id%>
                             <a class="cancel-button pink white-text" data-user_id="<%=user.user_id %>">탈퇴</a>
                         <%end%>  
@@ -157,8 +156,8 @@
                     <div class="join-<%=user.user_id%>">
                       <div class="author-thumb waves-effect waves-light">
                         <div class="author-thumb-small">
-                        <%unless User.find(user.user_id).user_image.thumbs.url.nil?%>
-                          <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
+                        <%unless User.find(user.user_id).user_image.url.nil?%>
+                          <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.url %>">
                         <%end%>
                         </div>
                         <span class="join-<%= user.user_id %>"><a href="#"><%= User.find(user.user_id).user_name %></a></span>
@@ -194,7 +193,7 @@
                   <div class="chat-send-wrapper">
                     <div class="chat-send-content">
                         <div class="chat-send-name"><%=User.find(chat.user_id).user_name%></div>
-                        <span><%=chat.message%></span>
+                        <p><span><%=chat.message%></span></p>
                         <div class="time"><small><%="("+chat.created_at.strftime("%Y")+"-"+chat.created_at.strftime("%m")+"-"+chat.created_at.strftime("%d")+"T"+chat.created_at.strftime("%H")+":"+chat.created_at.strftime("%m")+")"%></small></div>
                     </div>
                     <div class="chat-send-thumb"></div>
@@ -206,7 +205,7 @@
                     <div class="chat-receive-thumb"></div>
                     <div class="chat-receive-content">
                         <div class="chat-receive-name"><%=User.find(chat.user_id).user_name%></div>
-                        <span><%=chat.message%></span>
+                        <p><span><%=chat.message%></span></p>
                         <div class="time"><small><%=chat.created_at%></small></div>
                     </div>
                   </div>
@@ -422,7 +421,7 @@
                   <div class="chat-send-wrapper">
                     <div class="chat-send-content">
                         <div class="chat-send-name">${data.user_name}</div>
-                        <span>${data.message}</span>
+                        <p><span>${data.message}<span></p>
                         <div class="time"><small>(${date})</small></div>
                     </div>
                     <div class="chat-send-thumb">
@@ -440,7 +439,7 @@
                     <div class="chat-receive-thumb"></div>
                     <div class="chat-receive-content">
                       <div class="chat-receive-name">${data.user_name}</div>
-                        <span>${data.message}</span>
+                        <p><span>${data.message}<span></p>
                         <div class="time"><small>(${date})</small></div>
                         </div>
                       </div>

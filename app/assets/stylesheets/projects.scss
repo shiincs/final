@@ -877,13 +877,46 @@
     padding: 0 5px;
     text-align: right;
   }
-  .chat-body .chat-receive .chat-receive-content span,
-  .chat-body .chat-send .chat-send-content span {
+  .chat-body .chat-receive .chat-receive-content p {
+    display: inline-block;
+    width: auto;
     margin: 0;
     text-align: left;
     color: #000000;
     line-height: 20px;
     border: 1px solid #039be5;
+    border-radius: 5%;
+    font-size: 1em;
+    padding: 5px;
+  }
+  .chat-body .chat-send .chat-send-content p {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    text-align: left;
+    color: #000000;
+    line-height: 20px;
+    border: 1px solid #039be5;
+    border-radius: 5%;
+    font-size: 1em;
+    padding: 5px;
+  }
+  .chat-body .chat-receive .chat-receive-content p span {
+    margin: 0;
+    text-align: left;
+    color: #000000;
+    line-height: 20px;
+    border: 0px solid #039be5;
+    border-radius: 5%;
+    font-size: 1em;
+    padding: 5px;
+  }
+  .chat-body .chat-send .chat-send-content p span {
+    margin: 0;
+    text-align: right;
+    color: #000000;
+    line-height: 20px;
+    border: 0px solid #039be5;
     border-radius: 5%;
     font-size: 1em;
     padding: 5px;

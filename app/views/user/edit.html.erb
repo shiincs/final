@@ -289,6 +289,7 @@
   </script>
   
   <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+
 <script>
 function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -396,6 +397,7 @@ function sample4_execDaumPostcode() {
         
         //x를 눌렸을 때 스킬이 제거됨
         $(document).on('click','.delete_skill',function(){
+            
             let selected_skill= $(this).data('skill_id');
             var index =find_skill.indexOf(String(selected_skill));
             find_skill.splice(index,1);

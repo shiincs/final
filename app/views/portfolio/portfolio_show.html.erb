@@ -5,8 +5,7 @@
       <div class="row mb-80">
         <div class="col-md-8 content-view">
           <div class="portfolio-detail-banner">
-              <img src="<%=@portfolio.portfolio_file.thumb.url%>" class="img-responsive">
-              <!--<img src="" class="img-responsive" alt="">-->
+              <img src="<%=@portfolio.portfolio_file.url%>" class="img-responsive">
             </div><!-- .post-thumb -->
           <h2 class="mb-30 font-35"><%=@portfolio.portfolio_title%></h2>
           <p><%= simple_format(@portfolio.portfolio_contents) %></p>

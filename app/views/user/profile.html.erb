@@ -14,8 +14,8 @@
 
               <div class="author-cover">
                 <div class="author-inner">
-                  <% unless @user.user_image.thumb.url.nil? %>
-                    <img class="img-responsive" src="<%= @user.user_image.thumb.url %>"></a>
+                  <% unless @user.user_image.url.nil? %>
+                    <img class="img-responsive" src="<%= @user.user_image.url %>"></a>
                   <% end %>
                 </div>
               </div>
@@ -167,7 +167,7 @@
                 <% @user.portfolios.each do |portfolio| %>
                       <div class="featured-item border-box" data-portfolio_id=<%=portfolio.id%>>
                         <div class="portfolio-thumb-wrapper waves-effect waves-block waves-light">
-                          <img src="<%=portfolio.portfolio_file.thumb.url%>" class="img-responsive">
+                          <img src="<%=portfolio.portfolio_file.url%>" class="img-responsive">
                         </div><!-- .post-thumb -->
                       <div class="blog-content">
                         <header class="entry-header-wrapper">

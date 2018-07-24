@@ -8,7 +8,7 @@ $('.comment-list').prepend(`
     
     <div class="media-body">
       <div class="comment-info">
-        <span class="comment-<%= @comment.id %> author-name"><%= User.find(@comment.user_id).user_name %> <span class="comment-<%= @comment.id %>">(<%= @comment.created_at.strftime("%m/%d at %I:%M%p") %>)</span></span>
+        <a href="/<%= User.find(@comment.user_id).user_name %>/profile"><span class="comment-<%= @comment.id %> author-name"><%= User.find(@comment.user_id).user_name %> <span class="comment-<%= @comment.id %>">(<%= @comment.created_at.strftime("%m/%d at %I:%M%p") %>)</span></span></a>
         <div class="edit-reply">
             <a data-id="<%= @comment.id %>" class="edit-comment">수정</a>
             <a data-id="<%= @comment.id %>" class="destroy-comment">삭제</a>
