@@ -205,6 +205,10 @@
 <% content_for 'javascript_content' do %>
   <%= javascript_include_tag params[:controller] %>
   <script>
+  
+  var languages=[];
+  
+  
 <%if @user.user_name==current_user.user_name%>
     $(document).ready(function(){
         $.ajax({

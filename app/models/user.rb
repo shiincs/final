@@ -33,7 +33,7 @@ class User < ApplicationRecord
     has_many   :chats  # 여러개의 채팅을 가질 수 있다.
     
     #pagination
-    paginates_per 3
+    paginates_per 15
     
     def joined_project?(project)
       self.projects.include?(project)#true or false

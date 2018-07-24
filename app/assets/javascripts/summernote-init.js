@@ -49,7 +49,7 @@ sendFile = function(file, toSummernote) {
   });
 };
 
-$(document).on('page:change', function(event) {
+$(document).on('ready', function(event) {
   $('[data-provider="summernote"]').each(function() {
     return $(this).summernote({
       lang: 'ko-KR',

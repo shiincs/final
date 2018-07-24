@@ -35,10 +35,10 @@
               
               <div class="badge-area project-badge">
                 <ul>
-                  <% @project.categories.each do |category| %>
+                  <% @project.categories.take(5).each do |category| %>
                     <li><%= category.category_contents %></li>
                   <% end %>
-                  <% @project.skills.each do |skill| %>
+                  <% @project.skills.take(5).each do |skill| %>
                     <li><%= skill.skill_contents %></li>
                   <% end %>
                 </ul>

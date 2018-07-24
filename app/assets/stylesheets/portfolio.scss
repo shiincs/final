@@ -330,6 +330,9 @@
     //             0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 66%;                
   }
+  .content-view p {
+    font-size: 1.7em;
+  }
   .quick-overview {
     margin: 0 1% 0 1%;
     padding: 25px 25px 25px 25px;
@@ -360,6 +363,7 @@
     border-radius: 5px;
     background-color: #ddd;
     padding: 5px 5px 5px 5px;
+    margin-right: 5px;
   }
   .portfolio-meta > li > .content-name {
     color: #000000;

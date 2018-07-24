@@ -52,7 +52,7 @@
               <!-- .post-thumb -->
   
               <div class="badge-area">
-                <% SkillUser.find_user_skill(user.id).each do |skill_name| %>
+                <% SkillUser.find_user_skill(user.id).take(3).each do |skill_name| %>
                   <span><%= skill_name %></span>
                 <% end %>
               </div>

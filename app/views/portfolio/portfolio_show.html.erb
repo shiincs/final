@@ -17,12 +17,12 @@
             <li><span class="content-name"> 시작일 | </span><span class="content-date"><%= @portfolio.portfolio_start %></span></li>
             <li><span class="content-name"> 종료일 | </span><span class="content-date"><%= @portfolio.portfolio_end %></span></li>
             <li><span class="content-name"> 관련기술 | </span>
-              <%@portfolio.skills.each do |skill|%>
+              <%@portfolio.skills.take(3).each do |skill|%>
                 <span class="content-skill"><%=skill.skill_contents%></span>
               <%end%>
             </li>
             <li><span class="content-name"> 카테고리 | </span>
-              <%@portfolio.categories.each do |category|%>
+              <%@portfolio.categories.take(3).each do |category|%>
                 <span class="content-category"><%=category.category_contents%></span>
               <%end%>
             </li>

@@ -26,7 +26,7 @@ class Project < ApplicationRecord
     
     
     #pagination
-    paginates_per 3
+    paginates_per 9
    
     
     # after_commit :create_chat_room_notification , on: :create

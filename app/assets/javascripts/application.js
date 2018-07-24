@@ -15,7 +15,8 @@
 //= require_tree .
 //= require Chart.min
 //= require bootstrap
-//= require summernote-init
 //= require tinymce
 //= require tinymce-jquery
-//= require summernote/summernote-bs4.min
+//= require summernote
+//= require summernote-init
+

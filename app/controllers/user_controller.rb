@@ -39,8 +39,8 @@ class UserController < ApplicationController
         skills_no.push(Skill.find_by(skill_contents: skill).id)
       end
       
-      skill_users = SkillUser.where(skill_id: skills_no).collect{|skill_user| skill_user.user}.flatten
-      category_users = Category.where(category_contents: categories).collect {|cate| cate.users}.flatten
+      skill_users = SkillUser.where(skill_id: skills_no).page(params[:page]).collect{|skill_user| skill_user.user}.flatten
+      category_users = Category.where(category_contents: categories).page(params[:page]).collect {|cate| cate.users}.flatten
       @users = skill_users.concat(category_users).uniq
       p @users
     end
@@ -70,6 +70,7 @@ class UserController < ApplicationController
     i=0
     result_skill= Hash.new
     start = []
+    compare_skill_id =[]
     
     if session[:github_language].nil?
         # dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
@@ -79,11 +80,12 @@ class UserController < ApplicationController
         # start.push(dummy2)
         # start.push(dummy3)
         puts "세션에 값이 없습니다 현재는"
-        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=17941d1a59eeb9e4c13f&git_client_secret=내일 바꿔서 요청",
+        RestClient.post("https://api.github.com/users/repos?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879")
+        response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=17941d1a59eeb9e4c13f&git_client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
                                 headers:{Authorization: current_user.user_access_token});
         ##git hub으로 부터 값을 가져온다.
         JSON.parse(response).each do |response| 
-          languages = RestClient.get(response['languages_url']+"?client_id=17941d1a59eeb9e4c13f&client_secret=내일 바꿔서 요청",
+          languages = RestClient.get(response['languages_url']+"?client_id=17941d1a59eeb9e4c13f&client_secret=9bbcd28740924333fd83c0eba1c39c43a6e37879",
                                   headers:{Authorization: current_user.user_access_token});
           start.push(JSON.parse(languages))
         end
@@ -104,6 +106,10 @@ class UserController < ApplicationController
       
          #각각의 언어 바이트를 db에 저장
          compare_skill = GithubSkill.where(user_id: current_user.id)
+         
+         compare_skill.each do |origin_skill_id|
+            compare_skill_id.push(origin_skill_id)         
+         end
 
          #기존에 언어가 있으면 byte값만 수정 기존에 언어가 없으면 모두 추가
          p "언어는 모두 합쳐 졌습니다."
@@ -116,11 +122,9 @@ class UserController < ApplicationController
                Skill.create(skill_contents: key.downcase)
             end
             skill_id = Skill.find_by(skill_contents: key.downcase)
-            if compare_skill.include?(skill_id)
-              p skill_id+"을 저장합니다."
+            if compare_skill_id.include?(skill_id.id)
               GithubSkill.find(user_id: current_user.id,skill_id: skill_id.id).update(skill_byte: value)
             else
-              p skill_id+"을 저장합니다."
               GithubSkill.create(user_id: current_user.id,skill_id: skill_id.id,skill_byte: value)
             end
         }

@@ -16,8 +16,8 @@ class ProjectsController < ApplicationController
       categories = params[:project][:category]
       skills = skills.split(",")
       categories = categories.split(",")
-      skill_projects = Skill.where(skill_contents: skills).collect {|skill| skill.projects}.flatten
-      category_projects = Category.where(category_contents: categories).collect {|category| category.projects}.flatten
+      skill_projects = Skill.where(skill_contents: skills).page(params[:page]).collect {|skill| skill.projects}.flatten
+      category_projects = Category.where(category_contents: categories).page(params[:page]).collect {|category| category.projects}.flatten
       @projects = skill_projects.concat(category_projects).uniq
     end
   end

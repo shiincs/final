@@ -64,7 +64,7 @@
                   <span><i class="fa fa-eye"></i> <%= project.unique_impression_count %></span>
                 </div>
                 <div class="badge-area">
-                  <% project.skills.each do |skill| %>
+                  <% project.skills.take(3).each do |skill| %>
                     <span><%= skill.skill_contents %></span>
                   <% end %>
                 </div>
