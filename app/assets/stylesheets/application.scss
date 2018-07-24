@@ -234,3 +234,20 @@ input, select {
     text-align: center;
     padding: 5px 10px 5px 10px;
   }
+  
+  .modal-backdrop {
+    position: relative !important;
+  }
+
+  .note-toolbar panel-heading {
+    width: 500px !important; 
+  }
+  .note-editing-area {
+    width: 500px !important; 
+  }
+  .modal {
+    padding: 0; !important;
+  }
+  .modal .in{
+    padding: 0 !important;
+  }
