@@ -192,6 +192,27 @@
     color: #FFFFFF;
   }
   .btn {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: auto;
+    font-size: 1em;
+  }
+  .btn i {
+    font-size: 1em;
+  }
+  .btn-project {
+    color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 2%;
+    width: auto;
+    height: auto;
+    padding: 5px 10px 5px 10px;
+  }
+  .btn-project:hover {
+    color: #FFFFFF !important;
     display: flex;
     align-items: center;
     font-size: 1.1em;
@@ -284,6 +305,9 @@
     border-radius: 5px 5px 5px 5px;
     background-color: #000000 !important;
     color: #FFFFFF !important;
+  }
+  .list_skill > span {
+    padding: 5px 10px 5px 10px;
   }
   
   ///////////////////////////////////////
@@ -656,8 +680,17 @@
     justify-content: center;
   }
   .cancel {
-    color: red;
-    margin-left: 10px;
+    margin-left: 5px;
+    border: 0px;
+  }
+  .accept {
+    border: 0px;
+  }
+  .cancel-button {
+    margin-left: 5px;
+    padding: 0 5px;
+    font-size: 0.8em;
+    font-weight: bold;
   }
   .participate {
     color: #FFFFFF;
@@ -832,14 +865,20 @@
     height: 100%;
     border-radius: 50%;
   }
-  .chat-body .chat-receive .chat-receive-content,
+  .chat-body .chat-receive .chat-receive-content {
+    width: 80%;
+    // border: 1px solid black;
+    padding: 0 5px;
+    text-align: left;
+  }
   .chat-body .chat-send .chat-send-content {
     width: 80%;
     // border: 1px solid black;
     padding: 0 5px;
+    text-align: right;
   }
-  .chat-body .chat-receive .chat-receive-content p,
-  .chat-body .chat-send .chat-send-content p {
+  .chat-body .chat-receive .chat-receive-content span,
+  .chat-body .chat-send .chat-send-content span {
     margin: 0;
     text-align: left;
     color: #000000;
@@ -912,4 +951,29 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #000000;
   }
+  .modal-dialog {
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+  }  
+  .modal-backdrop {
+    position: relative;
+  }
+  .modal {
+    padding: 0 !important;
+    width: 600px !important;
+    height: 300px !important;
+    font-size: 1em;
+  }
+  .note-toolbar panel-heading {
+    width: 500px; 
+  }
+  .note-editing-area {
+    width: 500px; 
+  }
 } // end media min 801px
+
+
+
+  

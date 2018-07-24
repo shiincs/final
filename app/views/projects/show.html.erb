@@ -61,8 +61,7 @@
                 <div class="media-left">
                   <span>
                     <% unless User.find(comment.user_id).user_image.thumb.url.nil? %>
-                      <!--<img class="img-responsive" src="<%= @user.user_image.thumb.url %>"></a>-->
-                      <img class="comment-<%= comment.id %>" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
+                      <img class="comment-<%= comment.id %> img-responsive" src="<%= User.find(comment.user_id).user_image.thumbs.url %>">
                     <% end %>
                     
                   </span>
@@ -96,7 +95,7 @@
                     </div>
 
                     <div class="form-submit">
-                      <button class="btn blue waves-effect waves-light pull-right" name="submit" id="reply-submit">작성</button>
+                      <button class="btn btn-project blue waves-effect waves-light pull-right" name="submit" id="reply-submit">작성</button>
                     </div>
                   </form>
                 </div>
@@ -122,10 +121,13 @@
                     <div class="join-<%= user.id %>">
                     <div class="author-thumb waves-effect waves-light">
                     <div class="author-thumb-small">
+                      <%unless User.find(user.user_id).user_image.thumbs.url.nil?%>
+                          <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
+                        <%end%>
                     </div>
                         <span class="join-<%= user.user_id %>"><%= User.find(user.user_id).user_name %></span>
                         <%if @user.id==user.user_id ||@project.master_id==@user.id%>
-                            <a class="cancel" data-user_id="<%=user.user_id %>">탈퇴</a>
+                            <a class="cancel-button pink white-text" data-user_id="<%=user.user_id %>">탈퇴</a>
                         <%end%>  
                      
                   </div>
@@ -155,16 +157,16 @@
                     <div class="join-<%=user.user_id%>">
                       <div class="author-thumb waves-effect waves-light">
                         <div class="author-thumb-small">
+                        <%unless User.find(user.user_id).user_image.thumbs.url.nil?%>
                           <img class="join-<%= user.user_id %>" src="<%= User.find(user.user_id).user_image.thumbs.url %>">
-                          <!--<img src="<%= asset_path 'blog/author.jpg' %>" alt="">-->
+                        <%end%>
                         </div>
                         <span class="join-<%= user.user_id %>"><a href="#"><%= User.find(user.user_id).user_name %></a></span>
                       </div>
                     
                       <div class="list-buttons">
-                        <input type="button" class="accept" value=" 승인" data-user_id="<%= user.user_id %>">
-                        <span>|</span>
-                        <input type="button" class="cancel" value=" 취소" data-user_id="<%= user.user_id %>">
+                        <button class="accept cyan white-text" value=" 승인" data-user_id="<%= user.user_id %>">승인</button>
+                        <button class="cancel pink white-text" value=" 취소" data-user_id="<%= user.user_id %>">취소</button>
   
                       </div>
                     </div>
@@ -192,8 +194,8 @@
                   <div class="chat-send-wrapper">
                     <div class="chat-send-content">
                         <div class="chat-send-name"><%=User.find(chat.user_id).user_name%></div>
-                        <p><%=chat.message%></p>
-                        <div class="time"><small><%=chat.created_at%></small></div>
+                        <span><%=chat.message%></span>
+                        <div class="time"><small><%="("+chat.created_at.strftime("%Y")+"-"+chat.created_at.strftime("%m")+"-"+chat.created_at.strftime("%d")+"T"+chat.created_at.strftime("%H")+":"+chat.created_at.strftime("%m")+")"%></small></div>
                     </div>
                     <div class="chat-send-thumb"></div>
                   </div>
@@ -204,7 +206,7 @@
                     <div class="chat-receive-thumb"></div>
                     <div class="chat-receive-content">
                         <div class="chat-receive-name"><%=User.find(chat.user_id).user_name%></div>
-                        <p><%=chat.message%></p>
+                        <span><%=chat.message%></span>
                         <div class="time"><small><%=chat.created_at%></small></div>
                     </div>
                   </div>
@@ -231,25 +233,27 @@
       
       <% if @project.master_id == current_user.id %>
         <div class="col-md-3 join-button">
-          <a href="/projects/<%=@project.id%>/edit" class="btn cyan waves-effect waves-light pull-right button-container">수정</a>
-          <a data-confirm="정말 프로젝트를 삭제하시겠습니까?" data-method="delete" href="/projects/<%=@project.id%>" rel="nofollow" class="btn pink waves-effect waves-light pull-right button-container">삭제</a>
+          <a href="/projects/<%=@project.id%>/edit" class="btn btn-project cyan waves-effect waves-light pull-right button-container">수정</a>
+          <a data-confirm="정말 프로젝트를 삭제하시겠습니까?" data-method="delete" href="/projects/<%=@project.id%>" rel="nofollow" class="btn btn-project pink waves-effect waves-light pull-right button-container">삭제</a>
         </div>
       <% else %>
       
-        <%if @user.user_projects.find_by(project_id: @project.id).nil?%>
-          <div class="col-md-3 join-button">
-            <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
-              <input type="submit" class="participate btn cyan button-container" value="참여하기">
-            </form>
-          </div>
-        <%end%>
-        <%if @user.user_projects.find_by(project_id: @projectid,authorized_member: false)%>
-          <div class="col-md-3 join-button">
-            <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
-              <input type="submit" class="participate btn cyan button-container white-text" value="신청중" disabled>
-            </form>
-          </div>
-        <%end%>
+            <%if @user.user_projects.find_by(project_id: @project.id).nil?%>
+              <div class="col-md-3 join-button">
+                <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/join">
+                  <input type="submit" class="participate btn btn-project cyan button-container" value="참여하기">
+                </form>
+              </div>
+            <%end%>
+            
+            <%unless @user.user_projects.find_by(project_id: @project.id,authorized_member: false).nil?%>
+              <div class="col-md-3 join-button">
+                  <form class="join waves-effect waves-light pull-right button-container" action="/projects/<%= @project.id%>/user_exit/<%@user.id%>">
+                    <input type="submit" class="participate btn btn-project cyan button-container white-text" value="신청중" disabled>
+                  </form>
+              </div>
+            <%end%>
+    
       <% end %>
       
 
@@ -264,10 +268,19 @@
   
   <script>
     $(document).on('ready', function() {
+       
+       $(".participate").on('click',function(e){
+         
+         if( <%= UserProject.select(:id).where(:project_id => @project.id, :authorized_member => true).count %>===<%= @project.project_people %>){
+           e.preventDefault();
+           alert("인원이 꽉 찼습니다!")
+         }
+       })
+      
+      
         $('.comment').on('submit', function(e) {
             e.preventDefault();
             var comm = $('.comment_contents').val();
-            console.log(comm);
         $('.comment_contents').val('');
             $.ajax({
                 url: "/projects/<%= @project.id%>/comments",
@@ -279,9 +292,9 @@
         });
         
         $(document).on('click','.destroy-comment', function() {
-          console.log("destroyed");
+          
           var comment_id = $(this).attr('data-id');
-          console.log(comment_id);
+         
           $.ajax({
               url: "/projects/comments/" + comment_id,
               method: "delete"
@@ -296,7 +309,6 @@
             edit_comment.html(`
             <input type="text" value="${contents}" class="form-control edit-comment-${comment_id}">`);
             $(this).text("확인").removeClass("edit-comment btn warning").addClass("update-comment btn-dark");
-            console.log(edit_comment);
             }else{
                 alert('하나만 클릭하세요');
                 return false;
@@ -321,6 +333,7 @@
         $(".accept").on('click',function(){
             
             let id = $(this).data("user_id")
+            
             $.ajax({
                 url:"/projects/<%=@project.id%>/user_authorize",
                 type:"POST",
@@ -329,10 +342,30 @@
                 }
             })
         })
+        
+        //
+        $(".cancel-button").on('click',function(){
+            
+            let id = $(this).data("user_id")
+            
+            if(<%=@project.master_id%>===id){
+                alert('팀장은 탈퇴 할 수 없습니다!.')
+            }else{
+                $.ajax({
+                    url:"/projects/<%=@project.id%>/user_exit/<%=@project.id%>",
+                    type:"get",
+                    data:{
+                        cancel_user:id
+                    }
+                })
+            }
+            
+        })
         //신청 유저를 가입 취소시키는 방법
         $(".cancel").on('click',function(){
             
             let id = $(this).data("user_id")
+            
             if(<%=@project.master_id%>===id){
                 alert('팀장은 탈퇴 할 수 없습니다!.')
             }else{
@@ -357,19 +390,20 @@
         
          //해당 채널이 바인딩 하고 있는 이벤트들
         channel.bind('join',function(data){
-         console.log(data);
+       
          user_joined(data);
        });
        channel.bind('chat',function(data){
             user_chat(data);
         })
         channel.bind('exit',function(data){
-            console.log(data.user_id)
+            
             user_exit(data);
         })
         channel.bind('disaster',function(data){
             master_exit(data);
         })
+       
 
 
          function user_joined(data){
@@ -377,8 +411,10 @@
          }
          
          function user_chat(data){
-           console.log(typeof data.user_name)
-           console.log(data.message)
+           console.log(data.created_at)
+            let time = data.created_at.split(":")
+            let date =time[0].substring(-3)+":"+time[1] 
+      
             if(data.user_name==="<%=@user.user_name%>"){
               $(".chat").val("")
               $(".chat-body").append(`
@@ -386,8 +422,8 @@
                   <div class="chat-send-wrapper">
                     <div class="chat-send-content">
                         <div class="chat-send-name">${data.user_name}</div>
-                        <p>${data.message}</p>
-                        <div class="time"><small>(${data.created_at})</small></div>
+                        <span>${data.message}</span>
+                        <div class="time"><small>(${date})</small></div>
                     </div>
                     <div class="chat-send-thumb">
                     </div>
@@ -401,11 +437,11 @@
                 $(".chat-body").append(`
                 <div class="chat-receive">
                   <div class="chat-receive-wrapper">
-                    <div class="chat-receive-thumb">
+                    <div class="chat-receive-thumb"></div>
                     <div class="chat-receive-content">
                       <div class="chat-receive-name">${data.user_name}</div>
-                        <p>${data.message}</p>
-                        <div class="time"><small>(${data.created_at})</small></div>
+                        <span>${data.message}</span>
+                        <div class="time"><small>(${date})</small></div>
                         </div>
                       </div>
                     </div>
@@ -415,8 +451,11 @@
             }
          }
          
+         
+         
+         
          function user_exit(data){
-             console.log(data);
+             
             // $(`.user-${data.user_id}`).remove();
              $('.chat-body scrollbar-secondary').append(`<p>${data.user_name}님께서 방을 나가셨습니다..</p>`);
          }
@@ -431,34 +470,3 @@
 </script>
   
 <% end %>
-
-
-
-
-
-      <!-- Message Modal -->
-      <!--<div class="white-content" id="open">-->
-      <!--  <div class="white-content-body">-->
-      <!--    <div class="modal-header">-->
-      <!--      <span class="modal-title">메세지 보내기</span>-->
-      <!--      <a class="close-button" href="#close"><i class="fa fa-times" aria-hidden="true"></i></a>  -->
-      <!--    </div>-->
-      <!--    <div class="comments-tab modal-middle">-->
-      <!--      <form>-->
-      <!--        <div class="form-group">-->
-      <!--          <label class="modal-label">받는 사람</label>-->
-      <!--          <input class="form-control" type="text" readonly />-->
-      <!--        </div>-->
-      <!--        <div class="form-group">-->
-      <!--          <label class="modal-label">메세지</label>-->
-      <!--          <textarea class="form-control modal-textarea"></textarea>-->
-      <!--        </div>-->
-      <!--      </form>-->
-      <!--    </div>-->
-      <!--    <div class="modal-button">-->
-      <!--      <button class="btn blue waves-effect waves-light pull-right" name="submit" id="submit" value="">보내기</button>-->
-      <!--      <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>-->
-      <!--    </div>-->
-      <!--  </div>-->
-      <!--</div>-->
-      

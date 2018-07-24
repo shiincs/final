@@ -39,10 +39,17 @@
                             <div class="input">
                               <select class="form-control select-box category_list">
                                 <option disabled selected hidden>카테고리</option>
-                                  <option value="빅데이터">빅데이터</option>
-                                  <option value="웹">웹</option>
-                                  <option value="앱">앱</option>
-                                  <option value="ai">ai</option>
+                                <option value="웹">웹</option>
+                                <option value="앱">앱</option>
+                                <option value="빅데이터">빅데이터</option>
+                                <option value="AI">AI</option>
+                                <option value="임베디드">임베디드</option>
+                                <option value="VR">VR</option>
+                                <option value="핀테크">핀테크</option>
+                                <option value="블록체인">블록체인</option>
+                                <option value="e-commerce">e-commerce</option>
+                                <option value="게임">게임</option>
+                                <option value="소프트웨어">소프트웨어</option>
                               </select>
                             </div>
                           </div>
@@ -218,7 +225,7 @@
                             <div class="input btns">
                               <!-- <button class="btn btn-sm black waves-effect waves-light pull-right" name="submit" id="submit" value="" onclick="javascript: history.back();">취소</button>-->
                               <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>
-                              <button class="btn blue waves-effect waves-light pull-right">수정</button>
+                              <button class="btn blue waves-effect waves-light pull-right button-container">수정</button>
                             </div>
                           </div>
                           
@@ -265,7 +272,7 @@
   </script>
   <script>
     $('.email').on('change', function() {
-      console.log('진입');
+
       // 이메일 검증 스크립트 작성
       var emailVal = $(".email").val();
 
@@ -349,7 +356,7 @@ function sample4_execDaumPostcode() {
         $('.search').on('keyup', function(){
             
             var search = $(this).val();
-            console.log(search)
+
             $.ajax({
                 url:'/search',
                 type:'POST',
@@ -414,16 +421,17 @@ function sample4_execDaumPostcode() {
             let selected_category= $(this).data('category_id');//number 타입이라 배열은 string임
             let category_id_index= find_category.indexOf(String(selected_category));
             find_category.splice(category_id_index,1);
-            console.log("배열삭제 된 후"+find_category)
+          
             $('#category').val(find_category.join(','))
             $(this).remove();
              
         })
 
-        
-        
-        
-        
+        var path = function() {
+          var image_path = "<%=@user.user_image.url%>"
+          $(".fileName").val(image_path);
+        }
+        path();
     });
 </script>
 <% end %>

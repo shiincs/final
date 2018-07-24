@@ -29,8 +29,8 @@
           </ul>
           <div class="button-area">
             <%if @portfolio.user.user_name==current_user.user_name%>
-              <a href="/portfolio/edit/<%=@portfolio.id%>" class="btn btn-sm sky waves-effect waves-light pull-right button-container">수정</a>
-              <a href="/portfolio/delete/<%=@portfolio.id%>" class="btn btn-sm black waves-effect waves-light pull-right button-container">삭제</a>
+              <a href="/portfolio/edit/<%=@portfolio.id%>" class="btn btn-sm btn-edit waves-effect waves-light pull-right button-container">수정</a>
+              <a href="/portfolio/delete/<%=@portfolio.id%>" class="btn btn-sm btn-del waves-effect waves-light pull-right button-container">삭제</a>
             <%end%>
           </div>
         </div>

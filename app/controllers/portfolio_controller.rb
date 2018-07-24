@@ -1,5 +1,5 @@
 class PortfolioController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate!
   before_action :set_user
   #포트폴리오 등록 페이지
   def portfolio
@@ -128,5 +128,11 @@ class PortfolioController < ApplicationController
   private
     def set_user
       @user = current_user
+    end
+    
+    def authenticate!
+       	unless user_signed_in?
+        	redirect_to '/users/auth/github'
+        end
     end
 end

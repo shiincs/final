@@ -147,15 +147,16 @@ hr {
 
 /* Material Button Style
 /* ------------------------------ */
-.btn {
-    height: 50px;
-    padding: 12px 20px;
-    font-size: 16px;
-    line-height: 26px;
-    border-radius: 2px;
-    background-color: #03a9f4; /*brand primary color*/
-    border: 0;
-}
+/*.btn {*/
+/*    height: 50px;*/
+    /*padding: 12px 20px;*/
+/*    font-size: 16px;*/
+/*    line-height: 26px;*/
+/*    border-radius: 2px;*/
+/*    background-color: #03a9f4; */
+    /*brand primary color*/
+/*    border: 0;*/
+/*}*/
 
 .btn-lg {
     padding: 12px 38px;
@@ -170,35 +171,35 @@ hr {
     }
 }
 
-.btn:hover{
-    background-color: #03a9f4;
-}
+/*.btn:hover{*/
+/*    background-color: #03a9f4;*/
+/*}*/
 
-.btn.active, 
-.btn:active {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-}
+/*.btn.active, */
+/*.btn:active {*/
+/*    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);*/
+/*}*/
 
 
-.btn.white,
-.btn.white:hover,
-.btn.white:focus {
-    color: #03a9f4;
-}
+/*.btn.white,*/
+/*.btn.white:hover,*/
+/*.btn.white:focus {*/
+/*    color: #03a9f4;*/
+/*}*/
 
-.btn i.material-icons {
-    font-size: 20px;
-}
+/*.btn i.material-icons {*/
+/*    font-size: 20px;*/
+/*}*/
 
-.btn.focus, 
-.btn:focus, 
-.btn:hover {
-    color: #fff;
-}
-.btn:focus,
-button:focus {
-    outline: none !important;
-}
+/*.btn.focus, */
+/*.btn:focus, */
+/*.btn:hover {*/
+/*    color: #fff;*/
+/*}*/
+/*.btn:focus,*/
+/*button:focus {*/
+/*    outline: none !important;*/
+/*}*/
 
 
 /*Download Button*/

@@ -1,4 +1,3 @@
-alert("수정완료");
 var edit_comment = $('.comment-detail-<%= @comment.id %>');
 edit_comment.html('<%= @comment.comment_contents %>');
 $('.update-comment').text("수정").removeClass("update-comment").addClass("edit-comment");

@@ -2,7 +2,7 @@ $('.comment-list').prepend(`
   <li class="comment-<%= @comment.id %> media">
     <div class="media-left">
       <span>
-        
+        <img class="comment-<%= @comment.id %> img-responsive" src="<%=@user.user_image.thumbs.url%>" >
       </span>
     </div>
     
@@ -20,4 +20,3 @@ $('.comment-list').prepend(`
 `);
    
 $('.comment-contents').val('');
-alert("문의사항 등록 완료");

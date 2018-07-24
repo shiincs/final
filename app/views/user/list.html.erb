@@ -147,7 +147,7 @@
             let selected_category= $(this).data('category_id');//number 타입이라 배열은 string임
             let category_id_index= find_category.indexOf(String(selected_category));
             find_category.splice(category_id_index,1);
-            console.log("배열삭제 된 후"+find_category)
+            
             $('#category').val(find_category.join(','))
             $(this).remove();
              

@@ -1,7 +1,7 @@
 class UserController < ApplicationController
     #이코드가 존재하면 모든 액션에 접근시 거부되어 sign_in페이지로 돌아간다.
     #로그인 되면 이제 각 액션에서 current_user 사용이 가능하다.
-    before_action :authenticate_user!, except: [:index,:list]
+    before_action :authenticate!, except: [:index,:list,:search]
     before_action :set_user
     # helper_method :search_user_skill
     def index
@@ -12,6 +12,7 @@ class UserController < ApplicationController
           store.push(user.git_skill_2)
           store.push(user.git_skill_3)
         end
+        
         remove_nil = store.compact
         remove_nil.each { |skill_name| 
         if @rank_skill[skill_name].nil? 
@@ -71,7 +72,7 @@ class UserController < ApplicationController
     result_skill= Hash.new
     start = []
     compare_skill_id =[]
-    
+   
     if session[:github_language].nil?
         # dummy1={"css"=>5000,"java"=>2500,"javascript"=>29394}
         # dummy2={"css"=>3232,"java"=>2500,"javascript"=>29394}
@@ -80,7 +81,7 @@ class UserController < ApplicationController
         # start.push(dummy2)
         # start.push(dummy3)
         puts "세션에 값이 없습니다 현재는"
-        RestClient.post("https://api.github.com/users/repos?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_secret_id']}")
+        
         response=RestClient.get("https://api.github.com/users/#{current_user.user_name}/repos?client_id=#{ENV['git_client_id']}&client_secret=#{ENV['git_secret_id']}",
                                 headers:{Authorization: current_user.user_access_token});
         ##git hub으로 부터 값을 가져온다.
@@ -92,10 +93,10 @@ class UserController < ApplicationController
     
           start.each do |hash|
             hash.each{|key,value| 
-              if result_skill[key].nil?
-                 result_skill[key] = value
+              if result_skill[key.downcase].nil?
+                 result_skill[key.downcase] = value
               else
-                 result_skill[key] = result_skill[key] + value
+                 result_skill[key.downcase] = result_skill[key.downcase] + value
               end
             }
           end
@@ -145,6 +146,7 @@ class UserController < ApplicationController
  
   #프로필 상세보기
   def profile
+    @address=""
     @github_language = Hash.new
     @user=User.find_by(user_name: params[:user_name])
     # 해당 유저가 아직 깃헙으로 부터정보를 받지 않고 다른사람이 방문할 경우 에러가 발생할 수도있다.
@@ -156,10 +158,12 @@ class UserController < ApplicationController
         skill_name = Skill.find(skill_info.skill_id).skill_contents
         @github_language[skill_name] = skill_info.skill_byte
       end
-      unless @user.address.nil?
+      
+      unless @user.address.nil? || @user.address==""
         address=@user.address.split(" ")
         @address = address[0]+" "+address[1]
       end
+      
       @github_language
       @user
   end
@@ -238,5 +242,11 @@ class UserController < ApplicationController
   private
     def set_user
       @user = current_user
+    end
+    
+    def authenticate!
+       	unless user_signed_in?
+        	redirect_to '/users/auth/github'
+        end
     end
 end

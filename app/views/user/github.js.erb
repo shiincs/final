@@ -17,7 +17,7 @@ var myChart = new Chart(ctx, {
         
         labels: arr_name,
         datasets: [{
-            label: '# of Votes',
+            label: 'github skills',
             data: arr_value,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -49,12 +49,17 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+      legend: {
+        position: 'right',
+        labels: {
+          boxWidth: 13,
+          fontSize: 9
         }
+      },
+      layout: {
+        padding: {
+          right: 40
+        }
+      }
     }
 });

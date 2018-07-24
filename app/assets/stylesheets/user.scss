@@ -245,6 +245,14 @@
     justify-content: center;
   }
   .button-container {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+    margin-bottom: 0;
+  }
+  .button-container:hover {
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     margin-left: 2%;
@@ -447,6 +455,10 @@
     font-weight: bold;
     padding-bottom: 20px;
   }
+  .progress-title {
+    display: flex;
+    align-items: center;
+  }
   .media-list {
     margin: 0;
   }
@@ -555,7 +567,9 @@
     margin: 10px 0 5px 0;
   }
   .progress-bar span {
-    font-size: 1em;
+    font-size: 1.3em;
+    top: -20px;
+    color: #039be5;
   }
   .point-area {
     margin: 0 0 20px 0;
@@ -569,6 +583,16 @@
     margin-left: 10px;
   }
   .profile-edit-button {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 0;
+  }
+  .profile-edit-button:hover {
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -804,5 +828,12 @@
     background-color: #039be5;
     color: #FFFFFF;
   }
-  
+  .progress-section img {
+    width: 90px;
+    height: 90px;
+  }
+  .img-responsive {
+    width: 100%;
+    height: 100%;
+  }
 } // end media min 801px

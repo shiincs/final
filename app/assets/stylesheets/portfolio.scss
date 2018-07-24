@@ -208,6 +208,16 @@
     color: #FFFFFF;
   }
   .btn {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: auto;
+    font-size: 1em;
+  }
+  .btn i {
+    font-size: 1em;
+  }
+  .btn-project {
+    color: #FFFFFF !important;
     display: flex;
     align-items: center;
     font-size: 1.1em;
@@ -216,7 +226,33 @@
     width: auto;
     height: auto;
     padding: 5px 10px 5px 10px;
-    margin-bottom: 0;
+  }
+  .btn-project:hover {
+    color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 2%;
+    width: auto;
+    height: auto;
+    padding: 5px 10px 5px 10px;
+  }
+  .btn-edit {
+    background-color: #039be5;
+    color: #FFFFFF;
+  }
+  .btn-edit:hover {
+    background-color: #039be5;
+    color: #FFFFFF;
+  }
+  .btn-del {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+  .btn-del:hover {
+    background-color: #000000;
+    color: #FFFFFF;
   }
   .btns {
     display: flex;
@@ -301,6 +337,14 @@
     background-color: #000000 !important;
     color: #FFFFFF !important;
   }
+  .edit_skill > span {
+    padding: 0px 10px 0px 10px;
+    margin: 0 5px 0 5px;
+    // border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+  }
   
   //////////////////////////////////////////////////
   // portfolio details
@@ -346,10 +390,11 @@
     margin: 30px 0 0 0;
   }
   .quick-overview > .button-area > .btn {
-    padding: 0px 5px 0px 5px;
+    padding: 5px 5px 5px 5px;
     width: auto;
     height: auto;
     font-size: 1em;
+    font-weight: bold;
   }
   .portfolio-meta li {
     margin: 15px 0;
@@ -378,5 +423,26 @@
   }
   .portfolio-meta > li > .content-date {
     background-color: #FFFFFF;
+  }
+  .modal-dialog {
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+  }  
+  .modal-backdrop {
+    position: relative;
+  }
+  .modal {
+    padding: 0 !important;
+    width: 600px !important;
+    height: 300px !important;
+    font-size: 1em;
+  }
+  .note-toolbar panel-heading {
+    width: 500px; 
+  }
+  .note-editing-area {
+    width: 500px; 
   }
 } // end media min 801px

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate!, except: [:index,:search_skills]
   before_action :set_user
   before_action :log_impression, :only=> [:show]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :create_comment, :user_exit, :join, :user_authorize, :project_chat]
@@ -16,6 +16,8 @@ class ProjectsController < ApplicationController
       categories = params[:project][:category]
       skills = skills.split(",")
       categories = categories.split(",")
+      puts Skill.where(skill_contents: skills).size
+      puts Category.where(category_contents: categories).size
       skill_projects = Skill.where(skill_contents: skills).page(params[:page]).collect {|skill| skill.projects}.flatten
       category_projects = Category.where(category_contents: categories).page(params[:page]).collect {|category| category.projects}.flatten
       @projects = skill_projects.concat(category_projects).uniq
@@ -166,34 +168,27 @@ class ProjectsController < ApplicationController
     #   redirect_to "/projects/#{@project.id}"
     # else
     
-    unless @project.user_projects.where(authorized_member: true).count==@project.project_people
-         @project.users.each do |user|
-            p "join 컨트롤러로 오는 변수"
-            p @project
-            if user.id != current_user.id
-              p "여기까지 오나??"
-              UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
-              redirect_to "/projects/#{@project.id}"
-            else
-              redirect_to "/projects/#{@project.id}"
-            end
-        end
+    unless @project.user_projects.where(authorized_member: true).length==@project.project_people
+        UserProject.create(user_id: current_user.id,project_id: @project.id,authorized_member: false)
+        redirect_to "/projects/#{@project.id}"
+        @full = 0
     else
-       redirect_to "/projects/#{@project.id}", alert: "인원이 다 찼습니다."
+        
+       redirect_to "/projects/#{@project.id}"
     end
     
   end
   
   #신청한 사람을 취소했을 때 해당 로직이 수행되고 프로젝트 상세 페이지로 이동
   def user_exit
-    UserProject.find_by(user_id: params[:cancel_user].to_i).destroy
-    @user = User.find(params[:cancel_user])
+    UserProject.find_by(project_id: @project.id,user_id: params[:cancel_user].to_i).destroy
+    @user = User.find(params[:cancel_user].to_i)
     @project
   end
   
   #신청한 사람을 받을 때 ajax로 통해서 해당 사람이 바로 join되고 js파일 리턴
   def user_authorize
-      UserProject.find_by(user_id: params[:accept_user].to_i).update(authorized_member: true) 
+      UserProject.find_by(project_id: @project.id,user_id: params[:accept_user].to_i).update(authorized_member: true) 
       @user = User.find(params[:accept_user].to_i)
       #현재 유저가 이미 가입한 프로젝트일 경우 alert가 뜨고 아닐 경우 유저를 가입시킨다.
       #방장이 승인해주기 때문에 current_user가 아닌 @user로 파라미터 값을 넘겨 줘야한다.
@@ -202,8 +197,6 @@ class ProjectsController < ApplicationController
   
   #채팅  
   def project_chat
-      puts current_user.id
-      puts @project.id
       Chat.create(user_id: current_user.id,project_id: @project.id, message: params[:message])
   end
   
@@ -219,5 +212,11 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:project_title, :project_contents, :user_id, :project_people, :project_start, :project_end, :image_path)
+    end
+    
+     def authenticate!
+       	unless user_signed_in?
+        	redirect_to '/users/auth/github'
+        end
     end
 end

@@ -47,10 +47,17 @@
                             <div class="input">
                               <select class="form-control select-box category_list" required>
                                 <option disabled selected hidden>카테고리</option>
-                                <option value="빅데이터">빅데이터</option>
                                 <option value="웹">웹</option>
                                 <option value="앱">앱</option>
-                                <option value="ai">ai</option>
+                                <option value="빅데이터">빅데이터</option>
+                                <option value="AI">AI</option>
+                                <option value="임베디드">임베디드</option>
+                                <option value="VR">VR</option>
+                                <option value="핀테크">핀테크</option>
+                                <option value="블록체인">블록체인</option>
+                                <option value="e-commerce">e-commerce</option>
+                                <option value="게임">게임</option>
+                                <option value="소프트웨어">소프트웨어</option>
                               </select>
                             </div>
                           </div>
@@ -154,9 +161,8 @@
                           
                           <div class="line">
                             <div class="input btns">
-                              <!--<button class="btn btn-sm black waves-effect waves-light pull-right" name="submit" id="submit" value="" onclick="javascript: history.back();">취소</button>-->
-                              <a href="javascript: history.back()" class="btn btn-sm black waves-effect waves-light pull-right button-container">취소</a>
-                              <button class="btn blue waves-effect waves-light pull-right">등록</button>
+                              <a href="javascript: history.back()" class="btn btn-project btn-sm black waves-effect waves-light pull-right button-container">취소</a>
+                              <button class="btn btn-project blue waves-effect waves-light pull-right">등록</button>
                             </div>
                           </div>
                           
@@ -241,13 +247,11 @@
         
         //x를 눌렸을 때 스킬이 제거됨
         $(document).on('click','.delete_skill',function(){
-            console.log("스킬 제거되기 전"+find_skill)
+            
             let selected_skill= $(this).data('skill_id');
-            console.log("삭제될 스킬" + selected_skill)
             let index =find_skill.indexOf(String(selected_skill));
-            console.log("삭제될 스킬 인덱스" + index)
             find_skill.splice(index,1);
-             console.log("삭제되고 나서 스킬 "+find_skill)
+            
             $('#skill').val(find_skill.join(','));
             $(this).remove();
         })
