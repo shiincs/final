@@ -5,7 +5,7 @@ class UserController < ApplicationController
     before_action :set_user
     # helper_method :search_user_skill
     def index
-        @rank_skill = Hash.new
+        rank_skill = Hash.new
         store = []
         User.all.each do |user|
           store.push(user.git_skill_1)
@@ -15,15 +15,13 @@ class UserController < ApplicationController
         
         remove_nil = store.compact
         remove_nil.each { |skill_name| 
-        if @rank_skill[skill_name].nil? 
-          @rank_skill[skill_name] = 1
+        if rank_skill[skill_name].nil? 
+          rank_skill[skill_name] = 1
         else
-          @rank_skill[skill_name] += 1
+          rank_skill[skill_name] += 1
         end
         }
-        @rank_index =  @rank_skill.keys
-        puts @rank_skill
-        puts @rank_index
+        @rank_skill=rank_skill.sort_by { |name, age| age }
     end
     
   #모든 유저 리스트

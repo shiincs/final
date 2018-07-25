@@ -149,24 +149,24 @@
                         <span>
                           <i class="material-icons brand-color">looks_one</i>
                         </span>
-                        <span class="count-description"><%=@rank_index[0]%></span>
-                        <span class="timer"><%=@rank_skill[@rank_index[0]]%></span>
+                        <span class="count-description"><%=@rank_skill[-1][0]%></span>
+                        <span class="timer"><%=@rank_skill[-1][1]%></span>
                       </div> <!-- /.col-sm-3 -->
 
                       <div class="col-sm-4 counter-wrap">
                         <span>
                           <i class="material-icons brand-color">looks_two</i>
                         </span>
-                        <span class="count-description"><%=@rank_index[1]%></span>
-                        <span class="timer"><%=@rank_skill[@rank_index[1]]%></span>
+                        <span class="count-description"><%=@rank_skill[-2][0]%></span>
+                        <span class="timer"><%=@rank_skill[-2][1]%></span>
                       </div><!-- /.col-sm-3 -->
 
                       <div class="col-sm-4 counter-wrap">
                         <span>
                           <i class="material-icons brand-color">looks_3</i>
                         </span>
-                        <span class="count-description"><%=@rank_index[2]%></span>
-                        <span class="timer"><%=@rank_skill[@rank_index[2]]%></span>
+                        <span class="count-description"><%=@rank_skill[-3][0]%></span>
+                        <span class="timer"><%=@rank_skill[-3][1]%></span>
                       </div><!-- /.col-sm-3 -->
                   </div>
               </div><!-- /.container -->
