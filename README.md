@@ -1,24 +1,38 @@
-# README
+# github api를 이용한 프로젝트 매칭 플랫폼
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+* 화면구성
+1.홈페이지
+  *가입된 유저들의 주력언어를 github api를 통해서 가져와 랭킹화
+2.프로젝트 리스트
+  *관심 카테고리,프로젝트에 쓰인 기술스택을 통해서 프로젝트 검색기능
+  *페이징기능
+3.프로필 리스트
+  *관심 카테고리,프로젝트에 쓰인 기술스택을 통해서 파트너 검색기능
+  *페이징기능
+4.프로필 상세 페이지
+  *github api를 이용해 사용자의 github repo에 커밋된 모든 언어 바이트를 가져와 이를 취합하고 차트로 시각화(신뢰할수있는 척도)
+  *사용자의 사이트 기여도에 따라 레벨업 기능을 추가(댓글을 쓰거나 프로젝트를 등록하거나 포트폴리오를 등록하거나)
+  *사용자의 주소,전화번호,나이등을 볼 수 있음.
+5.프로필 등록 및 수정 페이지
+  *검색기능을 통해 사이트에 등록된 기술스택을 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+  *검색기능을 통해 사이트에 등록된 카테고리를 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+  *daum 주소 api를 사용하여 주소찾기
+  *위지위그 이용
+  *파일 업로드 
+6.프로젝트 등록페이지
+  *검색기능을 통해 사이트에 등록된 기술스택을 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+  *검색기능을 통해 사이트에 등록된 카테고리를 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+  *위지위그 이용
+  *파일 업로드 
+7.프로젝트 수정,삭제 페이지
+8.프로젝트 상세페이지
+  *참여자들은 pusher를 이용한 채팅창을 이용할 수 있음
+  *참여하기 버튼을 누르면 참여중 이라는 버튼으로 바뀌고 프로젝트 생성자가 이를 승인할 경우 프로젝트 참여 리스트에 해당 사용자가 존재하게 됨
+  *댓글 쓰기 수정 삭제기능
+9.포트폴리오 등록 및 수정,삭제
+    *검색기능을 통해 사이트에 등록된 기술스택을 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+  *검색기능을 통해 사이트에 등록된 카테고리를 찾아 볼 수 있고 클릭시 뱃지 형태로 추가 됨
+10.로그인 페이지
+    *omniauth를 이용한 Ouath git hub로그인
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
