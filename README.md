@@ -8,7 +8,7 @@
 - 개발 일정 - **2018/06 ~ 2018/07**
 - 개발 도구
   - Language - `HTML` / `CSS` / `JavaScript`
-  - Library - `Bootstrap` / `Github API` / `Chart.js`
+  - Library - `Bootstrap` / `Github API` / `Chart.js` / `WYSIWIG Editor API`
   - Framework - `jQuery`
   - Based on `Material Design Web Template`
 
